@@ -99,7 +99,7 @@ function handleBackdropClick() {
 
 		<!-- 要望・感想 -->
 		<a
-			href="https://example.com/feedback"
+			href="https://jp.finalfantasyxiv.com/lodestone/character/27344914/blog/5666405/"
 			target="_blank"
 			rel="noopener noreferrer"
 			onclick={close}
