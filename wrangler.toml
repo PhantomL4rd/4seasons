@@ -1,0 +1,15 @@
+name = "fourseason-app"
+main = ".svelte-kit/cloudflare/_worker.js"
+compatibility_date = "2026-03-13"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+binding = "ASSETS"
+directory = ".svelte-kit/cloudflare"
+
+# Rate limiter DO (別Workerからバインド)
+# デプロイ前に 4season-rate-limiter を先にデプロイすること
+# [[durable_objects.bindings]]
+# name = "IP_RATE_LIMITER"
+# class_name = "IpRateLimiter"
+# script_name = "fourseason-rate-limiter"

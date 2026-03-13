@@ -1,0 +1,44 @@
+{
+  "title": "4season",
+  "subtitle": "FF14 Personal Color Diagnosis",
+  "description": "Diagnose your character's personal color season and find matching FF14 dyes",
+  "upload": {
+    "title": "Upload Screenshot",
+    "description": "Drag & drop or click to select an FF14 screenshot with your character",
+    "sizeLimit": "Image file (JPEG, PNG)",
+    "button": "Choose Image"
+  },
+  "preview": {
+    "diagnose": "Diagnose",
+    "retry": "Try Again"
+  },
+  "loading": {
+    "analyzing": "Analyzing personal color...",
+    "tip": "Analyzing your character's skin, hair, and eye colors"
+  },
+  "error": {
+    "fileTooLarge": "Failed to load image",
+    "invalidFileType": "Unsupported file format (JPEG, PNG only)",
+    "analysisFailed": "Analysis failed. Please try again",
+    "rateLimitExceeded": "You've reached today's diagnosis limit (5 times)",
+    "networkError": "A network error occurred",
+    "tryAgain": "Try Again"
+  },
+  "season": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "autumn": "Autumn",
+    "winter": "Winter"
+  },
+  "footer": {
+    "disclaimer": "This tool uses AI to analyze FF14 screenshots for personal color diagnosis",
+    "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
+  },
+  "remaining": "Remaining diagnoses today: {{count}}",
+  "recommendation": {
+    "title": "Recommended Dyes",
+    "baseColors": "Base Colors",
+    "accentColors": "Accent Colors",
+    "colorsToAvoid": "Colors to Avoid"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "title": "4season",
+  "subtitle": "FF14 パーソナルカラー診断",
+  "description": "あなたのキャラクターに似合うパーソナルカラーと染料を診断します",
+  "upload": {
+    "title": "スクリーンショットをアップロード",
+    "description": "FF14のキャラクターが写ったスクリーンショットをドラッグ&ドロップ、またはクリックして選択してください",
+    "sizeLimit": "画像ファイル（JPEG, PNG）",
+    "button": "画像を選択"
+  },
+  "preview": {
+    "diagnose": "診断する",
+    "retry": "やり直す"
+  },
+  "loading": {
+    "analyzing": "パーソナルカラーを分析中...",
+    "tip": "キャラクターの肌・髪・瞳の色を分析しています"
+  },
+  "error": {
+    "fileTooLarge": "画像の読み込みに失敗しました",
+    "invalidFileType": "対応していないファイル形式です（JPEG, PNGのみ）",
+    "analysisFailed": "分析に失敗しました。もう一度お試しください",
+    "rateLimitExceeded": "本日の診断回数の上限（5回）に達しました",
+    "networkError": "ネットワークエラーが発生しました",
+    "tryAgain": "もう一度試す"
+  },
+  "season": {
+    "spring": "春",
+    "summer": "夏",
+    "autumn": "秋",
+    "winter": "冬"
+  },
+  "footer": {
+    "disclaimer": "本ツールはFF14のスクリーンショットを使用してAIによる診断を行います",
+    "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
+  },
+  "remaining": "本日の残り診断回数: {{count}}回",
+  "recommendation": {
+    "title": "おすすめの染料",
+    "baseColors": "ベースカラー",
+    "accentColors": "アクセントカラー",
+    "colorsToAvoid": "苦手色"
+  }
+}

@@ -1,0 +1,1560 @@
+{
+  "dyes": [
+    {
+      "id": "dye_002",
+      "name": "Snow White",
+      "category": "white",
+      "rgb": {
+        "r": 228,
+        "g": 223,
+        "b": 208
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/188d2c75e07/"
+    },
+    {
+      "id": "dye_003",
+      "name": "Ash Grey",
+      "category": "white",
+      "rgb": {
+        "r": 172,
+        "g": 168,
+        "b": 162
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c5917eabdaa/"
+    },
+    {
+      "id": "dye_004",
+      "name": "Goobbue Grey",
+      "category": "white",
+      "rgb": {
+        "r": 137,
+        "g": 135,
+        "b": 132
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/2e1dcc9d133/"
+    },
+    {
+      "id": "dye_005",
+      "name": "Slate Grey",
+      "category": "white",
+      "rgb": {
+        "r": 101,
+        "g": 101,
+        "b": 101
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/2db18e9a29d/"
+    },
+    {
+      "id": "dye_006",
+      "name": "Charcoal Grey",
+      "category": "white",
+      "rgb": {
+        "r": 72,
+        "g": 71,
+        "b": 66
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/0fb58c0d79d/"
+    },
+    {
+      "id": "dye_007",
+      "name": "Soot Black",
+      "category": "white",
+      "rgb": {
+        "r": 43,
+        "g": 41,
+        "b": 35
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/0c0c7f94f09/"
+    },
+    {
+      "id": "dye_008",
+      "name": "Rose Pink",
+      "category": "red",
+      "rgb": {
+        "r": 230,
+        "g": 159,
+        "b": 150
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ee77bb48be9/"
+    },
+    {
+      "id": "dye_009",
+      "name": "Lilac Purple",
+      "category": "red",
+      "rgb": {
+        "r": 131,
+        "g": 105,
+        "b": 105
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/853d5204143/"
+    },
+    {
+      "id": "dye_010",
+      "name": "Rolanberry Red",
+      "category": "red",
+      "rgb": {
+        "r": 91,
+        "g": 23,
+        "b": 41
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/005a8c122b4/"
+    },
+    {
+      "id": "dye_011",
+      "name": "Dalamud Red",
+      "category": "red",
+      "rgb": {
+        "r": 120,
+        "g": 26,
+        "b": 26
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/3faa2bd2b45/"
+    },
+    {
+      "id": "dye_012",
+      "name": "Rust Red",
+      "category": "red",
+      "rgb": {
+        "r": 98,
+        "g": 34,
+        "b": 7
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/db4292af28c/"
+    },
+    {
+      "id": "dye_013",
+      "name": "Wine Red",
+      "category": "red",
+      "rgb": {
+        "r": 69,
+        "g": 21,
+        "b": 17
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d03c7e15352/"
+    },
+    {
+      "id": "dye_014",
+      "name": "Coral Pink",
+      "category": "red",
+      "rgb": {
+        "r": 204,
+        "g": 108,
+        "b": 94
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/0b103790e30/"
+    },
+    {
+      "id": "dye_015",
+      "name": "Blood Red",
+      "category": "red",
+      "rgb": {
+        "r": 145,
+        "g": 59,
+        "b": 39
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/909e43109be/"
+    },
+    {
+      "id": "dye_016",
+      "name": "Salmon Pink",
+      "category": "red",
+      "rgb": {
+        "r": 228,
+        "g": 170,
+        "b": 138
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c18be404e86/"
+    },
+    {
+      "id": "dye_017",
+      "name": "Ruby Red",
+      "category": "red",
+      "rgb": {
+        "r": 228,
+        "g": 0,
+        "b": 17
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/637530afad5/"
+    },
+    {
+      "id": "dye_018",
+      "name": "Cherry Pink",
+      "category": "red",
+      "rgb": {
+        "r": 245,
+        "g": 55,
+        "b": 155
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/6790ed66a65/"
+    },
+    {
+      "id": "dye_019",
+      "name": "Sunset Orange",
+      "category": "brown",
+      "rgb": {
+        "r": 183,
+        "g": 92,
+        "b": 45
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/90e6dc94361/"
+    },
+    {
+      "id": "dye_020",
+      "name": "Mesa Red",
+      "category": "brown",
+      "rgb": {
+        "r": 125,
+        "g": 57,
+        "b": 6
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f2d34ba2b19/"
+    },
+    {
+      "id": "dye_021",
+      "name": "Bark Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 106,
+        "g": 75,
+        "b": 55
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/09504c576f1/"
+    },
+    {
+      "id": "dye_022",
+      "name": "Chocolate Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 110,
+        "g": 61,
+        "b": 36
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/926a4ef21f1/"
+    },
+    {
+      "id": "dye_023",
+      "name": "Russet Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 79,
+        "g": 45,
+        "b": 31
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/3fa8eeffa41/"
+    },
+    {
+      "id": "dye_024",
+      "name": "Kobold Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 48,
+        "g": 33,
+        "b": 27
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/1ecffd3acce/"
+    },
+    {
+      "id": "dye_025",
+      "name": "Cork Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 201,
+        "g": 145,
+        "b": 86
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/5250c837f57/"
+    },
+    {
+      "id": "dye_026",
+      "name": "Qiqirn Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 153,
+        "g": 110,
+        "b": 63
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/386fbf9bc2b/"
+    },
+    {
+      "id": "dye_027",
+      "name": "Opo-opo Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 123,
+        "g": 92,
+        "b": 45
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/e8e16900586/"
+    },
+    {
+      "id": "dye_028",
+      "name": "Aldgoat Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 162,
+        "g": 135,
+        "b": 92
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/5c9385d9e3b/"
+    },
+    {
+      "id": "dye_029",
+      "name": "Pumpkin Orange",
+      "category": "brown",
+      "rgb": {
+        "r": 197,
+        "g": 116,
+        "b": 36
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/840a8a38cdb/"
+    },
+    {
+      "id": "dye_030",
+      "name": "Acorn Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 142,
+        "g": 88,
+        "b": 27
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/539e80ed6a0/"
+    },
+    {
+      "id": "dye_031",
+      "name": "Orchard Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 100,
+        "g": 66,
+        "b": 22
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/70849afadc9/"
+    },
+    {
+      "id": "dye_032",
+      "name": "Chestnut Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 61,
+        "g": 41,
+        "b": 13
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/6a2223838b8/"
+    },
+    {
+      "id": "dye_033",
+      "name": "Gobbiebag Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 185,
+        "g": 164,
+        "b": 137
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/bfb8b924f8e/"
+    },
+    {
+      "id": "dye_034",
+      "name": "Shale Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 146,
+        "g": 129,
+        "b": 108
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/1aae57e1629/"
+    },
+    {
+      "id": "dye_035",
+      "name": "Mole Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 97,
+        "g": 82,
+        "b": 69
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/9b43a4bc484/"
+    },
+    {
+      "id": "dye_036",
+      "name": "Loam Brown",
+      "category": "brown",
+      "rgb": {
+        "r": 63,
+        "g": 51,
+        "b": 41
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d7876384acd/"
+    },
+    {
+      "id": "dye_037",
+      "name": "Bone White",
+      "category": "yellow",
+      "rgb": {
+        "r": 235,
+        "g": 211,
+        "b": 160
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/b8ec1e42fe1/"
+    },
+    {
+      "id": "dye_038",
+      "name": "Ul Brown",
+      "category": "yellow",
+      "rgb": {
+        "r": 183,
+        "g": 163,
+        "b": 112
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/2926edd9215/"
+    },
+    {
+      "id": "dye_039",
+      "name": "Desert Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 219,
+        "g": 180,
+        "b": 87
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c519b1b228f/"
+    },
+    {
+      "id": "dye_040",
+      "name": "Honey Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 250,
+        "g": 198,
+        "b": 43
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/9f278eaf6ff/"
+    },
+    {
+      "id": "dye_041",
+      "name": "Millioncorn Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 228,
+        "g": 158,
+        "b": 52
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d4a95c48789/"
+    },
+    {
+      "id": "dye_042",
+      "name": "Coeurl Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 188,
+        "g": 136,
+        "b": 4
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/090214496c7/"
+    },
+    {
+      "id": "dye_043",
+      "name": "Cream Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 242,
+        "g": 215,
+        "b": 112
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8fb131a8d6c/"
+    },
+    {
+      "id": "dye_044",
+      "name": "Halatali Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 165,
+        "g": 132,
+        "b": 48
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/0fdc4d145c2/"
+    },
+    {
+      "id": "dye_045",
+      "name": "Raisin Brown",
+      "category": "yellow",
+      "rgb": {
+        "r": 64,
+        "g": 51,
+        "b": 17
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/b1d80258b90/"
+    },
+    {
+      "id": "dye_046",
+      "name": "Canary Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 254,
+        "g": 248,
+        "b": 100
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/31856169018/"
+    },
+    {
+      "id": "dye_047",
+      "name": "Vanilla Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 251,
+        "g": 241,
+        "b": 180
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ce681eda253/"
+    },
+    {
+      "id": "dye_048",
+      "name": "Mud Green",
+      "category": "green",
+      "rgb": {
+        "r": 88,
+        "g": 82,
+        "b": 48
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d204e597878/"
+    },
+    {
+      "id": "dye_049",
+      "name": "Sylph Green",
+      "category": "green",
+      "rgb": {
+        "r": 187,
+        "g": 187,
+        "b": 138
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/affd21c6f76/"
+    },
+    {
+      "id": "dye_050",
+      "name": "Lime Green",
+      "category": "green",
+      "rgb": {
+        "r": 171,
+        "g": 176,
+        "b": 84
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/afb669a9590/"
+    },
+    {
+      "id": "dye_051",
+      "name": "Moss Green",
+      "category": "green",
+      "rgb": {
+        "r": 112,
+        "g": 115,
+        "b": 38
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f8469546452/"
+    },
+    {
+      "id": "dye_052",
+      "name": "Meadow Green",
+      "category": "green",
+      "rgb": {
+        "r": 139,
+        "g": 156,
+        "b": 99
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/79031c0f52f/"
+    },
+    {
+      "id": "dye_053",
+      "name": "Olive Green",
+      "category": "green",
+      "rgb": {
+        "r": 75,
+        "g": 82,
+        "b": 50
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/cabd1f16f2e/"
+    },
+    {
+      "id": "dye_054",
+      "name": "Marsh Green",
+      "category": "green",
+      "rgb": {
+        "r": 50,
+        "g": 54,
+        "b": 33
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8f906a9feed/"
+    },
+    {
+      "id": "dye_055",
+      "name": "Apple Green",
+      "category": "green",
+      "rgb": {
+        "r": 155,
+        "g": 179,
+        "b": 99
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ef99a5c91c0/"
+    },
+    {
+      "id": "dye_056",
+      "name": "Cactuar Green",
+      "category": "green",
+      "rgb": {
+        "r": 101,
+        "g": 130,
+        "b": 65
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d6bfa81b082/"
+    },
+    {
+      "id": "dye_057",
+      "name": "Hunter Green",
+      "category": "green",
+      "rgb": {
+        "r": 40,
+        "g": 75,
+        "b": 44
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/73f7ac282d9/"
+    },
+    {
+      "id": "dye_058",
+      "name": "Ochu Green",
+      "category": "green",
+      "rgb": {
+        "r": 64,
+        "g": 99,
+        "b": 57
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/9e68ead2b9d/"
+    },
+    {
+      "id": "dye_059",
+      "name": "Adamantoise Green",
+      "category": "green",
+      "rgb": {
+        "r": 95,
+        "g": 117,
+        "b": 88
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/5f48906cb92/"
+    },
+    {
+      "id": "dye_060",
+      "name": "Nophica Green",
+      "category": "green",
+      "rgb": {
+        "r": 59,
+        "g": 77,
+        "b": 60
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/996f0ac6809/"
+    },
+    {
+      "id": "dye_061",
+      "name": "Deepwood Green",
+      "category": "green",
+      "rgb": {
+        "r": 30,
+        "g": 42,
+        "b": 33
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/a17514d0143/"
+    },
+    {
+      "id": "dye_062",
+      "name": "Celeste Green",
+      "category": "green",
+      "rgb": {
+        "r": 150,
+        "g": 189,
+        "b": 185
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f4d228923fb/"
+    },
+    {
+      "id": "dye_063",
+      "name": "Turquoise Green",
+      "category": "green",
+      "rgb": {
+        "r": 67,
+        "g": 114,
+        "b": 114
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/27a11f0b925/"
+    },
+    {
+      "id": "dye_064",
+      "name": "Morbol Green",
+      "category": "green",
+      "rgb": {
+        "r": 31,
+        "g": 70,
+        "b": 70
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ec06adbbd4f/"
+    },
+    {
+      "id": "dye_065",
+      "name": "Ice Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 178,
+        "g": 196,
+        "b": 206
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/4b5df0df491/"
+    },
+    {
+      "id": "dye_066",
+      "name": "Sky Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 131,
+        "g": 176,
+        "b": 210
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8a87f50e179/"
+    },
+    {
+      "id": "dye_067",
+      "name": "Seafog Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 100,
+        "g": 129,
+        "b": 160
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/56afc8783ff/"
+    },
+    {
+      "id": "dye_068",
+      "name": "Peacock Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 59,
+        "g": 104,
+        "b": 134
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/1ff080d3a53/"
+    },
+    {
+      "id": "dye_069",
+      "name": "Rhotano Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 28,
+        "g": 61,
+        "b": 84
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/b2a2dc9a50a/"
+    },
+    {
+      "id": "dye_070",
+      "name": "Corpse Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 142,
+        "g": 155,
+        "b": 172
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/e67029752b0/"
+    },
+    {
+      "id": "dye_071",
+      "name": "Ceruleum Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 79,
+        "g": 87,
+        "b": 102
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/b036656bfda/"
+    },
+    {
+      "id": "dye_072",
+      "name": "Woad Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 47,
+        "g": 56,
+        "b": 81
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c864e3e34b9/"
+    },
+    {
+      "id": "dye_073",
+      "name": "Ink Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 26,
+        "g": 31,
+        "b": 39
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/9ef01a4f17f/"
+    },
+    {
+      "id": "dye_074",
+      "name": "Raptor Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 91,
+        "g": 127,
+        "b": 192
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/6ec6872ab31/"
+    },
+    {
+      "id": "dye_075",
+      "name": "Othard Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 47,
+        "g": 88,
+        "b": 137
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/a291e69cbbf/"
+    },
+    {
+      "id": "dye_076",
+      "name": "Storm Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 35,
+        "g": 65,
+        "b": 114
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/a1cab97c69f/"
+    },
+    {
+      "id": "dye_077",
+      "name": "Void Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 17,
+        "g": 41,
+        "b": 68
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/b4a2cfa31c7/"
+    },
+    {
+      "id": "dye_078",
+      "name": "Royal Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 39,
+        "g": 48,
+        "b": 103
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/23edc014362/"
+    },
+    {
+      "id": "dye_079",
+      "name": "Midnight Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 24,
+        "g": 25,
+        "b": 55
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/165e0f93055/"
+    },
+    {
+      "id": "dye_080",
+      "name": "Shadow Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 55,
+        "g": 55,
+        "b": 71
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8d5806d8b72/"
+    },
+    {
+      "id": "dye_081",
+      "name": "Abyssal Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 49,
+        "g": 45,
+        "b": 87
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f318dace1e0/"
+    },
+    {
+      "id": "dye_082",
+      "name": "Dragoon Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 0,
+        "g": 14,
+        "b": 162
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/b45492786e0/"
+    },
+    {
+      "id": "dye_083",
+      "name": "Turquoise Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 4,
+        "g": 175,
+        "b": 205
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/4f1b319f29b/"
+    },
+    {
+      "id": "dye_084",
+      "name": "Lavender Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 135,
+        "g": 127,
+        "b": 174
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ff8b9968d2e/"
+    },
+    {
+      "id": "dye_085",
+      "name": "Gloom Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 81,
+        "g": 69,
+        "b": 96
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c63b1ba4b1f/"
+    },
+    {
+      "id": "dye_086",
+      "name": "Currant Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 50,
+        "g": 44,
+        "b": 59
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8cd40d9f5d8/"
+    },
+    {
+      "id": "dye_087",
+      "name": "Iris Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 183,
+        "g": 158,
+        "b": 188
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/fdf05e861ce/"
+    },
+    {
+      "id": "dye_088",
+      "name": "Grape Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 59,
+        "g": 42,
+        "b": 61
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/0798c059238/"
+    },
+    {
+      "id": "dye_089",
+      "name": "Lotus Pink",
+      "category": "purple",
+      "rgb": {
+        "r": 254,
+        "g": 206,
+        "b": 245
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/e9eb414a2cb/"
+    },
+    {
+      "id": "dye_090",
+      "name": "Colibri Pink",
+      "category": "purple",
+      "rgb": {
+        "r": 220,
+        "g": 155,
+        "b": 202
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/a179a659e0f/"
+    },
+    {
+      "id": "dye_091",
+      "name": "Plum Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 121,
+        "g": 82,
+        "b": 108
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f840860d5e3/"
+    },
+    {
+      "id": "dye_092",
+      "name": "Regal Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 102,
+        "g": 48,
+        "b": 78
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/356c9896f78/"
+    },
+    {
+      "id": "dye_093",
+      "name": "Pure White",
+      "category": "rare",
+      "rgb": {
+        "r": 249,
+        "g": 248,
+        "b": 244
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/6211e78e6d9/"
+    },
+    {
+      "id": "dye_094",
+      "name": "Jet Black",
+      "category": "rare",
+      "rgb": {
+        "r": 30,
+        "g": 30,
+        "b": 30
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/12c4a36e31c/"
+    },
+    {
+      "id": "dye_095",
+      "name": "Pastel Pink",
+      "category": "rare",
+      "rgb": {
+        "r": 253,
+        "g": 200,
+        "b": 198
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/d4248d41a25/"
+    },
+    {
+      "id": "dye_096",
+      "name": "Dark Red",
+      "category": "rare",
+      "rgb": {
+        "r": 50,
+        "g": 25,
+        "b": 25
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/46b81b67a92/"
+    },
+    {
+      "id": "dye_097",
+      "name": "Dark Brown",
+      "category": "rare",
+      "rgb": {
+        "r": 40,
+        "g": 33,
+        "b": 28
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/c8a96360dff/"
+    },
+    {
+      "id": "dye_098",
+      "name": "Pastel Green",
+      "category": "rare",
+      "rgb": {
+        "r": 186,
+        "g": 207,
+        "b": 170
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/ce58845f9ab/"
+    },
+    {
+      "id": "dye_099",
+      "name": "Dark Green",
+      "category": "rare",
+      "rgb": {
+        "r": 21,
+        "g": 44,
+        "b": 44
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/8ae009a2d4b/"
+    },
+    {
+      "id": "dye_100",
+      "name": "Pastel Blue",
+      "category": "rare",
+      "rgb": {
+        "r": 150,
+        "g": 164,
+        "b": 217
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/dfcf9ed3b94/"
+    },
+    {
+      "id": "dye_101",
+      "name": "Dark Blue",
+      "category": "rare",
+      "rgb": {
+        "r": 18,
+        "g": 31,
+        "b": 45
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/9495d7d85fe/"
+    },
+    {
+      "id": "dye_102",
+      "name": "Pastel Purple",
+      "category": "rare",
+      "rgb": {
+        "r": 187,
+        "g": 181,
+        "b": 218
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/cf30e756804/"
+    },
+    {
+      "id": "dye_103",
+      "name": "Dark Purple",
+      "category": "rare",
+      "rgb": {
+        "r": 35,
+        "g": 32,
+        "b": 38
+      },
+      "tags": [],
+      "lodestone": "/lodestone/playguide/db/item/f4489265237/"
+    },
+    {
+      "id": "dye_104",
+      "name": "Metallic Silver",
+      "category": "rare",
+      "rgb": {
+        "r": 167,
+        "g": 167,
+        "b": 167
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/5b32bb8603a/"
+    },
+    {
+      "id": "dye_105",
+      "name": "Metallic Gold",
+      "category": "rare",
+      "rgb": {
+        "r": 237,
+        "g": 230,
+        "b": 61
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/1d87dbc8fbb/"
+    },
+    {
+      "id": "dye_106",
+      "name": "Metallic Red",
+      "category": "rare",
+      "rgb": {
+        "r": 182,
+        "g": 29,
+        "b": 75
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/351ff2db47a/"
+    },
+    {
+      "id": "dye_107",
+      "name": "Metallic Orange",
+      "category": "rare",
+      "rgb": {
+        "r": 228,
+        "g": 140,
+        "b": 47
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/0e32cdf0c04/"
+    },
+    {
+      "id": "dye_108",
+      "name": "Metallic Yellow",
+      "category": "rare",
+      "rgb": {
+        "r": 244,
+        "g": 218,
+        "b": 70
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/aea226f7992/"
+    },
+    {
+      "id": "dye_109",
+      "name": "Metallic Green",
+      "category": "rare",
+      "rgb": {
+        "r": 34,
+        "g": 167,
+        "b": 87
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/d8c4a370e72/"
+    },
+    {
+      "id": "dye_110",
+      "name": "Metallic Sky Blue",
+      "category": "rare",
+      "rgb": {
+        "r": 94,
+        "g": 212,
+        "b": 230
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/a53443deda8/"
+    },
+    {
+      "id": "dye_111",
+      "name": "Metallic Blue",
+      "category": "rare",
+      "rgb": {
+        "r": 80,
+        "g": 82,
+        "b": 217
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/0330daf480e/"
+    },
+    {
+      "id": "dye_112",
+      "name": "Metallic Purple",
+      "category": "rare",
+      "rgb": {
+        "r": 163,
+        "g": 102,
+        "b": 194
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/58bec677cf5/"
+    },
+    {
+      "id": "dye_113",
+      "name": "Gunmetal Black",
+      "category": "rare",
+      "rgb": {
+        "r": 96,
+        "g": 96,
+        "b": 104
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/fe3ff8cbfd5/"
+    },
+    {
+      "id": "dye_114",
+      "name": "Pearl White",
+      "category": "rare",
+      "rgb": {
+        "r": 233,
+        "g": 227,
+        "b": 218
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/e8eca8fabb8/"
+    },
+    {
+      "id": "dye_115",
+      "name": "Metallic Brass",
+      "category": "rare",
+      "rgb": {
+        "r": 231,
+        "g": 209,
+        "b": 151
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/08afceeb7e2/"
+    },
+    {
+      "id": "dye_116",
+      "name": "Carmine Red",
+      "category": "red",
+      "rgb": {
+        "r": 222,
+        "g": 11,
+        "b": 22
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/175414ea02e/"
+    },
+    {
+      "id": "dye_117",
+      "name": "Neon Pink",
+      "category": "red",
+      "rgb": {
+        "r": 237,
+        "g": 17,
+        "b": 142
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/6be29580edd/"
+    },
+    {
+      "id": "dye_118",
+      "name": "Bright Orange",
+      "category": "brown",
+      "rgb": {
+        "r": 244,
+        "g": 80,
+        "b": 17
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/5ec6df03bb4/"
+    },
+    {
+      "id": "dye_119",
+      "name": "Neon Yellow",
+      "category": "yellow",
+      "rgb": {
+        "r": 223,
+        "g": 234,
+        "b": 8
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/a2600dc0985/"
+    },
+    {
+      "id": "dye_120",
+      "name": "Neon Green",
+      "category": "green",
+      "rgb": {
+        "r": 181,
+        "g": 247,
+        "b": 16
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/3f5ab56e66b/"
+    },
+    {
+      "id": "dye_121",
+      "name": "Azure Blue",
+      "category": "blue",
+      "rgb": {
+        "r": 58,
+        "g": 76,
+        "b": 144
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/3aea62a37bc/"
+    },
+    {
+      "id": "dye_122",
+      "name": "Violet Purple",
+      "category": "purple",
+      "rgb": {
+        "r": 98,
+        "g": 80,
+        "b": 143
+      },
+      "tags": [
+        "vivid"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/463601ca525/"
+    },
+    {
+      "id": "dye_123",
+      "name": "Metallic Pink",
+      "category": "rare",
+      "rgb": {
+        "r": 162,
+        "g": 89,
+        "b": 107
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/283531f9e7f/"
+    },
+    {
+      "id": "dye_124",
+      "name": "Metallic Ruby Red",
+      "category": "rare",
+      "rgb": {
+        "r": 31,
+        "g": 0,
+        "b": 0
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/faa28adedc9/"
+    },
+    {
+      "id": "dye_125",
+      "name": "Metallic Cobalt Green",
+      "category": "rare",
+      "rgb": {
+        "r": 21,
+        "g": 66,
+        "b": 63
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/2afb816b41f/"
+    },
+    {
+      "id": "dye_126",
+      "name": "Metallic Dark Blue",
+      "category": "rare",
+      "rgb": {
+        "r": 8,
+        "g": 2,
+        "b": 31
+      },
+      "tags": [
+        "metallic"
+      ],
+      "lodestone": "/lodestone/playguide/db/item/fa3370c0ba1/"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+import { error, json } from '@sveltejs/kit';
+import { GEMINI_API_KEY } from '$env/static/private';
+import { getFallbackDyes, matchAvoidDyes, matchDyes } from '$lib/server/dye-matcher';
+import { diagnoseWithGemini } from '$lib/server/gemini';
+import { checkRateLimit } from '$lib/server/rate-limiter';
+import type { RequestHandler } from './$types';
+
+export const POST: RequestHandler = async ({ request, platform }) => {
+  // Cloudflare Workers上ではplatform.envから、ローカルdevでは.envから取得
+  const apiKey = platform?.env?.GEMINI_API_KEY ?? GEMINI_API_KEY;
+  if (!apiKey) {
+    throw error(500, 'GEMINI_API_KEY is not configured');
+  }
+
+  // レートリミットチェック
+  const ip =
+    request.headers.get('CF-Connecting-IP') ??
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+    'unknown';
+
+  const rateLimit = await checkRateLimit(platform?.env?.IP_RATE_LIMITER, ip);
+
+  if (!rateLimit.allowed) {
+    return json(
+      { error: 'Rate limit exceeded', remaining: 0 },
+      {
+        status: 429,
+        headers: { 'X-RateLimit-Remaining': '0' },
+      }
+    );
+  }
+
+  const body = await request.json();
+  const { image, mimeType, locale } = body as {
+    image?: string;
+    mimeType?: string;
+    locale?: string;
+  };
+
+  if (!image) {
+    throw error(400, 'image (base64) is required');
+  }
+
+  if (!mimeType) {
+    throw error(400, 'mimeType is required');
+  }
+
+  try {
+    const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType, locale ?? 'ja');
+
+    let recommendedDyes = matchDyes(geminiResult.palette.base, geminiResult.palette.accent);
+
+    // マッチング結果が少なすぎる場合はフォールバック
+    if (recommendedDyes.length < 3) {
+      recommendedDyes = getFallbackDyes(geminiResult.result.season);
+    }
+
+    // 推奨染料のIDを除外して苦手染料をマッチング
+    const usedIds = new Set(recommendedDyes.map((d) => d.dye.id));
+    const dyesToAvoid = matchAvoidDyes(geminiResult.colorsToAvoid, usedIds);
+
+    return json(
+      {
+        result: geminiResult.result,
+        recommendedDyes,
+        dyesToAvoid,
+        remaining: rateLimit.remaining,
+      },
+      {
+        headers: { 'X-RateLimit-Remaining': String(rateLimit.remaining) },
+      }
+    );
+  } catch (e) {
+    console.error('Diagnosis failed:', e);
+    throw error(500, 'Diagnosis failed');
+  }
+};
