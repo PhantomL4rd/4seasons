@@ -31,14 +31,10 @@ function rgbToHex(r: number, g: number, b: number): string {
 
 {#snippet dyeCard(matched: MatchedDye)}
   <div class="flex items-center gap-3 rounded-lg border p-3">
-    <div class="flex shrink-0 flex-col items-center gap-1">
+    <div class="shrink-0">
       <div
         class="h-10 w-10 rounded-md border shadow-sm"
         style="background-color: {rgbToHex(matched.dye.rgb.r, matched.dye.rgb.g, matched.dye.rgb.b)}"
-      ></div>
-      <div
-        class="h-2 w-10 rounded-full opacity-50"
-        style="background-color: {matched.hex}"
       ></div>
     </div>
     <div class="min-w-0 flex-1">
@@ -72,7 +68,7 @@ function rgbToHex(r: number, g: number, b: number): string {
     {/if}
 
     {#if dyesToAvoid.length > 0}
-      <h4 class="mb-3 text-sm font-medium text-destructive/70">{$t('common.recommendation.colorsToAvoid')}</h4>
+      <h4 class="mb-3 text-sm font-medium text-red-600 dark:text-red-400">{$t('common.recommendation.colorsToAvoid')}</h4>
       <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {#each dyesToAvoid as matched}
           <div class="flex items-center gap-3 rounded-lg border border-destructive/20 bg-destructive/5 p-3">

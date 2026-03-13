@@ -1,8 +1,10 @@
 <script lang="ts">
 import '../app.css';
+import { LayoutGrid } from '@lucide/svelte';
 import { ModeWatcher } from 'mode-watcher';
 import favicon from '$lib/assets/favicon.svg';
 import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
+import SideDrawer from '$lib/components/ui/SideDrawer.svelte';
 import { t } from '$lib/translations';
 
 let { children } = $props();
@@ -22,15 +24,19 @@ let { children } = $props();
 
 <div class="min-h-dvh bg-background">
   <header class="bg-primary text-primary-foreground mb-8">
-    <div class="container mx-auto flex h-14 items-center px-4">
+    <div class="container mx-auto flex items-center h-14 px-4">
       <div class="flex-1">
         <h1 class="text-xl font-bold">
-          {$t('common.title')}
-          <span class="text-sm font-normal opacity-75">{$t('common.subtitle')}</span>
+          <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <LayoutGrid class="size-5" />
+            {$t('common.title')}
+            <span class="text-sm font-normal opacity-75">{$t('common.subtitle')}</span>
+          </a>
         </h1>
       </div>
       <div class="flex items-center gap-1">
         <LanguageSwitcher />
+        <SideDrawer />
       </div>
     </div>
   </header>

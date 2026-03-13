@@ -37,8 +37,19 @@
     "disclaimer": "This tool uses AI to analyze screenshots for personal color diagnosis",
     "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
   },
+  "externalLinks": {
+    "colorantPicker": "Colorant Picker",
+    "mirapriInsight": "Mirapri Insight",
+    "feedback": "Feedback"
+  },
+  "nav": {
+    "menu": "Menu",
+    "links": "Links"
+  },
   "aria": {
-    "languageSwitch": "Switch language"
+    "languageSwitch": "Switch language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "remaining": "Remaining diagnoses today: {{count}}",
   "recommendation": {

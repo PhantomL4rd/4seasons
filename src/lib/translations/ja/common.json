@@ -37,8 +37,19 @@
     "disclaimer": "本ツールはスクリーンショットを使用してAIによる診断を行います",
     "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
   },
+  "externalLinks": {
+    "colorantPicker": "カララントピッカー",
+    "mirapriInsight": "ミラプリインサイト",
+    "feedback": "要望・感想"
+  },
+  "nav": {
+    "menu": "メニュー",
+    "links": "外部リンク"
+  },
   "aria": {
-    "languageSwitch": "言語を切り替え"
+    "languageSwitch": "言語を切り替え",
+    "openMenu": "メニューを開く",
+    "closeMenu": "メニューを閉じる"
   },
   "remaining": "本日の残り回数: {{count}}回",
   "recommendation": {
