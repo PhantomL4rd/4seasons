@@ -1,12 +1,11 @@
-import type { Oklab } from 'culori/fn';
 import { dyes } from '$lib/data/dyes';
 import { seasonFallbackDyes } from '$lib/data/season-palettes';
 import type { Dye, MatchedDye, NearestDye, Season } from '$lib/types';
-import { deltaEOklab, hexToOklab, rgb255ToOklab } from '$lib/utils/color';
+import { createNearestFinder, hexToOklab, rgb255ToOklab } from '$lib/utils/color';
 
 interface DyeWithOklab {
   dye: Dye;
-  oklab: Oklab;
+  oklab: ReturnType<typeof rgb255ToOklab>;
 }
 
 // 全染料のOklab値を事前計算
@@ -15,47 +14,38 @@ const dyesWithOklab: DyeWithOklab[] = dyes.map((dye) => ({
   oklab: rgb255ToOklab(dye.rgb),
 }));
 
-interface DyeCandidate {
-  dye: Dye;
-  deltaE: number;
-}
-
-/**
- * ターゲット色に対してΔEでソートした候補リストを返す
- * colorant-pickerのfindNearestDyesInOklabパターンを参考
- */
-function findSortedCandidates(targetOklab: Oklab, excludeIds: Set<string>): DyeCandidate[] {
-  const candidates: DyeCandidate[] = dyesWithOklab
-    .filter((d) => !excludeIds.has(d.dye.id))
-    .map((d) => ({
-      dye: d.dye,
-      deltaE: deltaEOklab(targetOklab, d.oklab),
-    }));
-  return candidates.sort((a, b) => a.deltaE - b.deltaE);
-}
+// culoriのnearest()でOklab空間の近傍探索を行う
+const findNearest = createNearestFinder(dyesWithOklab, (d) => d.oklab);
 
 /**
  * ベストマッチ + 次点のNearestDyeを返す
+ * excludeIdsに含まれるカラーラントはスキップ
  */
 function findClosestDyeWithNearest(
-  targetOklab: Oklab,
+  hex: string,
   excludeIds: Set<string>
-): { best: DyeCandidate; nearestDye: NearestDye | null } {
-  const candidates = findSortedCandidates(targetOklab, excludeIds);
+): { best: { dye: Dye; deltaE: number }; nearestDye: NearestDye | null } {
+  const targetOklab = hexToOklab(hex);
 
-  if (candidates.length === 0) {
+  // 十分な候補を取得（除外分を考慮して多めに）
+  const results = findNearest(targetOklab, excludeIds.size + 2);
+
+  const filtered = results.filter((r) => !excludeIds.has(r.color.dye.id));
+
+  if (filtered.length === 0) {
     // 除外IDが多すぎて見つからない場合は制約を緩和
-    const fallback = findSortedCandidates(targetOklab, new Set());
+    const fallback = findNearest(targetOklab, 2);
     return {
-      best: fallback[0],
-      nearestDye: fallback[1] ? { dye: fallback[1].dye, deltaE: fallback[1].deltaE } : null,
+      best: { dye: fallback[0].color.dye, deltaE: fallback[0].distance },
+      nearestDye: fallback[1] ? { dye: fallback[1].color.dye, deltaE: fallback[1].distance } : null,
     };
   }
 
-  const best = candidates[0];
-  // 次点はベストマッチとは別のカラーラント
-  const second = candidates[1] ?? null;
-  const nearestDye: NearestDye | null = second ? { dye: second.dye, deltaE: second.deltaE } : null;
+  const best = { dye: filtered[0].color.dye, deltaE: filtered[0].distance };
+  const second = filtered[1] ?? null;
+  const nearestDye: NearestDye | null = second
+    ? { dye: second.color.dye, deltaE: second.distance }
+    : null;
 
   return { best, nearestDye };
 }
@@ -70,8 +60,7 @@ export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDy
   // ベースカラーをマッチング
   for (const hex of baseHexes) {
     try {
-      const targetOklab = hexToOklab(hex);
-      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      const { best, nearestDye } = findClosestDyeWithNearest(hex, usedIds);
       usedIds.add(best.dye.id);
       results.push({
         dye: best.dye,
@@ -88,8 +77,7 @@ export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDy
   // アクセントカラーをマッチング
   for (const hex of accentHexes) {
     try {
-      const targetOklab = hexToOklab(hex);
-      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      const { best, nearestDye } = findClosestDyeWithNearest(hex, usedIds);
       usedIds.add(best.dye.id);
       results.push({
         dye: best.dye,
@@ -115,8 +103,7 @@ export function matchAvoidDyes(avoidHexes: string[], excludeIds: Set<string>): M
 
   for (const hex of avoidHexes) {
     try {
-      const targetOklab = hexToOklab(hex);
-      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      const { best, nearestDye } = findClosestDyeWithNearest(hex, usedIds);
       usedIds.add(best.dye.id);
       results.push({
         dye: best.dye,

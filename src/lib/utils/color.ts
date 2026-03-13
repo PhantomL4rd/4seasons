@@ -4,7 +4,15 @@
  */
 
 import type { Oklab, Rgb } from 'culori/fn';
-import { converter, differenceEuclidean, modeOklab, modeRgb, parse, useMode } from 'culori/fn';
+import {
+  converter,
+  differenceEuclidean,
+  modeOklab,
+  modeRgb,
+  nearest,
+  parse,
+  useMode,
+} from 'culori/fn';
 import type { RGBColor255 } from '$lib/types';
 
 useMode(modeRgb);
@@ -36,4 +44,15 @@ export function hexToOklab(hex: string): Oklab {
 
 export function deltaEOklab(c1: Oklab, c2: Oklab): number {
   return deltaEOklabFn(c1, c2);
+}
+
+/**
+ * culoriのnearest()を使って、パレットからターゲットに近い順にN個返す
+ * 返り値: { color: T, distance: number }[]
+ */
+export function createNearestFinder<T>(palette: T[], accessor: (item: T) => Oklab) {
+  return nearest(palette, deltaEOklabFn, accessor) as (
+    target: Oklab,
+    n?: number
+  ) => { color: T; distance: number }[];
 }
