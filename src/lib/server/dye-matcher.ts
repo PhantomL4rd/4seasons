@@ -1,7 +1,7 @@
 import type { Oklab } from 'culori/fn';
 import { dyes } from '$lib/data/dyes';
 import { seasonFallbackDyes } from '$lib/data/season-palettes';
-import type { Dye, MatchedDye, Season } from '$lib/types';
+import type { Dye, MatchedDye, NearestDye, Season } from '$lib/types';
 import { deltaEOklab, hexToOklab, rgb255ToOklab } from '$lib/utils/color';
 
 interface DyeWithOklab {
@@ -15,28 +15,49 @@ const dyesWithOklab: DyeWithOklab[] = dyes.map((dye) => ({
   oklab: rgb255ToOklab(dye.rgb),
 }));
 
-function findClosestDye(
+interface DyeCandidate {
+  dye: Dye;
+  deltaE: number;
+}
+
+/**
+ * ターゲット色に対してΔEでソートした候補リストを返す
+ * colorant-pickerのfindNearestDyesInOklabパターンを参考
+ */
+function findSortedCandidates(targetOklab: Oklab, excludeIds: Set<string>): DyeCandidate[] {
+  const candidates: DyeCandidate[] = dyesWithOklab
+    .filter((d) => !excludeIds.has(d.dye.id))
+    .map((d) => ({
+      dye: d.dye,
+      deltaE: deltaEOklab(targetOklab, d.oklab),
+    }));
+  return candidates.sort((a, b) => a.deltaE - b.deltaE);
+}
+
+/**
+ * ベストマッチ + 次点のNearestDyeを返す
+ */
+function findClosestDyeWithNearest(
   targetOklab: Oklab,
   excludeIds: Set<string>
-): DyeWithOklab & { deltaE: number } {
-  let best: DyeWithOklab | null = null;
-  let bestDelta = Number.POSITIVE_INFINITY;
+): { best: DyeCandidate; nearestDye: NearestDye | null } {
+  const candidates = findSortedCandidates(targetOklab, excludeIds);
 
-  for (const d of dyesWithOklab) {
-    if (excludeIds.has(d.dye.id)) continue;
-    const delta = deltaEOklab(targetOklab, d.oklab);
-    if (delta < bestDelta) {
-      bestDelta = delta;
-      best = d;
-    }
-  }
-
-  if (!best) {
+  if (candidates.length === 0) {
     // 除外IDが多すぎて見つからない場合は制約を緩和
-    return { ...dyesWithOklab[0], deltaE: bestDelta };
+    const fallback = findSortedCandidates(targetOklab, new Set());
+    return {
+      best: fallback[0],
+      nearestDye: fallback[1] ? { dye: fallback[1].dye, deltaE: fallback[1].deltaE } : null,
+    };
   }
 
-  return { ...best, deltaE: bestDelta };
+  const best = candidates[0];
+  // 次点はベストマッチとは別のカラーラント
+  const second = candidates[1] ?? null;
+  const nearestDye: NearestDye | null = second ? { dye: second.dye, deltaE: second.deltaE } : null;
+
+  return { best, nearestDye };
 }
 
 /**
@@ -50,13 +71,14 @@ export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDy
   for (const hex of baseHexes) {
     try {
       const targetOklab = hexToOklab(hex);
-      const match = findClosestDye(targetOklab, usedIds);
-      usedIds.add(match.dye.id);
+      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      usedIds.add(best.dye.id);
       results.push({
-        dye: match.dye,
+        dye: best.dye,
         hex,
-        deltaE: match.deltaE,
+        deltaE: best.deltaE,
         role: 'base',
+        nearestDye,
       });
     } catch {
       // 不正なhex値はスキップ
@@ -67,13 +89,14 @@ export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDy
   for (const hex of accentHexes) {
     try {
       const targetOklab = hexToOklab(hex);
-      const match = findClosestDye(targetOklab, usedIds);
-      usedIds.add(match.dye.id);
+      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      usedIds.add(best.dye.id);
       results.push({
-        dye: match.dye,
+        dye: best.dye,
         hex,
-        deltaE: match.deltaE,
+        deltaE: best.deltaE,
         role: 'accent',
+        nearestDye,
       });
     } catch {
       // 不正なhex値はスキップ
@@ -93,13 +116,14 @@ export function matchAvoidDyes(avoidHexes: string[], excludeIds: Set<string>): M
   for (const hex of avoidHexes) {
     try {
       const targetOklab = hexToOklab(hex);
-      const match = findClosestDye(targetOklab, usedIds);
-      usedIds.add(match.dye.id);
+      const { best, nearestDye } = findClosestDyeWithNearest(targetOklab, usedIds);
+      usedIds.add(best.dye.id);
       results.push({
-        dye: match.dye,
+        dye: best.dye,
         hex,
-        deltaE: match.deltaE,
+        deltaE: best.deltaE,
         role: 'avoid',
+        nearestDye,
       });
     } catch {
       // 不正なhex値はスキップ
@@ -114,19 +138,20 @@ export function matchAvoidDyes(avoidHexes: string[], excludeIds: Set<string>): M
  */
 export function getFallbackDyes(season: Season): MatchedDye[] {
   const dyeIds = seasonFallbackDyes[season];
-  return dyeIds
-    .map((id, i) => {
-      const dye = dyes.find((d) => d.id === id);
-      if (!dye) return null;
-      const rgb = dye.rgb;
-      const hex =
-        `#${rgb.r.toString(16).padStart(2, '0')}${rgb.g.toString(16).padStart(2, '0')}${rgb.b.toString(16).padStart(2, '0')}`.toUpperCase();
-      return {
-        dye,
-        hex,
-        deltaE: 0,
-        role: (i < 6 ? 'base' : 'accent') as MatchedDye['role'],
-      };
-    })
-    .filter((d): d is MatchedDye => d !== null);
+  const results: MatchedDye[] = [];
+  for (let i = 0; i < dyeIds.length; i++) {
+    const dye = dyes.find((d) => d.id === dyeIds[i]);
+    if (!dye) continue;
+    const rgb = dye.rgb;
+    const hex =
+      `#${rgb.r.toString(16).padStart(2, '0')}${rgb.g.toString(16).padStart(2, '0')}${rgb.b.toString(16).padStart(2, '0')}`.toUpperCase();
+    results.push({
+      dye,
+      hex,
+      deltaE: 0,
+      role: i < 6 ? 'base' : 'accent',
+      nearestDye: null,
+    });
+  }
+  return results;
 }

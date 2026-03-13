@@ -50,11 +50,17 @@ export interface GeminiDiagnosisResponse {
   colorsToAvoid: string[];
 }
 
+export interface NearestDye {
+  dye: Dye;
+  deltaE: number;
+}
+
 export interface MatchedDye {
   dye: Dye;
   hex: string;
   deltaE: number;
   role: 'base' | 'accent' | 'avoid';
+  nearestDye: NearestDye | null;
 }
 
 /** フロントエンド向けレスポンス */
