@@ -1,13 +1,19 @@
 import { error, json } from '@sveltejs/kit';
-import { GEMINI_API_KEY } from '$env/static/private';
+import { dev } from '$app/environment';
 import { getFallbackDyes, matchAvoidDyes, matchDyes } from '$lib/server/dye-matcher';
 import { diagnoseWithGemini } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
-  // Cloudflare Workers上ではplatform.envから、ローカルdevでは.envから取得
-  const apiKey = platform?.env?.GEMINI_API_KEY ?? GEMINI_API_KEY;
+  // Cloudflare Workers上ではplatform.envから、ローカルdevでは.dev.varsから取得
+  let apiKey: string | undefined;
+  if (dev) {
+    const { GEMINI_API_KEY } = await import('$env/static/private');
+    apiKey = GEMINI_API_KEY;
+  } else {
+    apiKey = platform?.env?.GEMINI_API_KEY;
+  }
   if (!apiKey) {
     throw error(500, 'GEMINI_API_KEY is not configured');
   }
