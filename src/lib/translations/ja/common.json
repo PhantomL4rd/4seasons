@@ -1,10 +1,10 @@
 {
   "title": "4season",
-  "subtitle": "FF14 パーソナルカラー診断",
+  "subtitle": "パーソナルカラー診断",
   "description": "あなたのキャラクターに似合うパーソナルカラーと染料を診断します",
   "upload": {
     "title": "スクリーンショットをアップロード",
-    "description": "FF14のキャラクターが写ったスクリーンショットをドラッグ&ドロップ、またはクリックして選択してください",
+    "description": "キャラクターが写ったスクリーンショットをドラッグ&ドロップ、またはクリックして選択してください",
     "sizeLimit": "画像ファイル（JPEG, PNG）",
     "button": "画像を選択"
   },
@@ -32,8 +32,11 @@
     "winter": "冬"
   },
   "footer": {
-    "disclaimer": "本ツールはFF14のスクリーンショットを使用してAIによる診断を行います",
+    "disclaimer": "本ツールはスクリーンショットを使用してAIによる診断を行います",
     "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
+  },
+  "aria": {
+    "languageSwitch": "言語を切り替え"
   },
   "remaining": "本日の残り診断回数: {{count}}回",
   "recommendation": {

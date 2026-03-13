@@ -1,10 +1,10 @@
 {
   "title": "4season",
-  "subtitle": "FF14 Personal Color Diagnosis",
-  "description": "Diagnose your character's personal color season and find matching FF14 dyes",
+  "subtitle": "Personal Color Diagnosis",
+  "description": "Diagnose your character's personal color season and find matching dyes",
   "upload": {
     "title": "Upload Screenshot",
-    "description": "Drag & drop or click to select an FF14 screenshot with your character",
+    "description": "Drag & drop or click to select a screenshot with your character",
     "sizeLimit": "Image file (JPEG, PNG)",
     "button": "Choose Image"
   },
@@ -32,8 +32,11 @@
     "winter": "Winter"
   },
   "footer": {
-    "disclaimer": "This tool uses AI to analyze FF14 screenshots for personal color diagnosis",
+    "disclaimer": "This tool uses AI to analyze screenshots for personal color diagnosis",
     "copyright": "FINAL FANTASY XIV © SQUARE ENIX"
+  },
+  "aria": {
+    "languageSwitch": "Switch language"
   },
   "remaining": "Remaining diagnoses today: {{count}}",
   "recommendation": {

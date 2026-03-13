@@ -3,3 +3,9 @@ export { cn } from './utils/cn.js';
 export type WithElementRef<T, El extends HTMLElement = HTMLElement> = T & {
   ref?: El | null;
 };
+
+export type WithoutChildrenOrChild<T> = Omit<T, 'children' | 'child'>;
+
+export type WithoutChildren<T> = Omit<T, 'children'>;
+
+export type WithoutChild<T> = Omit<T, 'child'>;

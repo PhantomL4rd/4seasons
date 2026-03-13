@@ -40,7 +40,7 @@ function findClosestDye(
 }
 
 /**
- * Geminiの推奨hex値をFF14染料にマッチングする
+ * Geminiの推奨hex値をゲーム内染料にマッチングする
  */
 export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDye[] {
   const usedIds = new Set<string>();
@@ -84,7 +84,7 @@ export function matchDyes(baseHexes: string[], accentHexes: string[]): MatchedDy
 }
 
 /**
- * 苦手なhex値をFF14染料にマッチングする
+ * 苦手なhex値をゲーム内染料にマッチングする
  */
 export function matchAvoidDyes(avoidHexes: string[], excludeIds: Set<string>): MatchedDye[] {
   const usedIds = new Set(excludeIds);

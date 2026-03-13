@@ -18,9 +18,9 @@ const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 function buildPrompt(): string {
-  return `You are a personal color analyst for Final Fantasy XIV characters.
+  return `You are a personal color analyst for game characters.
 
-Analyze this FF14 character screenshot and determine their personal color season.
+Analyze this game character screenshot and determine their personal color season.
 
 ## Rules
 - First, count how many characters are visible in the screenshot. Set characterCount to the number.
