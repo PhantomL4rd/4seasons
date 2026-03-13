@@ -18,17 +18,18 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     throw error(500, 'GEMINI_API_KEY is not configured');
   }
 
-  // レートリミットチェック
+  // レートリミットチェック（devモードではDOが未起動のためスキップ）
   const ip =
     request.headers.get('CF-Connecting-IP') ??
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     'unknown';
 
-  const rateLimit = await checkRateLimit(platform?.env?.IP_RATE_LIMITER, ip);
+  const rateLimiter = dev ? undefined : platform?.env?.IP_RATE_LIMITER;
+  const rateLimit = await checkRateLimit(rateLimiter, ip);
 
   if (!rateLimit.allowed) {
     return json(
-      { error: 'Rate limit exceeded', remaining: 0 },
+      { error: 'rateLimitExceeded', remaining: 0 },
       {
         status: 429,
         headers: { 'X-RateLimit-Remaining': '0' },
@@ -53,6 +54,10 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   try {
     const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType);
 
+    if (geminiResult.isRealHuman) {
+      return json({ error: 'realHumanDetected' }, { status: 422 });
+    }
+
     if (geminiResult.characterCount >= 2) {
       return json({ error: 'multipleCharacters' }, { status: 422 });
     }
@@ -64,7 +69,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
       recommendedDyes = getFallbackDyes(geminiResult.result.season);
     }
 
-    // 推奨染料のIDを除外して苦手染料をマッチング
+    // 推奨カララントのIDを除外して苦手カララントをマッチング
     const usedIds = new Set(recommendedDyes.map((d) => d.dye.id));
     const dyesToAvoid = matchAvoidDyes(geminiResult.colorsToAvoid, usedIds);
 

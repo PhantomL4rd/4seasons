@@ -11,8 +11,11 @@ import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);
 let previewUrl: string = $state('');
+let errorTitle: string = $state('');
 let errorMessage: string = $state('');
 let diagnosisResult: DiagnosisResponse | null = $state(null);
+
+const TITLED_ERRORS = new Set(['realHumanDetected', 'multipleCharacters', 'rateLimitExceeded']);
 
 function handleFileSelect(file: File) {
   selectedFile = file;
@@ -21,6 +24,7 @@ function handleFileSelect(file: File) {
 }
 
 function handleError(errorKey: string) {
+  errorTitle = TITLED_ERRORS.has(errorKey) ? $t('common.error.oops') : '';
   errorMessage = $t(`common.error.${errorKey}`);
   phase = 'error';
 }
@@ -29,6 +33,7 @@ function handleReset() {
   if (previewUrl) revokeObjectUrl(previewUrl);
   selectedFile = null;
   previewUrl = '';
+  errorTitle = '';
   errorMessage = '';
   diagnosisResult = null;
   phase = 'upload';
@@ -57,7 +62,8 @@ async function handleDiagnose() {
     }
 
     if (response.status === 422) {
-      handleError('multipleCharacters');
+      const body = (await response.json()) as { error?: string };
+      handleError(body.error === 'realHumanDetected' ? 'realHumanDetected' : 'multipleCharacters');
       return;
     }
 
@@ -110,7 +116,10 @@ async function handleDiagnose() {
     </div>
   {:else if phase === 'error'}
     <div class="w-full rounded-xl border border-destructive/50 bg-destructive/5 p-8 text-center">
-      <p class="text-destructive">{errorMessage}</p>
+      {#if errorTitle}
+        <p class="text-destructive text-lg font-bold">{errorTitle}</p>
+      {/if}
+      <p class="text-destructive" class:mt-2={!!errorTitle}>{errorMessage}</p>
       <button
         class="mt-4 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
         onclick={handleReset}

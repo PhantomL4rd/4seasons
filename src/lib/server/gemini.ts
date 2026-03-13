@@ -23,7 +23,11 @@ function buildPrompt(): string {
 Analyze this game character screenshot and determine their personal color season.
 
 ## Rules
-- First, count how many characters are visible in the screenshot. Set characterCount to the number.
+- First, determine if the image is a real human photograph. Set isRealHuman accordingly.
+  - true: A photograph of a real, living person. Natural skin texture, photographic lighting, real-world backgrounds.
+  - false: Illustrations, anime, manga, 3D CG renders, game screenshots, digital art, or any non-photographic depiction, even if highly realistic.
+- If isRealHuman is true, set season to "spring", confidence to 0, characterCount to 0, and return empty palette/colorsToAvoid.
+- Count how many characters are visible in the screenshot. Set characterCount to the number.
 - If characterCount >= 2, set season to "spring", confidence to 0, and return empty palette/colorsToAvoid.
 - Spring: Warm + Bright/Clear
 - Summer: Cool + Muted/Soft
@@ -31,6 +35,7 @@ Analyze this game character screenshot and determine their personal color season
 - Winter: Cool + Vivid/High-contrast
 
 ## Output
+- isRealHuman: whether the image is a real human photograph
 - characterCount: number of characters detected in the screenshot
 - result: season, confidence (0-1)
 - palette: base (6 hex colors for main glamour), accent (3 hex colors for highlights)
@@ -40,6 +45,7 @@ Analyze this game character screenshot and determine their personal color season
 const responseSchema = {
   type: 'OBJECT',
   properties: {
+    isRealHuman: { type: 'BOOLEAN' },
     characterCount: { type: 'INTEGER' },
     result: {
       type: 'OBJECT',
@@ -59,7 +65,7 @@ const responseSchema = {
     },
     colorsToAvoid: { type: 'ARRAY', items: { type: 'STRING' } },
   },
-  required: ['characterCount', 'result', 'palette', 'colorsToAvoid'],
+  required: ['isRealHuman', 'characterCount', 'result', 'palette', 'colorsToAvoid'],
 };
 
 export async function diagnoseWithGemini(
