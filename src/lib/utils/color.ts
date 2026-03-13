@@ -47,12 +47,16 @@ export function deltaEOklab(c1: Oklab, c2: Oklab): number {
 }
 
 /**
- * culoriのnearest()を使って、パレットからターゲットに近い順にN個返す
- * 返り値: { color: T, distance: number }[]
+ * パレットからターゲットに近い順にN個返す
+ * culoriのnearest()はT[]を返すため、距離を別途計算して付与する
  */
 export function createNearestFinder<T>(palette: T[], accessor: (item: T) => Oklab) {
-  return nearest(palette, deltaEOklabFn, accessor) as (
-    target: Oklab,
-    n?: number
-  ) => { color: T; distance: number }[];
+  const findNearest = nearest(palette, deltaEOklabFn, accessor);
+  return (target: Oklab, n?: number): { color: T; distance: number }[] => {
+    const results = findNearest(target, n) as T[];
+    return results.map((item) => ({
+      color: item,
+      distance: deltaEOklabFn(target, accessor(item)),
+    }));
+  };
 }
