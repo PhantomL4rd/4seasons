@@ -115,11 +115,16 @@ async function handleDiagnose() {
       </button>
     </div>
   {:else if phase === 'error'}
-    <div class="w-full rounded-xl border border-destructive/50 bg-destructive/5 p-8 text-center">
+    {@const isWarning = !!errorTitle}
+    <div
+      class="w-full rounded-xl border p-8 text-center {isWarning
+        ? 'border-amber-400/50 bg-amber-50 dark:bg-amber-950/20'
+        : 'border-destructive/50 bg-destructive/5'}"
+    >
       {#if errorTitle}
-        <p class="text-destructive text-lg font-bold">{errorTitle}</p>
+        <p class="text-lg font-bold text-amber-600 dark:text-amber-400">{errorTitle}</p>
       {/if}
-      <p class="text-destructive" class:mt-2={!!errorTitle}>{errorMessage}</p>
+      <p class="{isWarning ? 'mt-2 text-amber-700 dark:text-amber-300' : 'text-destructive'}">{errorMessage}</p>
       <button
         class="mt-4 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
         onclick={handleReset}
