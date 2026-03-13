@@ -17,38 +17,37 @@ interface GeminiApiResponse {
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-function buildPrompt(locale: string): string {
-  const lang = locale === 'ja' ? '日本語' : 'English';
-
+function buildPrompt(): string {
   return `You are a personal color analyst for Final Fantasy XIV characters.
 
 Analyze this FF14 character screenshot and determine their personal color season.
 
 ## Rules
+- First, count how many characters are visible in the screenshot. Set characterCount to the number.
+- If characterCount >= 2, set season to "spring", confidence to 0, and return empty palette/colorsToAvoid.
 - Spring: Warm + Bright/Clear
 - Summer: Cool + Muted/Soft
 - Autumn: Warm + Deep/Rich
 - Winter: Cool + Vivid/High-contrast
 
 ## Output
-- result: season, confidence (0-1), reasoning (1-2 sentences)
+- characterCount: number of characters detected in the screenshot
+- result: season, confidence (0-1)
 - palette: base (6 hex colors for main glamour), accent (3 hex colors for highlights)
-- colorsToAvoid: 3 hex color values that don't suit this character
-
-Respond in ${lang}. Keep text concise.`;
+- colorsToAvoid: 3 hex color values that don't suit this character`;
 }
 
 const responseSchema = {
   type: 'OBJECT',
   properties: {
+    characterCount: { type: 'INTEGER' },
     result: {
       type: 'OBJECT',
       properties: {
         season: { type: 'STRING', enum: ['spring', 'summer', 'autumn', 'winter'] },
         confidence: { type: 'NUMBER' },
-        reasoning: { type: 'STRING' },
       },
-      required: ['season', 'confidence', 'reasoning'],
+      required: ['season', 'confidence'],
     },
     palette: {
       type: 'OBJECT',
@@ -60,16 +59,15 @@ const responseSchema = {
     },
     colorsToAvoid: { type: 'ARRAY', items: { type: 'STRING' } },
   },
-  required: ['result', 'palette', 'colorsToAvoid'],
+  required: ['characterCount', 'result', 'palette', 'colorsToAvoid'],
 };
 
 export async function diagnoseWithGemini(
   apiKey: string,
   imageBase64: string,
-  mimeType: string,
-  locale: string
+  mimeType: string
 ): Promise<GeminiDiagnosisResponse> {
-  const prompt = buildPrompt(locale);
+  const prompt = buildPrompt();
 
   const requestBody = {
     contents: [

@@ -21,6 +21,7 @@
     "invalidFileType": "対応していないファイル形式です（JPEG, PNGのみ）",
     "analysisFailed": "分析に失敗しました。もう一度お試しください",
     "rateLimitExceeded": "本日の診断回数の上限（5回）に達しました",
+    "multipleCharacters": "キャラクターが2人以上検出されました。1人だけ写ったスクリーンショットをお使いください",
     "networkError": "ネットワークエラーが発生しました",
     "tryAgain": "もう一度試す"
   },

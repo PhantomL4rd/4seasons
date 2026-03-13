@@ -37,10 +37,9 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   }
 
   const body = await request.json();
-  const { image, mimeType, locale } = body as {
+  const { image, mimeType } = body as {
     image?: string;
     mimeType?: string;
-    locale?: string;
   };
 
   if (!image) {
@@ -52,7 +51,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   }
 
   try {
-    const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType, locale ?? 'ja');
+    const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType);
+
+    if (geminiResult.characterCount >= 2) {
+      return json({ error: 'multipleCharacters' }, { status: 422 });
+    }
 
     let recommendedDyes = matchDyes(geminiResult.palette.base, geminiResult.palette.accent);
 

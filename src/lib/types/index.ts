@@ -34,7 +34,6 @@ export interface DyesData {
 export interface SeasonResult {
   season: Season;
   confidence: number;
-  reasoning: string;
 }
 
 export interface ColorPalette {
@@ -44,6 +43,7 @@ export interface ColorPalette {
 
 /** Gemini APIから返される構造化レスポンス */
 export interface GeminiDiagnosisResponse {
+  characterCount: number;
   result: SeasonResult;
   palette: ColorPalette;
   colorsToAvoid: string[];

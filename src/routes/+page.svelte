@@ -4,7 +4,7 @@ import ImagePreview from '$lib/components/ImagePreview.svelte';
 import LoadingState from '$lib/components/LoadingState.svelte';
 import SeasonBadge from '$lib/components/SeasonBadge.svelte';
 import UploadArea from '$lib/components/UploadArea.svelte';
-import { locale, t } from '$lib/translations';
+import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
 
@@ -48,12 +48,16 @@ async function handleDiagnose() {
       body: JSON.stringify({
         image: base64,
         mimeType,
-        locale: $locale,
       }),
     });
 
     if (response.status === 429) {
       handleError('rateLimitExceeded');
+      return;
+    }
+
+    if (response.status === 422) {
+      handleError('multipleCharacters');
       return;
     }
 
@@ -95,8 +99,6 @@ async function handleDiagnose() {
   {:else if phase === 'result' && diagnosisResult}
     <div class="flex w-full flex-col items-center gap-6">
       <SeasonBadge season={diagnosisResult.result.season} confidence={diagnosisResult.result.confidence} />
-
-      <p class="text-center text-sm text-muted-foreground">{diagnosisResult.result.reasoning}</p>
 
       <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
       <button

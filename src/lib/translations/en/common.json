@@ -21,6 +21,7 @@
     "invalidFileType": "Unsupported file format (JPEG, PNG only)",
     "analysisFailed": "Analysis failed. Please try again",
     "rateLimitExceeded": "You've reached today's diagnosis limit (5 times)",
+    "multipleCharacters": "Multiple characters detected. Please use a screenshot with only one character",
     "networkError": "A network error occurred",
     "tryAgain": "Try Again"
   },
