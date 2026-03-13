@@ -10,6 +10,12 @@ let { children } = $props();
 
 <svelte:head>
   <link rel="icon" href={favicon} />
+  <meta property="og:title" content="4seasons" />
+  <meta property="og:description" content={$t('common.description')} />
+  <meta property="og:image" content="https://4seasons.pl4rd.com/ogp.png" />
+  <meta property="og:url" content="https://4seasons.pl4rd.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <ModeWatcher />
