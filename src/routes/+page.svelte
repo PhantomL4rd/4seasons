@@ -57,6 +57,7 @@ async function handleShare() {
       $t('common.share.result').replace('{season}', seasonLabel),
       $t('common.share.dyeList').replace('{dyes}', dyeNames),
       $t('common.share.hashtags'),
+      'https://4seasons.pl4rd.com/',
     ].join('\n');
 
     const blob = await generateShareImage(diagnosisResult.recommendedDyes);
