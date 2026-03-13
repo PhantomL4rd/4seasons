@@ -30,7 +30,12 @@ function rgbToHex(r: number, g: number, b: number): string {
 </script>
 
 {#snippet dyeCard(matched: MatchedDye)}
-  <div class="flex items-center gap-3 rounded-lg border p-3">
+  <a
+    href="https://colorant-picker.pl4rd.com/?dye={matched.dye.id}"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-accent"
+  >
     <div class="shrink-0">
       <div
         class="h-10 w-10 rounded-md border shadow-sm"
@@ -41,7 +46,12 @@ function rgbToHex(r: number, g: number, b: number): string {
       <p class="truncate text-sm font-medium">{getDyeName(matched)}</p>
       <Badge variant="outline" class="mt-1 text-xs">{getCategoryName(matched.dye.category)}</Badge>
     </div>
-  </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </svg>
+  </a>
 {/snippet}
 
 <Card.Root>
