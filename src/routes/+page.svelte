@@ -1,4 +1,5 @@
 <script lang="ts">
+import { Share2 } from '@lucide/svelte';
 import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
 import ImagePreview from '$lib/components/ImagePreview.svelte';
 import LoadingState from '$lib/components/LoadingState.svelte';
@@ -7,6 +8,7 @@ import UploadArea from '$lib/components/UploadArea.svelte';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
+import { generateShareImage, shareResult } from '$lib/utils/share';
 
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);
@@ -14,6 +16,7 @@ let previewUrl: string = $state('');
 let errorTitle: string = $state('');
 let errorMessage: string = $state('');
 let diagnosisResult: DiagnosisResponse | null = $state(null);
+let isSharing = $state(false);
 
 const TITLED_ERRORS = new Set(['realHumanDetected', 'multipleCharacters', 'rateLimitExceeded']);
 
@@ -37,6 +40,30 @@ function handleReset() {
   errorMessage = '';
   diagnosisResult = null;
   phase = 'upload';
+}
+
+function getDyeName(dye: import('$lib/types').MatchedDye): string {
+  const translated = $t(`dye.names.${dye.dye.id}`);
+  return translated.startsWith('dye.names.') ? dye.dye.name : translated;
+}
+
+async function handleShare() {
+  if (!diagnosisResult || isSharing) return;
+  isSharing = true;
+  try {
+    const seasonLabel = $t(`common.season.${diagnosisResult.result.season}`);
+    const dyeNames = diagnosisResult.recommendedDyes.map(getDyeName).join('、');
+    const text = [
+      $t('common.share.result').replace('{season}', seasonLabel),
+      $t('common.share.dyeList').replace('{dyes}', dyeNames),
+      $t('common.share.hashtags'),
+    ].join('\n');
+
+    const blob = await generateShareImage(diagnosisResult.recommendedDyes);
+    await shareResult(text, blob);
+  } finally {
+    isSharing = false;
+  }
 }
 
 async function handleDiagnose() {
@@ -107,12 +134,22 @@ async function handleDiagnose() {
       <SeasonBadge season={diagnosisResult.result.season} confidence={diagnosisResult.result.confidence} />
 
       <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
-      <button
-        class="rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
-        onclick={handleReset}
-      >
-        {$t('common.preview.retry')}
-      </button>
+      <div class="flex gap-3">
+        <button
+          class="rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
+          onclick={handleReset}
+        >
+          {$t('common.preview.retry')}
+        </button>
+        <button
+          class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent disabled:opacity-50"
+          onclick={handleShare}
+          disabled={isSharing}
+        >
+          <Share2 class="size-4" />
+          {$t('common.share.button')}
+        </button>
+      </div>
     </div>
   {:else if phase === 'error'}
     {@const isWarning = !!errorTitle}

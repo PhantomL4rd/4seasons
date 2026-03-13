@@ -57,5 +57,11 @@
     "baseColors": "Base Colors",
     "accentColors": "Accent Colors",
     "colorsToAvoid": "Colors to Avoid"
+  },
+  "share": {
+    "button": "Share",
+    "result": "My personal color is {season}!",
+    "dyeList": "Recommended dyes: {dyes}",
+    "hashtags": "#WoL_4seasons"
   }
 }

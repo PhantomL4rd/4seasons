@@ -57,5 +57,11 @@
     "baseColors": "ベースカラー",
     "accentColors": "アクセントカラー",
     "colorsToAvoid": "苦手色"
+  },
+  "share": {
+    "button": "シェア",
+    "result": "わたしのパーソナルカラーは【{season}】でした！",
+    "dyeList": "似合うカララント: {dyes}",
+    "hashtags": "#WoL_4seasons"
   }
 }
