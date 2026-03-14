@@ -1,5 +1,10 @@
 <script lang="ts">
-import { t } from '$lib/translations';
+interface Props {
+  message?: string;
+  submessage?: string;
+}
+
+let { message, submessage }: Props = $props();
 </script>
 
 <div class="flex flex-col items-center justify-center gap-6 py-16">
@@ -10,10 +15,14 @@ import { t } from '$lib/translations';
     <div class="dot dot-winter"></div>
   </div>
 
-  <div class="text-center">
-    <p class="text-lg font-medium">{$t('common.loading.analyzing')}</p>
-    <p class="mt-1 text-sm text-muted-foreground">{$t('common.loading.tip')}</p>
-  </div>
+  {#if message}
+    <div class="text-center">
+      <p class="text-lg font-medium">{message}</p>
+      {#if submessage}
+        <p class="mt-1 text-sm text-muted-foreground">{submessage}</p>
+      {/if}
+    </div>
+  {/if}
 </div>
 
 <style>

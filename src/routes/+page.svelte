@@ -138,7 +138,7 @@ async function handleDiagnose() {
       onReset={handleReset}
     />
   {:else if phase === 'loading'}
-    <LoadingState />
+    <LoadingState message={$t('common.loading.analyzing')} submessage={$t('common.loading.tip')} />
   {:else if phase === 'result' && diagnosisResult}
     <div class="flex w-full flex-col items-center gap-6">
       <SeasonBadge season={diagnosisResult.result.season} confidence={diagnosisResult.result.confidence} />
