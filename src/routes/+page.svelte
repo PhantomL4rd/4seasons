@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Share2 } from '@lucide/svelte';
+import { Bookmark, Share2 } from '@lucide/svelte';
 import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
 import ImagePreview from '$lib/components/ImagePreview.svelte';
 import LoadingState from '$lib/components/LoadingState.svelte';
@@ -9,6 +9,7 @@ import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
 import { generateShareImage, shareResult } from '$lib/utils/share';
+import { encodeShareData } from '$lib/utils/share-url';
 
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);
@@ -17,6 +18,8 @@ let errorTitle: string = $state('');
 let errorMessage: string = $state('');
 let diagnosisResult: DiagnosisResponse | null = $state(null);
 let isSharing = $state(false);
+let isSaving = $state(false);
+let showCopiedToast = $state(false);
 
 const TITLED_ERRORS = new Set([
   'noFaceDetected',
@@ -58,17 +61,33 @@ async function handleShare() {
   try {
     const seasonLabel = $t(`common.season.${diagnosisResult.result.season}`);
     const dyeNames = diagnosisResult.recommendedDyes.slice(0, 3).map(getDyeName).join('、');
+    const shareUrl = `https://4seasons.pl4rd.com/share/${encodeShareData(diagnosisResult)}`;
     const text = [
       $t('common.share.result').replace('{season}', seasonLabel),
       $t('common.share.dyeList').replace('{dyes}', dyeNames),
       $t('common.share.hashtags'),
-      'https://4seasons.pl4rd.com/',
+      shareUrl,
     ].join('\n');
 
     const blob = await generateShareImage(diagnosisResult.recommendedDyes);
     await shareResult(text, blob);
   } finally {
     isSharing = false;
+  }
+}
+
+async function handleSave() {
+  if (!diagnosisResult || isSaving) return;
+  isSaving = true;
+  try {
+    const shareUrl = `https://4seasons.pl4rd.com/share/${encodeShareData(diagnosisResult)}`;
+    await navigator.clipboard.writeText(shareUrl);
+    showCopiedToast = true;
+    setTimeout(() => {
+      showCopiedToast = false;
+    }, 3000);
+  } finally {
+    isSaving = false;
   }
 }
 
@@ -143,12 +162,6 @@ async function handleDiagnose() {
       <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
       <div class="flex gap-3">
         <button
-          class="rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
-          onclick={handleReset}
-        >
-          {$t('common.preview.retry')}
-        </button>
-        <button
           class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent disabled:opacity-50"
           onclick={handleShare}
           disabled={isSharing}
@@ -156,7 +169,20 @@ async function handleDiagnose() {
           <Share2 class="size-4" />
           {$t('common.share.button')}
         </button>
+        <button
+          class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent disabled:opacity-50"
+          onclick={handleSave}
+          disabled={isSaving}
+        >
+          <Bookmark class="size-4" />
+          {$t('common.share.save')}
+        </button>
       </div>
+      {#if showCopiedToast}
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-lg bg-foreground px-4 py-2 text-sm text-background shadow-lg transition-opacity">
+          {$t('common.share.copied')}
+        </div>
+      {/if}
     </div>
   {:else if phase === 'error'}
     {@const isWarning = !!errorTitle}

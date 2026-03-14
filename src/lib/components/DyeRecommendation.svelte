@@ -1,4 +1,5 @@
 <script lang="ts">
+import { PaintBucket } from '@lucide/svelte';
 import { Badge } from '$lib/components/ui/badge';
 import * as Card from '$lib/components/ui/card';
 import { t } from '$lib/translations';
@@ -55,11 +56,13 @@ function rgbToHex(r: number, g: number, b: number): string {
 
 <Card.Root>
   <Card.Header>
-    <Card.Title>{$t('common.recommendation.title')}</Card.Title>
+    <Card.Title class="flex items-center gap-2">
+      <PaintBucket class="size-5" />
+      {$t('common.recommendation.title')}
+    </Card.Title>
   </Card.Header>
   <Card.Content>
     {#if baseDyes.length > 0}
-      <h4 class="mb-3 text-sm font-medium text-muted-foreground">{$t('common.recommendation.baseColors')}</h4>
       <div class="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {#each baseDyes as matched}
           {@render dyeCard(matched)}

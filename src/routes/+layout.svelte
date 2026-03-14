@@ -27,7 +27,7 @@ let { children } = $props();
     <div class="container mx-auto flex items-center h-14 px-4">
       <div class="flex-1">
         <h1 class="text-xl font-bold">
-          <a href="/" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <a href="/" data-sveltekit-reload class="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <LayoutGrid class="size-5" />
             {$t('common.title')}
             <span class="text-sm font-normal opacity-75">{$t('common.subtitle')}</span>

@@ -60,6 +60,10 @@
   },
   "share": {
     "button": "シェア",
+    "save": "保存",
+    "copied": "URLをコピーしました",
+    "invalidLink": "この共有リンクは無効です",
+    "tryYourself": "自分も診断してみる",
     "result": "わたしのパーソナルカラーは【{season}】でした！",
     "dyeList": "似合うカララント: {dyes}",
     "hashtags": "#WoL_4seasons #FF14 #FFXIV"

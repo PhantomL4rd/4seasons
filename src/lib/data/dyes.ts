@@ -1,5 +1,5 @@
 import type { Dye, DyesData } from '$lib/types';
-import dyesJson from '../../../static/data/dyes.json';
+import dyesJson from './dyes.json';
 
 const data = dyesJson as DyesData;
 

@@ -60,6 +60,10 @@
   },
   "share": {
     "button": "Share",
+    "save": "Save",
+    "copied": "URL copied to clipboard",
+    "invalidLink": "This share link is invalid",
+    "tryYourself": "Try it yourself",
     "result": "My personal color is {season}!",
     "dyeList": "Recommended dyes: {dyes}",
     "hashtags": "#WoL_4seasons #FF14 #FFXIV"
