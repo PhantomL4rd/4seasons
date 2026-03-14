@@ -57,7 +57,7 @@ async function handleShare() {
   isSharing = true;
   try {
     const seasonLabel = $t(`common.season.${diagnosisResult.result.season}`);
-    const dyeNames = diagnosisResult.recommendedDyes.map(getDyeName).join('、');
+    const dyeNames = diagnosisResult.recommendedDyes.slice(0, 3).map(getDyeName).join('、');
     const text = [
       $t('common.share.result').replace('{season}', seasonLabel),
       $t('common.share.dyeList').replace('{dyes}', dyeNames),

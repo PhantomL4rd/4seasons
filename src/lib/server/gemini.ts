@@ -43,7 +43,7 @@ Analyze this game character screenshot and determine their personal color season
 - isRealHuman: whether the image is a real human photograph
 - characterCount: number of characters detected in the screenshot
 - result: season, confidence (0-1)
-- palette: base (6 hex colors for main glamour), accent (3 hex colors for highlights)
+- palette: base (6 hex colors for main glamour)
 - colorsToAvoid: 3 hex color values that don't suit this character`;
 }
 
@@ -65,9 +65,8 @@ const responseSchema = {
       type: 'OBJECT',
       properties: {
         base: { type: 'ARRAY', items: { type: 'STRING' } },
-        accent: { type: 'ARRAY', items: { type: 'STRING' } },
       },
-      required: ['base', 'accent'],
+      required: ['base'],
     },
     colorsToAvoid: { type: 'ARRAY', items: { type: 'STRING' } },
   },

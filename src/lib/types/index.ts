@@ -38,7 +38,6 @@ export interface SeasonResult {
 
 export interface ColorPalette {
   base: string[];
-  accent: string[];
 }
 
 /** Gemini APIから返される構造化レスポンス */
@@ -51,17 +50,11 @@ export interface GeminiDiagnosisResponse {
   colorsToAvoid: string[];
 }
 
-export interface NearestDye {
-  dye: Dye;
-  deltaE: number;
-}
-
 export interface MatchedDye {
   dye: Dye;
   hex: string;
   deltaE: number;
-  role: 'base' | 'accent' | 'avoid';
-  nearestDye: NearestDye | null;
+  role: 'base' | 'avoid';
 }
 
 /** フロントエンド向けレスポンス */

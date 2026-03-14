@@ -12,7 +12,6 @@ interface Props {
 let { dyes: matchedDyes, dyesToAvoid = [] }: Props = $props();
 
 let baseDyes = $derived(matchedDyes.filter((d) => d.role === 'base'));
-let accentDyes = $derived(matchedDyes.filter((d) => d.role === 'accent'));
 
 function getDyeName(dye: MatchedDye): string {
   const translated = $t(`dye.names.${dye.dye.id}`);
@@ -63,15 +62,6 @@ function rgbToHex(r: number, g: number, b: number): string {
       <h4 class="mb-3 text-sm font-medium text-muted-foreground">{$t('common.recommendation.baseColors')}</h4>
       <div class="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {#each baseDyes as matched}
-          {@render dyeCard(matched)}
-        {/each}
-      </div>
-    {/if}
-
-    {#if accentDyes.length > 0}
-      <h4 class="mb-3 text-sm font-medium text-muted-foreground">{$t('common.recommendation.accentColors')}</h4>
-      <div class="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {#each accentDyes as matched}
           {@render dyeCard(matched)}
         {/each}
       </div>

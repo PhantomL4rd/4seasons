@@ -56,7 +56,6 @@
   "recommendation": {
     "title": "Recommended Dyes",
     "baseColors": "Base Colors",
-    "accentColors": "Accent Colors",
     "colorsToAvoid": "Colors to Avoid"
   },
   "share": {

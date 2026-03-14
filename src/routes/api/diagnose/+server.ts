@@ -66,7 +66,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
       return json({ error: 'multipleCharacters' }, { status: 422 });
     }
 
-    let recommendedDyes = matchDyes(geminiResult.palette.base, geminiResult.palette.accent);
+    let recommendedDyes = matchDyes(geminiResult.palette.base);
 
     // マッチング結果が少なすぎる場合はフォールバック
     if (recommendedDyes.length < 3) {
