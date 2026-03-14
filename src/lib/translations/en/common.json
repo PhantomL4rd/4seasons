@@ -22,6 +22,7 @@
     "analysisFailed": "Analysis failed. Please try again",
     "rateLimitExceeded": "Looks like we've had a lot of fun today. See you tomorrow!",
     "oops": "Oops!",
+    "noFaceDetected": "Please upload a screenshot showing your character's face!",
     "multipleCharacters": "Please upload a screenshot with just one character!",
     "realHumanDetected": "Please upload a screenshot of your game character!",
     "networkError": "A network error occurred",

@@ -44,6 +44,7 @@ export interface ColorPalette {
 /** Gemini APIから返される構造化レスポンス */
 export interface GeminiDiagnosisResponse {
   characterCount: number;
+  isFaceVisible: boolean;
   isRealHuman: boolean;
   result: SeasonResult;
   palette: ColorPalette;

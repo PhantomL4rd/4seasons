@@ -54,6 +54,10 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   try {
     const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType);
 
+    if (!geminiResult.isFaceVisible) {
+      return json({ error: 'noFaceDetected' }, { status: 422 });
+    }
+
     if (geminiResult.isRealHuman) {
       return json({ error: 'realHumanDetected' }, { status: 422 });
     }

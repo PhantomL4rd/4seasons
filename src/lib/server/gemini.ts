@@ -23,6 +23,10 @@ function buildPrompt(): string {
 Analyze this game character screenshot and determine their personal color season.
 
 ## Rules
+- Determine if a character's face is visible in the image. Set isFaceVisible accordingly.
+  - true: A character's face (or head) is clearly visible. This includes humanoid faces, beast-race faces (animal-like, dragon-like, lion-like, etc.), and any fantasy race faces.
+  - false: No face/head is visible — e.g. a landscape, item, food, back-of-head only, or a screenshot where the character's face is not shown.
+- If isFaceVisible is false, set season to "spring", confidence to 0, characterCount to 0, isRealHuman to false, and return empty palette/colorsToAvoid.
 - First, determine if the image is a real human photograph. Set isRealHuman accordingly.
   - true: A photograph of a real, living person. Natural skin texture, photographic lighting, real-world backgrounds.
   - false: Illustrations, anime, manga, 3D CG renders, game screenshots, digital art, or any non-photographic depiction, even if highly realistic.
@@ -35,6 +39,7 @@ Analyze this game character screenshot and determine their personal color season
 - Winter: Cool + Vivid/High-contrast
 
 ## Output
+- isFaceVisible: whether a character's face/head is visible in the image
 - isRealHuman: whether the image is a real human photograph
 - characterCount: number of characters detected in the screenshot
 - result: season, confidence (0-1)
@@ -45,6 +50,7 @@ Analyze this game character screenshot and determine their personal color season
 const responseSchema = {
   type: 'OBJECT',
   properties: {
+    isFaceVisible: { type: 'BOOLEAN' },
     isRealHuman: { type: 'BOOLEAN' },
     characterCount: { type: 'INTEGER' },
     result: {
@@ -65,7 +71,14 @@ const responseSchema = {
     },
     colorsToAvoid: { type: 'ARRAY', items: { type: 'STRING' } },
   },
-  required: ['isRealHuman', 'characterCount', 'result', 'palette', 'colorsToAvoid'],
+  required: [
+    'isFaceVisible',
+    'isRealHuman',
+    'characterCount',
+    'result',
+    'palette',
+    'colorsToAvoid',
+  ],
 };
 
 export async function diagnoseWithGemini(

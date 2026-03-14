@@ -22,6 +22,7 @@
     "analysisFailed": "分析に失敗しました。もう一度お試しください",
     "rateLimitExceeded": "今日はいっぱい遊んでもらったみたいです。また明日！",
     "oops": "おや？",
+    "noFaceDetected": "キャラクターのお顔が写ったスクリーンショットをアップロードしましょう！",
     "multipleCharacters": "1人だけ写っているスクリーンショットをアップロードしましょう！",
     "realHumanDetected": "ゲームキャラクターのスクリーンショットをアップロードしましょう！",
     "networkError": "ネットワークエラーが発生しました",

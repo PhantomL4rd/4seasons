@@ -18,7 +18,12 @@ let errorMessage: string = $state('');
 let diagnosisResult: DiagnosisResponse | null = $state(null);
 let isSharing = $state(false);
 
-const TITLED_ERRORS = new Set(['realHumanDetected', 'multipleCharacters', 'rateLimitExceeded']);
+const TITLED_ERRORS = new Set([
+  'noFaceDetected',
+  'realHumanDetected',
+  'multipleCharacters',
+  'rateLimitExceeded',
+]);
 
 function handleFileSelect(file: File) {
   selectedFile = file;
@@ -91,7 +96,8 @@ async function handleDiagnose() {
 
     if (response.status === 422) {
       const body = (await response.json()) as { error?: string };
-      handleError(body.error === 'realHumanDetected' ? 'realHumanDetected' : 'multipleCharacters');
+      const errorKey = body.error ?? 'analysisFailed';
+      handleError(errorKey);
       return;
     }
 
