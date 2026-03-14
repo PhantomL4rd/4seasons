@@ -23,9 +23,9 @@ function buildPrompt(): string {
 Analyze this game character screenshot and determine their personal color season.
 
 ## Rules
-- Determine if a character's face is visible in the image. Set isFaceVisible accordingly.
-  - true: A character's face (or head) is clearly visible. This includes humanoid faces, beast-race faces (animal-like, dragon-like, lion-like, etc.), and any fantasy race faces.
-  - false: No face/head is visible — e.g. a landscape, item, food, back-of-head only, or a screenshot where the character's face is not shown.
+- Determine if the character's eyes, hair, and skin (or scales/fur for beast races) are ALL visible in the image. Set isFaceVisible accordingly.
+  - true: All three — eyes, hair, and skin/scales/fur — are clearly visible. This includes beast races (animal-like, dragon-like, lion-like faces).
+  - false: Any of the three is hidden or not visible — e.g. full-face helmets, masks covering the eyes, hoods hiding the hair, back-of-head only, landscapes, items, or screenshots without a character.
 - If isFaceVisible is false, set season to "spring", confidence to 0, characterCount to 0, isRealHuman to false, and return empty palette/colorsToAvoid.
 - First, determine if the image is a real human photograph. Set isRealHuman accordingly.
   - true: A photograph of a real, living person. Natural skin texture, photographic lighting, real-world backgrounds.
