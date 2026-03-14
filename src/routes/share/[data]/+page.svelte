@@ -1,6 +1,7 @@
 <script lang="ts">
 import { Share2 } from '@lucide/svelte';
 import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
+import LoadingState from '$lib/components/LoadingState.svelte';
 import SeasonBadge from '$lib/components/SeasonBadge.svelte';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse } from '$lib/types';
@@ -10,7 +11,7 @@ import { decodeShareData, restoreDiagnosis } from '$lib/utils/share-url';
 let { data } = $props();
 
 let diagnosis: DiagnosisResponse | null = $state(null);
-let isValid = $state(false);
+let isLoading = $state(true);
 let isSharing = $state(false);
 
 $effect(() => {
@@ -19,11 +20,11 @@ $effect(() => {
     const restored = restoreDiagnosis(shareData);
     if (restored) {
       diagnosis = restored;
-      isValid = true;
+      isLoading = false;
       return;
     }
   }
-  isValid = false;
+  isLoading = false;
 });
 
 async function handleShare() {
@@ -47,7 +48,9 @@ async function handleShare() {
 		<p class="text-muted-foreground">{$t('common.description')}</p>
 	</div>
 
-	{#if isValid && diagnosis}
+	{#if isLoading}
+		<LoadingState />
+	{:else if diagnosis}
 		<div class="flex w-full flex-col items-center gap-6">
 			<SeasonBadge season={diagnosis.result.season} confidence={diagnosis.result.confidence} />
 			<DyeRecommendation dyes={diagnosis.recommendedDyes} dyesToAvoid={diagnosis.dyesToAvoid} />
