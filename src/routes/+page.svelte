@@ -8,8 +8,8 @@ import UploadArea from '$lib/components/UploadArea.svelte';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
-import { generateShareImage, shareResult } from '$lib/utils/share';
-import { encodeShareData } from '$lib/utils/share-url';
+import { shareDiagnosis } from '$lib/utils/share';
+import { getShareUrl } from '$lib/utils/share-url';
 
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);
@@ -50,27 +50,11 @@ function handleReset() {
   phase = 'upload';
 }
 
-function getDyeName(dye: import('$lib/types').MatchedDye): string {
-  const translated = $t(`dye.names.${dye.dye.id}`);
-  return translated.startsWith('dye.names.') ? dye.dye.name : translated;
-}
-
 async function handleShare() {
   if (!diagnosisResult || isSharing) return;
   isSharing = true;
   try {
-    const seasonLabel = $t(`common.season.${diagnosisResult.result.season}`);
-    const dyeNames = diagnosisResult.recommendedDyes.slice(0, 3).map(getDyeName).join('、');
-    const shareUrl = `https://4seasons.pl4rd.com/share/${encodeShareData(diagnosisResult)}`;
-    const text = [
-      $t('common.share.result').replace('{season}', seasonLabel),
-      $t('common.share.dyeList').replace('{dyes}', dyeNames),
-      $t('common.share.hashtags'),
-      shareUrl,
-    ].join('\n');
-
-    const blob = await generateShareImage(diagnosisResult.recommendedDyes);
-    await shareResult(text, blob);
+    await shareDiagnosis(diagnosisResult, $t);
   } finally {
     isSharing = false;
   }
@@ -80,7 +64,7 @@ async function handleSave() {
   if (!diagnosisResult || isSaving) return;
   isSaving = true;
   try {
-    const shareUrl = `https://4seasons.pl4rd.com/share/${encodeShareData(diagnosisResult)}`;
+    const shareUrl = getShareUrl(diagnosisResult);
     await navigator.clipboard.writeText(shareUrl);
     showCopiedToast = true;
     setTimeout(() => {

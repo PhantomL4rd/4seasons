@@ -4,8 +4,8 @@ import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
 import SeasonBadge from '$lib/components/SeasonBadge.svelte';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse } from '$lib/types';
-import { generateShareImage, shareResult } from '$lib/utils/share';
-import { decodeShareData, encodeShareData, restoreDiagnosis } from '$lib/utils/share-url';
+import { shareDiagnosis } from '$lib/utils/share';
+import { decodeShareData, restoreDiagnosis } from '$lib/utils/share-url';
 
 let { data } = $props();
 
@@ -26,27 +26,11 @@ $effect(() => {
   isValid = false;
 });
 
-function getDyeName(dye: import('$lib/types').MatchedDye): string {
-  const translated = $t(`dye.names.${dye.dye.id}`);
-  return translated.startsWith('dye.names.') ? dye.dye.name : translated;
-}
-
 async function handleShare() {
   if (!diagnosis || isSharing) return;
   isSharing = true;
   try {
-    const seasonLabel = $t(`common.season.${diagnosis.result.season}`);
-    const dyeNames = diagnosis.recommendedDyes.slice(0, 3).map(getDyeName).join('\u3001');
-    const shareUrl = `https://4seasons.pl4rd.com/share/${encodeShareData(diagnosis)}`;
-    const text = [
-      $t('common.share.result').replace('{season}', seasonLabel),
-      $t('common.share.dyeList').replace('{dyes}', dyeNames),
-      $t('common.share.hashtags'),
-      shareUrl,
-    ].join('\n');
-
-    const blob = await generateShareImage(diagnosis.recommendedDyes);
-    await shareResult(text, blob);
+    await shareDiagnosis(diagnosis, $t);
   } finally {
     isSharing = false;
   }

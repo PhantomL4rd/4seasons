@@ -14,6 +14,12 @@ const MAX_COMPRESSED_LENGTH = 2048;
 const MAX_JSON_LENGTH = 5000;
 const MAX_ID_LENGTH = 20;
 
+const SHARE_BASE_URL = 'https://4seasons.pl4rd.com/share';
+
+export function getShareUrl(result: DiagnosisResponse): string {
+  return `${SHARE_BASE_URL}/${encodeShareData(result)}`;
+}
+
 export function encodeShareData(result: DiagnosisResponse): string {
   const data: ShareData = {
     s: result.result.season,

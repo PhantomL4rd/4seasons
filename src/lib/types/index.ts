@@ -1,3 +1,5 @@
+export type TranslateFn = (key: string) => string;
+
 export type Season = 'spring' | 'summer' | 'autumn' | 'winter';
 
 export type Phase = 'upload' | 'preview' | 'loading' | 'result' | 'error';

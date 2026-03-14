@@ -1,4 +1,6 @@
-import type { MatchedDye } from '$lib/types';
+import type { DiagnosisResponse, MatchedDye, TranslateFn } from '$lib/types';
+import { getDyeName } from '$lib/utils/dye';
+import { getShareUrl } from '$lib/utils/share-url';
 
 const CANVAS_SIZE = 400;
 
@@ -41,6 +43,24 @@ export async function generateShareImage(recommendedDyes: MatchedDye[]): Promise
   ctx.fillText('4seasons', CANVAS_SIZE / 2, CANVAS_SIZE - 12);
 
   return canvasToBlob(canvas);
+}
+
+export async function shareDiagnosis(diagnosis: DiagnosisResponse, t: TranslateFn): Promise<void> {
+  const seasonLabel = t(`common.season.${diagnosis.result.season}`);
+  const dyeNames = diagnosis.recommendedDyes
+    .slice(0, 3)
+    .map((d) => getDyeName(d, t))
+    .join('、');
+  const shareUrl = getShareUrl(diagnosis);
+  const text = [
+    t('common.share.result').replace('{season}', seasonLabel),
+    t('common.share.dyeList').replace('{dyes}', dyeNames),
+    t('common.share.hashtags'),
+    shareUrl,
+  ].join('\n');
+
+  const blob = await generateShareImage(diagnosis.recommendedDyes);
+  await shareResult(text, blob);
 }
 
 export async function shareResult(text: string, imageBlob: Blob): Promise<void> {

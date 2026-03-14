@@ -1,14 +1,4 @@
 {
-  "categories": {
-    "white": "白系",
-    "red": "赤系",
-    "brown": "茶系",
-    "yellow": "黄系",
-    "green": "緑系",
-    "blue": "青系",
-    "purple": "紫系",
-    "rare": "レア系"
-  },
   "names": {
     "dye_002": "スノウホワイト",
     "dye_003": "アッシュグレイ",

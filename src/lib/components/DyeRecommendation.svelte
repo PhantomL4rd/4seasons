@@ -1,9 +1,9 @@
 <script lang="ts">
 import { PaintBucket } from '@lucide/svelte';
-import { Badge } from '$lib/components/ui/badge';
 import * as Card from '$lib/components/ui/card';
 import { t } from '$lib/translations';
 import type { MatchedDye } from '$lib/types';
+import { getDyeName } from '$lib/utils/dye';
 
 interface Props {
   dyes: MatchedDye[];
@@ -13,16 +13,6 @@ interface Props {
 let { dyes: matchedDyes, dyesToAvoid = [] }: Props = $props();
 
 let baseDyes = $derived(matchedDyes.filter((d) => d.role === 'base'));
-
-function getDyeName(dye: MatchedDye): string {
-  const translated = $t(`dye.names.${dye.dye.id}`);
-  return translated.startsWith('dye.names.') ? dye.dye.name : translated;
-}
-
-function getCategoryName(category: string): string {
-  const translated = $t(`dye.categories.${category}`);
-  return translated.startsWith('dye.categories.') ? category : translated;
-}
 
 function rgbToHex(r: number, g: number, b: number): string {
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
@@ -43,8 +33,7 @@ function rgbToHex(r: number, g: number, b: number): string {
       ></div>
     </div>
     <div class="min-w-0 flex-1">
-      <p class="truncate text-sm font-medium">{getDyeName(matched)}</p>
-      <Badge variant="outline" class="mt-1 text-xs">{getCategoryName(matched.dye.category)}</Badge>
+      <p class="truncate text-sm font-medium">{getDyeName(matched, $t)}</p>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0 text-muted-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -80,8 +69,7 @@ function rgbToHex(r: number, g: number, b: number): string {
               style="background-color: {rgbToHex(matched.dye.rgb.r, matched.dye.rgb.g, matched.dye.rgb.b)}"
             ></div>
             <div class="min-w-0 flex-1">
-              <p class="truncate text-sm font-medium">{getDyeName(matched)}</p>
-              <Badge variant="outline" class="mt-1 text-xs">{getCategoryName(matched.dye.category)}</Badge>
+              <p class="truncate text-sm font-medium">{getDyeName(matched, $t)}</p>
             </div>
           </div>
         {/each}
