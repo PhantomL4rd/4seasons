@@ -90,6 +90,9 @@ export async function diagnoseWithGemini(
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema,
+      thinkingConfig: {
+        thinkingBudget: 0,
+      },
     },
   };
 
