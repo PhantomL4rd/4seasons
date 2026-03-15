@@ -18,33 +18,19 @@ const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 function buildPrompt(): string {
-  return `You are a personal color analyst for game characters.
+  return `Personal color analyst for game characters. Analyze the screenshot and determine the character's color season.
 
-Analyze this game character screenshot and determine their personal color season.
+# Validation (check in order, return defaults on fail)
+Defaults: season="spring", characterCount=0, empty palette/colorsToAvoid.
+1. isFaceVisible: Are eyes, hair, AND skin/scales/fur ALL visible? Includes beast races. false if any is hidden (helmets, masks, hoods, back-of-head, no character). false → defaults.
+2. isRealHuman: Real photograph? (not CG/illustration/game screenshot) true → defaults.
+3. characterCount: Number of characters. >=2 → defaults.
 
-## Rules
-- Determine if the character's eyes, hair, and skin (or scales/fur for beast races) are ALL visible in the image. Set isFaceVisible accordingly.
-  - true: All three — eyes, hair, and skin/scales/fur — are clearly visible. This includes beast races (animal-like, dragon-like, lion-like faces).
-  - false: Any of the three is hidden or not visible — e.g. full-face helmets, masks covering the eyes, hoods hiding the hair, back-of-head only, landscapes, items, or screenshots without a character.
-- If isFaceVisible is false, set season to "spring", confidence to 0, characterCount to 0, isRealHuman to false, and return empty palette/colorsToAvoid.
-- First, determine if the image is a real human photograph. Set isRealHuman accordingly.
-  - true: A photograph of a real, living person. Natural skin texture, photographic lighting, real-world backgrounds.
-  - false: Illustrations, anime, manga, 3D CG renders, game screenshots, digital art, or any non-photographic depiction, even if highly realistic.
-- If isRealHuman is true, set season to "spring", confidence to 0, characterCount to 0, and return empty palette/colorsToAvoid.
-- Count how many characters are visible in the screenshot. Set characterCount to the number.
-- If characterCount >= 2, set season to "spring", confidence to 0, and return empty palette/colorsToAvoid.
-- Spring: Warm + Bright/Clear
-- Summer: Cool + Muted/Soft
-- Autumn: Warm + Deep/Rich
-- Winter: Cool + Vivid/High-contrast
+# Seasons (by skin undertone, hair color, eye color)
+Spring=Warm+Bright, Summer=Cool+Muted, Autumn=Warm+Deep, Winter=Cool+Vivid
 
-## Output
-- isFaceVisible: whether a character's face/head is visible in the image
-- isRealHuman: whether the image is a real human photograph
-- characterCount: number of characters detected in the screenshot
-- result: season, confidence (0-1)
-- palette: base (6 hex colors for main glamour)
-- colorsToAvoid: 3 hex color values that don't suit this character`;
+# Output
+palette.base: 6 hex colors. colorsToAvoid: 3 hex colors.`;
 }
 
 const responseSchema = {
@@ -57,9 +43,8 @@ const responseSchema = {
       type: 'OBJECT',
       properties: {
         season: { type: 'STRING', enum: ['spring', 'summer', 'autumn', 'winter'] },
-        confidence: { type: 'NUMBER' },
       },
-      required: ['season', 'confidence'],
+      required: ['season'],
     },
     palette: {
       type: 'OBJECT',

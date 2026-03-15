@@ -1,4 +1,4 @@
-const MAX_DIMENSION = 1024;
+const MAX_DIMENSION = 512;
 const JPEG_QUALITY = 0.8;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png'];
 

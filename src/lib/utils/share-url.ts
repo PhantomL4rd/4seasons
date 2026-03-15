@@ -4,7 +4,6 @@ import type { DiagnosisResponse, MatchedDye, Season } from '$lib/types';
 
 interface ShareData {
   s: Season;
-  c: number;
   r: string[];
   a: string[];
 }
@@ -23,7 +22,6 @@ export function getShareUrl(result: DiagnosisResponse): string {
 export function encodeShareData(result: DiagnosisResponse): string {
   const data: ShareData = {
     s: result.result.season,
-    c: Math.round(result.result.confidence),
     r: result.recommendedDyes.map((d) => d.dye.id),
     a: result.dyesToAvoid.map((d) => d.dye.id),
   };
@@ -40,7 +38,6 @@ export function decodeShareData(compressed: string): ShareData | null {
     const data = JSON.parse(json) as ShareData;
 
     if (!VALID_SEASONS.includes(data.s)) return null;
-    if (typeof data.c !== 'number' || data.c < 0 || data.c > 100) return null;
     if (!Array.isArray(data.r) || !Array.isArray(data.a)) return null;
     if ([...data.r, ...data.a].some((id) => typeof id !== 'string' || id.length > MAX_ID_LENGTH))
       return null;
@@ -72,7 +69,7 @@ export function restoreDiagnosis(shareData: ShareData): DiagnosisResponse | null
   if (recommendedDyes.length === 0) return null;
 
   return {
-    result: { season: shareData.s, confidence: shareData.c },
+    result: { season: shareData.s },
     recommendedDyes,
     dyesToAvoid,
   };

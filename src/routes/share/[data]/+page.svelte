@@ -52,7 +52,7 @@ async function handleShare() {
 		<LoadingState />
 	{:else if diagnosis}
 		<div class="flex w-full flex-col items-center gap-6">
-			<SeasonBadge season={diagnosis.result.season} confidence={diagnosis.result.confidence} />
+			<SeasonBadge season={diagnosis.result.season} />
 			<DyeRecommendation dyes={diagnosis.recommendedDyes} dyesToAvoid={diagnosis.dyesToAvoid} />
 			<div class="flex gap-3">
 				<a

@@ -141,7 +141,7 @@ async function handleDiagnose() {
     <LoadingState message={$t('common.loading.analyzing')} submessage={$t('common.loading.tip')} />
   {:else if phase === 'result' && diagnosisResult}
     <div class="flex w-full flex-col items-center gap-6">
-      <SeasonBadge season={diagnosisResult.result.season} confidence={diagnosisResult.result.confidence} />
+      <SeasonBadge season={diagnosisResult.result.season} />
 
       <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
       <div class="flex gap-3">

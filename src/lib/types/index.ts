@@ -35,7 +35,6 @@ export interface DyesData {
 
 export interface SeasonResult {
   season: Season;
-  confidence: number;
 }
 
 export interface ColorPalette {
