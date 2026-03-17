@@ -1,5 +1,6 @@
 <script lang="ts">
 import { Menu, MessageCircle, SwatchBook, TrendingUp, X } from '@lucide/svelte';
+import { Button } from '$lib/components/ui/button';
 import { t } from '$lib/translations';
 
 let isOpen = $state(false);
@@ -26,20 +27,14 @@ function handleBackdropClick() {
 <svelte:window onkeydown={handleKeydown} />
 
 <!-- Trigger Button -->
-<button
-	onclick={open}
-	class="p-2 rounded-md hover:bg-primary-foreground/10 transition-colors"
-	aria-label={$t('common.aria.openMenu')}
->
-	<Menu class="size-6" />
-</button>
+<Button variant="ghost" size="icon" onclick={open} aria-label={$t('common.aria.openMenu')}>
+	<Menu class="size-5" />
+</Button>
 
 <!-- Backdrop -->
 {#if isOpen}
 	<div
-		class="fixed inset-0 z-50 bg-black/50 transition-opacity duration-300"
-		class:opacity-100={isOpen}
-		class:opacity-0={!isOpen}
+		class="fixed inset-0 z-50 bg-black/50"
 		onclick={handleBackdropClick}
 		onkeydown={(e) => e.key === 'Enter' && handleBackdropClick()}
 		role="button"
@@ -50,9 +45,7 @@ function handleBackdropClick() {
 
 <!-- Drawer -->
 <div
-	class="fixed top-0 right-0 z-50 h-full w-64 bg-card text-card-foreground shadow-xl transition-transform duration-300 ease-out"
-	class:translate-x-0={isOpen}
-	class:translate-x-full={!isOpen}
+	class="fixed top-0 right-0 z-50 h-full w-64 bg-card text-card-foreground shadow-xl transition-transform duration-300 ease-out {isOpen ? 'translate-x-0' : 'translate-x-full'}"
 	role="dialog"
 	aria-modal="true"
 	aria-label={$t('common.aria.openMenu')}
@@ -110,13 +103,3 @@ function handleBackdropClick() {
 		</a>
 	</nav>
 </div>
-
-<style>
-	.translate-x-full {
-		transform: translateX(100%);
-	}
-
-	.translate-x-0 {
-		transform: translateX(0);
-	}
-</style>

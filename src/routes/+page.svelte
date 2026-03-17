@@ -5,6 +5,7 @@ import ImagePreview from '$lib/components/ImagePreview.svelte';
 import LoadingState from '$lib/components/LoadingState.svelte';
 import SeasonBadge from '$lib/components/SeasonBadge.svelte';
 import UploadArea from '$lib/components/UploadArea.svelte';
+import { Button } from '$lib/components/ui/button';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
@@ -124,7 +125,7 @@ async function handleDiagnose() {
 
 <div class="flex flex-col items-center gap-8">
   <div class="text-center">
-    <p class="text-muted-foreground">{$t('common.description')}</p>
+    <p class="text-pretty text-muted-foreground">{$t('common.description')}</p>
   </div>
 
   {#if phase === 'upload'}
@@ -145,22 +146,14 @@ async function handleDiagnose() {
 
       <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
       <div class="flex gap-3">
-        <button
-          class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent disabled:opacity-50"
-          onclick={handleShare}
-          disabled={isSharing}
-        >
+        <Button variant="outline" onclick={handleShare} disabled={isSharing}>
           <Share2 class="size-4" />
           {$t('common.share.button')}
-        </button>
-        <button
-          class="inline-flex items-center gap-2 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent disabled:opacity-50"
-          onclick={handleSave}
-          disabled={isSaving}
-        >
+        </Button>
+        <Button variant="outline" onclick={handleSave} disabled={isSaving}>
           <Bookmark class="size-4" />
           {$t('common.share.save')}
-        </button>
+        </Button>
       </div>
       {#if showCopiedToast}
         <div class="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-lg bg-foreground px-4 py-2 text-sm text-background shadow-lg transition-opacity">
@@ -179,12 +172,9 @@ async function handleDiagnose() {
         <p class="text-lg font-bold text-amber-600 dark:text-amber-400">{errorTitle}</p>
       {/if}
       <p class="{isWarning ? 'mt-2 text-amber-700 dark:text-amber-300' : 'text-destructive'}">{errorMessage}</p>
-      <button
-        class="mt-4 rounded-md border px-4 py-2 text-sm transition-colors hover:bg-accent"
-        onclick={handleReset}
-      >
+      <Button variant="outline" class="mt-4" onclick={handleReset}>
         {$t('common.error.tryAgain')}
-      </button>
+      </Button>
     </div>
   {/if}
 </div>

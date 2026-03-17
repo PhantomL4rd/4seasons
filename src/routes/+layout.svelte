@@ -48,7 +48,7 @@ let { children } = $props();
   </div>
 
   <footer class="py-4 text-center text-xs text-muted-foreground">
-    <p>{$t('common.footer.disclaimer')}</p>
+    <p class="text-pretty">{$t('common.footer.disclaimer')}</p>
     <p class="mt-1">{$t('common.footer.copyright')}</p>
   </footer>
 </div>

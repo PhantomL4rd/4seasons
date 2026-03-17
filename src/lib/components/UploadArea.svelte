@@ -68,7 +68,7 @@ function openFileDialog() {
     </svg>
   </div>
   <h2 class="mb-2 text-lg font-semibold">{$t('common.upload.title')}</h2>
-  <p class="mb-4 text-center text-sm text-muted-foreground">
+  <p class="mb-4 text-center text-sm text-pretty text-muted-foreground">
     {$t('common.upload.description')}
   </p>
   <Button variant="outline" onclick={(e: MouseEvent) => { e.stopPropagation(); openFileDialog(); }}>
