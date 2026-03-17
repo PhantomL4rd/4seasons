@@ -30,7 +30,7 @@ Defaults: season="spring", characterCount=0, empty palette/colorsToAvoid.
 Spring=Warm+Bright, Summer=Cool+Muted, Autumn=Warm+Deep, Winter=Cool+Vivid
 
 # Output
-palette.base: 6 hex colors. colorsToAvoid: 3 hex colors.`;
+palette.base: 6 hex colors with diverse hues (spread across different parts of the color wheel; avoid clustering similar hues). colorsToAvoid: 3 hex colors.`;
 }
 
 const responseSchema = {
