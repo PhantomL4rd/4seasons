@@ -1,6 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { dev } from '$app/environment';
-import { getFallbackDyes, matchAvoidDyes, matchDyes } from '$lib/server/dye-matcher';
+import { getFallbackDyes, resolveDyeIds } from '$lib/server/dye-matcher';
 import { diagnoseWithGemini } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
 import type { RequestHandler } from './$types';
@@ -66,16 +66,14 @@ export const POST: RequestHandler = async ({ request, platform }) => {
       return json({ error: 'multipleCharacters' }, { status: 422 });
     }
 
-    let recommendedDyes = matchDyes(geminiResult.palette.base);
+    let recommendedDyes = resolveDyeIds(geminiResult.recommendedDyeIds, 'base');
 
-    // マッチング結果が少なすぎる場合はフォールバック
+    // Geminiが返したIDが不正で結果が少ない場合はフォールバック
     if (recommendedDyes.length < 3) {
       recommendedDyes = getFallbackDyes(geminiResult.result.season);
     }
 
-    // 推奨カララントのIDを除外して苦手カララントをマッチング
-    const usedIds = new Set(recommendedDyes.map((d) => d.dye.id));
-    const dyesToAvoid = matchAvoidDyes(geminiResult.colorsToAvoid, usedIds);
+    const dyesToAvoid = resolveDyeIds(geminiResult.avoidDyeIds, 'avoid');
 
     return json(
       {

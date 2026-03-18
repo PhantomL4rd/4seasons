@@ -37,18 +37,16 @@ export interface SeasonResult {
   season: Season;
 }
 
-export interface ColorPalette {
-  base: string[];
-}
-
 /** Gemini APIから返される構造化レスポンス */
 export interface GeminiDiagnosisResponse {
   characterCount: number;
   isFaceVisible: boolean;
   isRealHuman: boolean;
   result: SeasonResult;
-  palette: ColorPalette;
-  colorsToAvoid: string[];
+  /** Geminiが直接選んだ推奨染料IDリスト */
+  recommendedDyeIds: string[];
+  /** Geminiが直接選んだ苦手染料IDリスト */
+  avoidDyeIds: string[];
 }
 
 export interface MatchedDye {

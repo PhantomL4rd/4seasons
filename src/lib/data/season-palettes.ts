@@ -23,7 +23,7 @@ export const seasonFallbackDyes: Record<Season, string[]> = {
     'dye_044', // ダークブルー
     'dye_003', // アッシュグレイ
     'dye_038', // ターコイズグリーン
-    'dye_046', // ラベンダーブルー
+    'dye_047', // バニライエロー
     'dye_008', // ローズピンク
     'dye_002', // スノウホワイト
   ],
@@ -41,7 +41,7 @@ export const seasonFallbackDyes: Record<Season, string[]> = {
   winter: [
     'dye_007', // スートブラック
     'dye_002', // スノウホワイト
-    'dye_017', // ルビーレッド
+    'dye_011', // ダラガブレッド
     'dye_015', // ブラッドレッド
     'dye_042', // ロイヤルブルー
     'dye_044', // ダークブルー

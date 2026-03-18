@@ -1,3 +1,4 @@
+import { dyes } from '$lib/data/dyes';
 import type { GeminiDiagnosisResponse } from '$lib/types';
 
 interface GeminiApiPart {
@@ -17,57 +18,57 @@ interface GeminiApiResponse {
 const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
+/** メタリック以外の全染料をコンパクトなカタログ形式で生成 */
+function buildDyeCatalog(): string {
+  return dyes
+    .filter((dye) => !dye.tags.includes('metallic') && !dye.tags.includes('vivid'))
+    .map((dye) => {
+      const hex =
+        `#${dye.rgb.r.toString(16).padStart(2, '0')}${dye.rgb.g.toString(16).padStart(2, '0')}${dye.rgb.b.toString(16).padStart(2, '0')}`.toUpperCase();
+      return `${dye.id}:${hex} [${dye.category}] ${dye.name}`;
+    })
+    .join('\n');
+}
+
 function buildPrompt(): string {
-  return `Personal color analyst for game characters. Analyze the screenshot and determine the character's color season.
+  const catalog = buildDyeCatalog();
+  return `Analyze game character screenshot for personal color season and select dyes from catalog.
 
-# Validation (check in order, return defaults on fail)
-Defaults: season="spring", characterCount=0, empty palette/colorsToAvoid.
-1. isFaceVisible: Are eyes, hair, AND skin/scales/fur ALL visible? Includes beast races. false if any is hidden (helmets, masks, hoods, back-of-head, no character). false → defaults.
-2. isRealHuman: Real photograph? (not CG/illustration/game screenshot) true → defaults.
-3. characterCount: Number of characters. >=2 → defaults.
+# Validation
+Check in order. On fail → defaults: season="spring", characterCount=0, empty recommendedDyeIds/avoidDyeIds.
+- isFaceVisible: false if eyes, hair, OR skin/fur hidden (helmets, masks, back of head). Includes non-human races.
+- isRealHuman: true if real photograph, not CG/game/illustration.
+- characterCount: >=2 → defaults.
 
-# Season Analysis (follow these steps strictly, using SKIN and EYES only — ignore hair color)
-Step 1 — Skin undertone (primary factor, ignore CG lighting/shadows):
-  Warm = yellow, golden, peach, or olive cast → Spring or Autumn
-  Cool = pink, rosy, blueish, or porcelain cast → Summer or Winter
+# Analysis
+From SKIN and EYES only (ignore hair color & CG lighting), determine:
+- undertone: Warm (yellow/peach/olive) vs Cool (pink/rosy/blueish)
+- contrast: High (skin/eyes differ in value) vs Low (similar value)
+- chroma: Clear (vivid/intense) vs Soft (muted/grayish)
 
-Step 2 — Value contrast (difference between skin and eyes):
-  High contrast (e.g. pale skin + vivid/dark eyes) → Spring or Winter
-  Low contrast (skin and eyes are close in lightness) → Summer or Autumn
+Set result.season (primary) and analysis.secondarySeason (second-best, must differ) using the matrix below.
+Primary season MUST be consistent with analysis (warm → spring/autumn, cool → summer/winter).
+Output "analysis" BEFORE "result".
 
-Step 3 — Chroma (color intensity of skin and eyes):
-  Clear/vivid features → Spring (warm) or Winter (cool)
-  Soft/muted features → Summer (cool) or Autumn (warm)
+Game notes: ignore CG lighting/shadows for undertone. Hair may inspire dye choices but not season.
 
-Season matrix (analysis fields → season):
-  Warm + High contrast + Clear → Spring (bright, lively, warm colors)
-  Cool + Low contrast + Soft → Summer (muted, elegant, cool colors)
-  Warm + Low contrast + Soft → Autumn (deep, rich, earthy colors)
-  Cool + High contrast + Clear → Winter (vivid, bold, icy colors)
+Season matrix & dye selection guide:
+| Season | Undertone | Contrast | Chroma | Recommend profile | Avoid profile |
+| Spring | Warm | High | Clear | warm, light-medium, saturated, clean, fresh | cool, dusty/muted, very dark |
+| Summer | Cool | Low | Soft | cool, light-medium, low-saturation, powdery | warm, high-chroma, harsh contrast |
+| Autumn | Warm | Low | Soft | warm, medium-deep, mid-saturation, earthy, rich | icy-cool, pastel, neon, stark contrast |
+| Winter | Cool | High | Clear | cool, deep/icy, high-saturation, sharp, dramatic | muddy, earthy-warm, soft/dull |
 
-Determine TWO seasons:
-- Primary season (result.season): the best match from the matrix above.
-- Secondary season (analysis.secondarySeason): the second-best fit. Must differ from primary.
-
-IMPORTANT: Output "analysis" (undertone, contrast, chroma, secondarySeason) BEFORE "result". The primary season MUST be consistent with your analysis. If undertone=warm, season must be spring or autumn.
-
-Game character notes:
-- Do NOT let CG rendering or scene lighting bias your undertone analysis. Focus on the character's inherent skin and eye colors.
-- Hair color should NOT influence season analysis, but may still inspire palette choices.
+# Dye Catalog (id:hex [category] name)
+${catalog}
 
 # Output
-palette.base: 6 hex colors that flatter this character.
-Colors 1-4 reflect the PRIMARY season. Colors 5-6 bridge toward the SECONDARY season.
+recommendedDyeIds: 6 dye IDs, visually distinct (vary hue, lightness, saturation). Judge by hex, not name.
+- Max 1 dye per [category]. Never pick 2+ dyes from the same category.
+- 1-4: match primary season's Recommend profile.
+- 5-6: bridge toward secondary season's Recommend profile.
 
-Season color directions:
-  Spring: warm, clear, bright (coral, peach, warm green, golden yellow)
-  Summer: cool, soft, muted (lavender, dusty rose, sage, powder blue)
-  Autumn: warm, deep, rich (terracotta, olive, burgundy, mustard)
-  Winter: cool, clear (royal blue, emerald, fuchsia, icy pink, icy lavender)
-
-Palette quality rules:
-- All 6 colors must be distinctly different hues.
-colorsToAvoid: 3 hex colors.`;
+avoidDyeIds: 3 dye IDs matching primary season's Avoid profile. No overlap with recommendedDyeIds.`;
 }
 
 const responseSchema = {
@@ -98,14 +99,16 @@ const responseSchema = {
       },
       required: ['season'],
     },
-    palette: {
-      type: 'OBJECT',
-      properties: {
-        base: { type: 'ARRAY', items: { type: 'STRING' } },
-      },
-      required: ['base'],
+    recommendedDyeIds: {
+      type: 'ARRAY',
+      description: '6 dye IDs from the catalog that flatter this character',
+      items: { type: 'STRING' },
     },
-    colorsToAvoid: { type: 'ARRAY', items: { type: 'STRING' } },
+    avoidDyeIds: {
+      type: 'ARRAY',
+      description: '3 dye IDs that clash with this character',
+      items: { type: 'STRING' },
+    },
   },
   required: [
     'isFaceVisible',
@@ -113,8 +116,8 @@ const responseSchema = {
     'characterCount',
     'analysis',
     'result',
-    'palette',
-    'colorsToAvoid',
+    'recommendedDyeIds',
+    'avoidDyeIds',
   ],
 };
 
@@ -143,7 +146,10 @@ export async function diagnoseWithGemini(
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema,
-      temperature: 0.25,
+      temperature: 0.1,
+      thinkingConfig: {
+        thinkingBudget: 0,
+      },
     },
   };
 
