@@ -4,7 +4,7 @@ import type { Dye, MatchedDye, Season } from '$lib/types';
 
 const dyeMap = new Map<string, Dye>(dyes.map((d) => [d.id, d]));
 
-function dyeToHex(dye: Dye): string {
+export function dyeToHex(dye: Dye): string {
   const { r, g, b } = dye.rgb;
   return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
 }

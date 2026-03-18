@@ -1,5 +1,6 @@
 import { dyes } from '$lib/data/dyes';
 import type { GeminiDiagnosisResponse } from '$lib/types';
+import { dyeToHex } from './dye-matcher';
 
 interface GeminiApiPart {
   text?: string;
@@ -23,9 +24,7 @@ function buildDyeCatalog(): string {
   return dyes
     .filter((dye) => !dye.tags.includes('metallic') && !dye.tags.includes('vivid'))
     .map((dye) => {
-      const hex =
-        `#${dye.rgb.r.toString(16).padStart(2, '0')}${dye.rgb.g.toString(16).padStart(2, '0')}${dye.rgb.b.toString(16).padStart(2, '0')}`.toUpperCase();
-      return `${dye.id}:${hex} [${dye.category}] ${dye.name}`;
+      return `${dye.id}:${dyeToHex(dye)} [${dye.category}] ${dye.name}`;
     })
     .join('\n');
 }
