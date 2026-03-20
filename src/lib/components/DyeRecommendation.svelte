@@ -36,6 +36,8 @@ let baseDyes = $derived(matchedDyes.filter((d) => d.role === 'base'));
 
     <a
       href="/seasons/{season}"
+      target="_blank"
+      rel="noopener noreferrer"
       class="mb-6 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
     >
       {$t('common.season.youMightAlsoLike')}
