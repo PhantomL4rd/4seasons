@@ -32,7 +32,22 @@
     "spring": "春",
     "summer": "夏",
     "autumn": "秋",
-    "winter": "冬"
+    "winter": "冬",
+    "youMightAlsoLike": "こんなカララントもいいかも？",
+    "catalog": {
+      "title": "{{season}}のカララント",
+      "description": "{{season}}タイプに似合うカララント一覧",
+      "category": {
+        "white": "ホワイト系",
+        "red": "レッド系",
+        "brown": "ブラウン系",
+        "yellow": "イエロー系",
+        "green": "グリーン系",
+        "blue": "ブルー系",
+        "purple": "パープル系",
+        "rare": "レア"
+      }
+    }
   },
   "footer": {
     "disclaimer": "本ツールはスクリーンショットを使用してAIによる診断を行います",

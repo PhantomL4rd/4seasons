@@ -144,7 +144,7 @@ async function handleDiagnose() {
     <div class="flex w-full flex-col items-center gap-6">
       <SeasonBadge season={diagnosisResult.result.season} />
 
-      <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} />
+      <DyeRecommendation dyes={diagnosisResult.recommendedDyes} dyesToAvoid={diagnosisResult.dyesToAvoid} season={diagnosisResult.result.season} />
       <div class="flex gap-3">
         <Button variant="outline" onclick={handleShare} disabled={isSharing}>
           <Share2 class="size-4" />

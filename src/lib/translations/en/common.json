@@ -32,7 +32,22 @@
     "spring": "Spring",
     "summer": "Summer",
     "autumn": "Autumn",
-    "winter": "Winter"
+    "winter": "Winter",
+    "youMightAlsoLike": "You might also like",
+    "catalog": {
+      "title": "{{season}} Colorants",
+      "description": "Colorants that suit {{season}} type",
+      "category": {
+        "white": "White",
+        "red": "Red",
+        "brown": "Brown",
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "purple": "Purple",
+        "rare": "Rare"
+      }
+    }
   },
   "footer": {
     "disclaimer": "This tool uses AI to analyze screenshots for personal color diagnosis",

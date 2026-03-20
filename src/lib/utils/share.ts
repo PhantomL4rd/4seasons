@@ -1,12 +1,9 @@
 import type { DiagnosisResponse, MatchedDye, TranslateFn } from '$lib/types';
+import { rgbToHex } from '$lib/utils/color';
 import { getDyeName } from '$lib/utils/dye';
 import { getShareUrl } from '$lib/utils/share-url';
 
 const CANVAS_SIZE = 400;
-
-function rgbToHex(r: number, g: number, b: number): string {
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
-}
 
 function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
   return new Promise((resolve, reject) => {
@@ -49,7 +46,7 @@ export async function shareDiagnosis(diagnosis: DiagnosisResponse, t: TranslateF
   const seasonLabel = t(`common.season.${diagnosis.result.season}`);
   const dyeNames = diagnosis.recommendedDyes
     .slice(0, 3)
-    .map((d) => getDyeName(d, t))
+    .map((d) => getDyeName(d.dye, t))
     .join('、');
   const shareUrl = getShareUrl(diagnosis);
   const text = [

@@ -1,6 +1,6 @@
-import type { MatchedDye, TranslateFn } from '$lib/types';
+import type { Dye, TranslateFn } from '$lib/types';
 
-export function getDyeName(dye: MatchedDye, t: TranslateFn): string {
-  const translated = t(`dye.names.${dye.dye.id}`);
-  return translated.startsWith('dye.names.') ? dye.dye.name : translated;
+export function getDyeName(dye: Dye, t: TranslateFn): string {
+  const translated = t(`dye.names.${dye.id}`);
+  return translated.startsWith('dye.names.') ? dye.name : translated;
 }

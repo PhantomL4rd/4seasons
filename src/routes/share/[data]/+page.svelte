@@ -54,7 +54,7 @@ async function handleShare() {
 	{:else if diagnosis}
 		<div class="flex w-full flex-col items-center gap-6">
 			<SeasonBadge season={diagnosis.result.season} />
-			<DyeRecommendation dyes={diagnosis.recommendedDyes} dyesToAvoid={diagnosis.dyesToAvoid} />
+			<DyeRecommendation dyes={diagnosis.recommendedDyes} dyesToAvoid={diagnosis.dyesToAvoid} season={diagnosis.result.season} />
 			<div class="flex gap-3">
 				<Button variant="outline" href="/">
 					{$t('common.share.tryYourself')}
