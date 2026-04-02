@@ -152,15 +152,19 @@ export async function diagnoseWithGemini(
     },
   };
 
-  const response = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
+  const response = await fetch(GEMINI_ENDPOINT, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': apiKey,
+    },
     body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
     const errorBody = await response.text();
-    throw new Error(`Gemini API error (${response.status}): ${errorBody}`);
+    console.error(`Gemini API error (${response.status}):`, errorBody);
+    throw new Error('AI diagnosis service returned an error');
   }
 
   const data: GeminiApiResponse = await response.json();

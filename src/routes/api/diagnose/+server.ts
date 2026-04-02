@@ -15,7 +15,8 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     apiKey = platform?.env?.GEMINI_API_KEY;
   }
   if (!apiKey) {
-    throw error(500, 'GEMINI_API_KEY is not configured');
+    console.error('GEMINI_API_KEY is not configured');
+    throw error(500, 'Service configuration error');
   }
 
   // レートリミットチェック（devモードではDOが未起動のためスキップ）
@@ -37,18 +38,32 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     );
   }
 
-  const body = await request.json();
-  const { image, mimeType } = body as {
-    image?: string;
-    mimeType?: string;
-  };
-
-  if (!image) {
-    throw error(400, 'image (base64) is required');
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    throw error(400, 'Invalid JSON');
   }
 
-  if (!mimeType) {
-    throw error(400, 'mimeType is required');
+  const { image, mimeType } = (body ?? {}) as Record<string, unknown>;
+
+  if (typeof image !== 'string' || !image) {
+    throw error(400, 'image (base64 string) is required');
+  }
+
+  if (typeof mimeType !== 'string' || !mimeType) {
+    throw error(400, 'mimeType (string) is required');
+  }
+
+  const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png'];
+  if (!ALLOWED_MIME_TYPES.includes(mimeType)) {
+    throw error(400, 'Unsupported image type');
+  }
+
+  // 2MB相当のbase64文字列長上限（base64は約4/3倍に膨張）
+  const MAX_BASE64_LENGTH = 2 * 1024 * 1024 * (4 / 3);
+  if (image.length > MAX_BASE64_LENGTH) {
+    throw error(400, 'Image too large');
   }
 
   try {
