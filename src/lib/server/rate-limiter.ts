@@ -10,15 +10,20 @@ interface RateLimitResult {
  */
 export async function checkRateLimit(
   ns: DurableObjectNamespace | undefined,
-  ip: string
+  ip: string,
+  limit: number
 ): Promise<RateLimitResult> {
   if (!ns) {
     // DOが未設定の場合はレートリミットをスキップ
-    return { allowed: true, remaining: 99, limit: 5 };
+    return { allowed: true, remaining: 99, limit };
   }
 
   const id = ns.idFromName(ip);
   const stub = ns.get(id);
-  const response = await stub.fetch('https://rate-limiter/consume', { method: 'POST' });
+  const response = await stub.fetch('https://rate-limiter/consume', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ limit }),
+  });
   return (await response.json()) as RateLimitResult;
 }

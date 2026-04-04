@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     'unknown';
 
   const rateLimiter = dev ? undefined : platform?.env?.IP_RATE_LIMITER;
-  const rateLimit = await checkRateLimit(rateLimiter, ip);
+  const rateLimit = await checkRateLimit(rateLimiter, ip, 3);
 
   if (!rateLimit.allowed) {
     return json(
