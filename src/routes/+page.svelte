@@ -165,13 +165,13 @@ async function handleDiagnose() {
     {@const isWarning = !!errorTitle}
     <div
       class="w-full rounded-xl border p-8 text-center {isWarning
-        ? 'border-amber-400/50 bg-amber-50 dark:bg-amber-950/20'
+        ? 'border-warning/30 bg-warning/10'
         : 'border-destructive/50 bg-destructive/5'}"
     >
       {#if errorTitle}
-        <p class="text-lg font-bold text-amber-600 dark:text-amber-400">{errorTitle}</p>
+        <p class="text-lg font-bold text-warning">{errorTitle}</p>
       {/if}
-      <p class="{isWarning ? 'mt-2 text-amber-700 dark:text-amber-300' : 'text-destructive'}">{errorMessage}</p>
+      <p class="{isWarning ? 'mt-2 text-warning/90' : 'text-destructive'}">{errorMessage}</p>
       <Button variant="outline" class="mt-4" onclick={handleReset}>
         {$t('common.error.tryAgain')}
       </Button>

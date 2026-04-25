@@ -48,7 +48,7 @@ let baseDyes = $derived(matchedDyes.filter((d) => d.role === 'base'));
     </a>
 
     {#if dyesToAvoid.length > 0}
-      <h4 class="mb-3 text-sm font-medium text-red-600 dark:text-red-400">{$t('common.recommendation.colorsToAvoid')}</h4>
+      <h4 class="mb-3 text-sm font-medium text-warning">{$t('common.recommendation.colorsToAvoid')}</h4>
       <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {#each dyesToAvoid as matched}
           <div class="overflow-hidden rounded-lg border border-destructive/20">

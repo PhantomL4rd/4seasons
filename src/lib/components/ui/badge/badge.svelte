@@ -11,6 +11,10 @@ export const badgeVariants = tv({
       destructive:
         'bg-destructive [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/70 border-transparent text-white',
       outline: 'text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground',
+      spring: 'bg-spring text-spring-foreground border-transparent',
+      summer: 'bg-summer text-summer-foreground border-transparent',
+      autumn: 'bg-autumn text-autumn-foreground border-transparent',
+      winter: 'bg-winter text-winter-foreground border-transparent',
     },
   },
   defaultVariants: {
