@@ -50,7 +50,7 @@
     }
   },
   "footer": {
-    "disclaimer": "This tool uses AI to analyze screenshots for personal color diagnosis",
+    "disclaimer": "This tool uses AI to analyze screenshots for personal color diagnosis. Uploaded images are not used to train AI models.",
     "copyright": "© SQUARE ENIX"
   },
   "externalLinks": {
