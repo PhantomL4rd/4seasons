@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Menu, MessageCircle, SwatchBook, TrendingUp, X } from '@lucide/svelte';
+import { Info, Menu, MessageCircle, SwatchBook, TrendingUp, X } from '@lucide/svelte';
 import { Button } from '$lib/components/ui/button';
 import { t } from '$lib/translations';
 
@@ -64,6 +64,16 @@ function handleBackdropClick() {
 
 	<!-- Menu Items -->
 	<nav class="p-2">
+		<!-- このサイトについて -->
+		<a
+			href="/about"
+			onclick={close}
+			class="flex items-center gap-3 rounded-md px-3 py-3 text-sm hover:bg-accent transition-colors"
+		>
+			<Info class="size-5" />
+			{$t('common.nav.about')}
+		</a>
+
 		<p class="px-3 py-2 text-xs text-muted-foreground">{$t('common.nav.links')}</p>
 
 		<!-- カララントピッカー -->

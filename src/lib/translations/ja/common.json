@@ -60,7 +60,8 @@
   },
   "nav": {
     "menu": "メニュー",
-    "links": "外部リンク"
+    "links": "外部リンク",
+    "about": "このサイトについて"
   },
   "aria": {
     "languageSwitch": "言語を切り替え",
