@@ -121,6 +121,31 @@ async function handleDiagnose() {
 <svelte:head>
   <title>{$t('common.title')} - {$t('common.subtitle')}</title>
   <meta name="description" content={$t('common.description')} />
+  <link rel="canonical" href="https://4seasons.pl4rd.com/" />
+  {@html `<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': 'https://4seasons.pl4rd.com/#app',
+        name: '4seasons',
+        url: 'https://4seasons.pl4rd.com/',
+        description: $t('common.about.p1'),
+        applicationCategory: 'LifestyleApplication',
+        operatingSystem: 'Any',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'JPY' },
+        inLanguage: ['ja', 'en'],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [1, 2, 3, 4, 5].map((i) => ({
+          '@type': 'Question',
+          name: $t(`common.faq.q${i}`),
+          acceptedAnswer: { '@type': 'Answer', text: $t(`common.faq.a${i}`) },
+        })),
+      },
+    ],
+  })}</script>`}
 </svelte:head>
 
 <div class="flex flex-col items-center gap-8">
@@ -176,5 +201,38 @@ async function handleDiagnose() {
         {$t('common.error.tryAgain')}
       </Button>
     </div>
+  {/if}
+
+  {#if phase === 'upload'}
+    <section class="mt-16 w-full max-w-3xl space-y-12 text-sm leading-relaxed text-foreground">
+      <div>
+        <h2 class="mb-3 text-xl font-bold">{$t('common.about.title')}</h2>
+        <p class="mb-3 text-muted-foreground">{$t('common.about.p1')}</p>
+        <p class="text-muted-foreground">{$t('common.about.p2')}</p>
+      </div>
+
+      <div>
+        <h2 class="mb-3 text-xl font-bold">{$t('common.usage.title')}</h2>
+        <ol class="list-inside list-decimal space-y-2 text-muted-foreground">
+          <li>{$t('common.usage.step1')}</li>
+          <li>{$t('common.usage.step2')}</li>
+          <li>{$t('common.usage.step3')}</li>
+          <li>{$t('common.usage.step4')}</li>
+          <li>{$t('common.usage.step5')}</li>
+        </ol>
+      </div>
+
+      <div>
+        <h2 class="mb-3 text-xl font-bold">{$t('common.faq.title')}</h2>
+        <div class="space-y-2">
+          {#each [1, 2, 3, 4, 5] as i (i)}
+            <details class="rounded-lg border border-border bg-card p-4">
+              <summary class="cursor-pointer font-semibold">{$t(`common.faq.q${i}`)}</summary>
+              <p class="mt-2 text-muted-foreground">{$t(`common.faq.a${i}`)}</p>
+            </details>
+          {/each}
+        </div>
+      </div>
+    </section>
   {/if}
 </div>

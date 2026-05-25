@@ -82,5 +82,31 @@
     "result": "My personal color is {season}!",
     "dyeList": "Recommended dyes: {dyes}",
     "hashtags": "#WoL_4seasons #FF14 #FFXIV"
+  },
+  "about": {
+    "title": "About 4seasons",
+    "p1": "4seasons is a personal color diagnosis tool. Upload a screenshot of your character, and AI analyzes the skin, hair, and eye colors to determine which of the four seasonal types (Spring, Summer, Autumn, Winter) suits your character best.",
+    "p2": "Based on the diagnosis, the tool recommends in-game dyes that suit your character and ones to avoid. It helps you objectively understand which colors truly look good on your character when you're exploring new glamour directions."
+  },
+  "usage": {
+    "title": "How to Use",
+    "step1": "Prepare a screenshot that clearly shows your character's face",
+    "step2": "Drag & drop the image to the upload area, or pick a file via \"Choose Image\"",
+    "step3": "Check the preview and press \"Diagnose\"",
+    "step4": "Within seconds, your seasonal type and recommended/avoid dye lists appear",
+    "step5": "Use \"Save\" to copy the share URL, or \"Share\" to post to social media"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "q1": "Is it free?",
+    "a1": "Yes, it's completely free with no account required.",
+    "q2": "How are uploaded images handled?",
+    "a2": "Images are used only for AI diagnosis and are not used to train AI models. They are not permanently stored on the server.",
+    "q3": "Any tips for taking a good screenshot?",
+    "a3": "A clear front or slightly angled shot showing the character's face, hair, and eyes works best. Take photos in bright lighting and avoid shadows that darken the face.",
+    "q4": "How many times can I use it per day?",
+    "a4": "There's a daily limit on diagnoses. Once you reach the limit, diagnoses are unavailable for the rest of the day and reset the next day.",
+    "q5": "Is this an official Square Enix tool?",
+    "a5": "No, this is an unofficial tool individually developed by a player."
   }
 }
