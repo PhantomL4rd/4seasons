@@ -1,6 +1,6 @@
 <script lang="ts">
 import '../app.css';
-import { LayoutGrid } from '@lucide/svelte';
+import { Info, LayoutGrid } from '@lucide/svelte';
 import { ModeWatcher } from 'mode-watcher';
 import favicon from '$lib/assets/favicon.svg';
 import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
@@ -23,6 +23,13 @@ let { children } = $props();
 <ModeWatcher />
 
 <div class="min-h-dvh bg-background">
+  <div class="bg-info text-info-foreground">
+    <div class="container mx-auto flex items-start gap-2 px-4 py-1.5 text-[11px] sm:text-xs">
+      <Info class="size-3.5 shrink-0 mt-0.5" aria-hidden="true" />
+      <p class="text-pretty whitespace-pre-line">{$t('common.footer.disclaimer')}</p>
+    </div>
+  </div>
+
   <header class="bg-primary text-primary-foreground mb-8">
     <div class="container mx-auto flex items-center h-14 px-4">
       <div class="flex-1">
@@ -48,7 +55,6 @@ let { children } = $props();
   </div>
 
   <footer class="py-4 text-center text-xs text-muted-foreground">
-    <p class="text-pretty">{$t('common.footer.disclaimer')}</p>
-    <p class="mt-1">{$t('common.footer.copyright')}</p>
+    <p>{$t('common.footer.copyright')}</p>
   </footer>
 </div>

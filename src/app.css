@@ -27,6 +27,8 @@
   /* Semantic accents (only what is needed) */
   --color-warning: var(--warning);
   --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
 
   /* Seasons (personal color diagnosis result) */
   --color-spring: var(--season-spring);
@@ -62,6 +64,7 @@
   --ctp-red: oklch(0.553 0.214 22);
   --ctp-peach: oklch(0.706 0.137 50);
   --ctp-yellow: oklch(0.706 0.137 71);
+  --ctp-green: oklch(0.633 0.156 142);
   --ctp-sky: oklch(0.668 0.135 233);
   --ctp-blue: oklch(0.546 0.214 263);
 
@@ -87,6 +90,8 @@
 
   --warning: var(--ctp-red);
   --warning-foreground: var(--ctp-base);
+  --info: var(--ctp-green);
+  --info-foreground: var(--ctp-base);
 
   --season-spring: var(--ctp-peach);
   --season-summer: var(--ctp-sky);
@@ -118,6 +123,7 @@
   --ctp-red: oklch(0.737 0.131 12);
   --ctp-peach: oklch(0.819 0.092 52);
   --ctp-yellow: oklch(0.875 0.067 87);
+  --ctp-green: oklch(0.838 0.111 142);
   --ctp-sky: oklch(0.832 0.075 217);
   --ctp-blue: oklch(0.727 0.117 251);
 
@@ -143,6 +149,8 @@
 
   --warning: var(--ctp-red);
   --warning-foreground: var(--ctp-base);
+  --info: var(--ctp-green);
+  --info-foreground: var(--ctp-base);
 
   --season-spring: var(--ctp-peach);
   --season-summer: var(--ctp-sky);
