@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="4seasons">
+  <defs>
+    <linearGradient id="g-spring" gradientUnits="userSpaceOnUse" x1="50" y1="10" x2="50" y2="54">
+      <stop offset="0" stop-color="#FE9254"/>
+      <stop offset="1" stop-color="#FE640B"/>
+    </linearGradient>
+    <linearGradient id="g-summer" gradientUnits="userSpaceOnUse" x1="50" y1="10" x2="50" y2="54">
+      <stop offset="0" stop-color="#4FC0ED"/>
+      <stop offset="1" stop-color="#04A5E5"/>
+    </linearGradient>
+    <linearGradient id="g-autumn" gradientUnits="userSpaceOnUse" x1="50" y1="10" x2="50" y2="54">
+      <stop offset="0" stop-color="#E9B061"/>
+      <stop offset="1" stop-color="#DF8E1D"/>
+    </linearGradient>
+    <linearGradient id="g-winter" gradientUnits="userSpaceOnUse" x1="50" y1="10" x2="50" y2="54">
+      <stop offset="0" stop-color="#6294F8"/>
+      <stop offset="1" stop-color="#1E66F5"/>
+    </linearGradient>
+    <clipPath id="round"><rect width="100" height="100" rx="22.5"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect width="100" height="100" fill="#FCFBF8"/>
+    <ellipse cx="50" cy="32" rx="15" ry="22" fill="url(#g-spring)" transform="rotate(45 50 50)"/>
+    <ellipse cx="50" cy="32" rx="15" ry="22" fill="url(#g-summer)" transform="rotate(135 50 50)"/>
+    <ellipse cx="50" cy="32" rx="15" ry="22" fill="url(#g-autumn)" transform="rotate(225 50 50)"/>
+    <ellipse cx="50" cy="32" rx="15" ry="22" fill="url(#g-winter)" transform="rotate(315 50 50)"/>
+    <circle cx="50" cy="50" r="6.2" fill="#FCFBF8"/>
+  </g>
+</svg>

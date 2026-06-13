@@ -42,6 +42,18 @@ async function handleShare() {
 <svelte:head>
 	<title>{$t('common.title')} - {$t('common.subtitle')}</title>
 	<meta name="description" content={$t('common.description')} />
+	{#if diagnosis}
+		{@const seasonJp = $t(`common.season.${diagnosis.result.season}`)}
+		<meta property="og:title" content={`${seasonJp}タイプ / 4seasons`} />
+		<meta property="og:description" content={$t('common.description')} />
+		<meta property="og:image" content={`https://4seasons.pl4rd.com/share/${data.data}/og.png`} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:url" content={`https://4seasons.pl4rd.com/share/${data.data}`} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={`https://4seasons.pl4rd.com/share/${data.data}/og.png`} />
+	{/if}
 </svelte:head>
 
 <div class="flex flex-col items-center gap-8">

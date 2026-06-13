@@ -1,45 +1,25 @@
-import type { DiagnosisResponse, MatchedDye, TranslateFn } from '$lib/types';
-import { rgbToHex } from '$lib/utils/color';
+import type { DiagnosisResponse, TranslateFn } from '$lib/types';
 import { getDyeName } from '$lib/utils/dye';
-import { getShareUrl } from '$lib/utils/share-url';
+import { encodeShareData, getShareUrl } from '$lib/utils/share-url';
 
-const CANVAS_SIZE = 400;
-
-function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob> {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      if (blob) resolve(blob);
-      else reject(new Error('Failed to create blob from canvas'));
-    }, 'image/png');
-  });
-}
-
-export async function generateShareImage(recommendedDyes: MatchedDye[]): Promise<Blob> {
-  const colors = recommendedDyes
-    .slice(0, 4)
-    .map((d) => rgbToHex(d.dye.rgb.r, d.dye.rgb.g, d.dye.rgb.b));
-
-  const canvas = document.createElement('canvas');
-  canvas.width = CANVAS_SIZE;
-  canvas.height = CANVAS_SIZE;
-  const ctx = canvas.getContext('2d')!;
-
-  // 2x2 grid, no gaps
-  const half = CANVAS_SIZE / 2;
-  for (let i = 0; i < colors.length; i++) {
-    const x = (i % 2) * half;
-    const y = Math.floor(i / 2) * half;
-    ctx.fillStyle = colors[i];
-    ctx.fillRect(x, y, half, half);
+// Reuses the server-rendered OG image as the Web Share API payload, so the
+// shared file matches what crawlers/embed previews show for the same URL.
+// Returns null if the endpoint is unavailable (e.g. running under `vite dev`,
+// which can't load workers-og's wasm) so the share still succeeds with text.
+async function fetchShareImage(diagnosis: DiagnosisResponse): Promise<Blob | null> {
+  try {
+    const path = `/share/${encodeShareData(diagnosis)}/og.png`;
+    const url = new URL(path, window.location.origin).toString();
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.warn(`Share image fetch returned ${res.status}; sharing text only.`);
+      return null;
+    }
+    return await res.blob();
+  } catch (err) {
+    console.warn('Share image fetch failed; sharing text only.', err);
+    return null;
   }
-
-  // Branding
-  ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-  ctx.font = '14px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('4seasons', CANVAS_SIZE / 2, CANVAS_SIZE - 12);
-
-  return canvasToBlob(canvas);
 }
 
 export async function shareDiagnosis(diagnosis: DiagnosisResponse, t: TranslateFn): Promise<void> {
@@ -56,15 +36,17 @@ export async function shareDiagnosis(diagnosis: DiagnosisResponse, t: TranslateF
     shareUrl,
   ].join('\n');
 
-  const blob = await generateShareImage(diagnosis.recommendedDyes);
+  const blob = await fetchShareImage(diagnosis);
   await shareResult(text, blob);
 }
 
-export async function shareResult(text: string, imageBlob: Blob): Promise<void> {
-  const file = new File([imageBlob], '4seasons-result.png', { type: 'image/png' });
+export async function shareResult(text: string, imageBlob: Blob | null): Promise<void> {
+  const file = imageBlob
+    ? new File([imageBlob], '4seasons-result.png', { type: 'image/png' })
+    : null;
 
   try {
-    if (navigator.canShare?.({ text, files: [file] })) {
+    if (file && navigator.canShare?.({ text, files: [file] })) {
       await navigator.share({ text, files: [file] });
       return;
     }
@@ -76,13 +58,15 @@ export async function shareResult(text: string, imageBlob: Blob): Promise<void> 
     if (e instanceof DOMException && e.name === 'AbortError') return;
   }
 
-  // Fallback: copy text + download image
+  // Fallback: copy text + download image (if we have one).
   await navigator.clipboard.writeText(text);
 
-  const url = URL.createObjectURL(imageBlob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = '4seasons-result.png';
-  a.click();
-  URL.revokeObjectURL(url);
+  if (imageBlob) {
+    const url = URL.createObjectURL(imageBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '4seasons-result.png';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 }

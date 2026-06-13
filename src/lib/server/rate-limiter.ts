@@ -18,12 +18,21 @@ export async function checkRateLimit(
     return { allowed: true, remaining: 99, limit };
   }
 
-  const id = ns.idFromName(ip);
-  const stub = ns.get(id);
-  const response = await stub.fetch('https://rate-limiter/consume', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ limit }),
-  });
-  return (await response.json()) as RateLimitResult;
+  try {
+    const id = ns.idFromName(ip);
+    const stub = ns.get(id);
+    const response = await stub.fetch('https://rate-limiter/consume', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ limit }),
+    });
+    return (await response.json()) as RateLimitResult;
+  } catch (err) {
+    // wrangler dev では別 Worker (fourseasons-rate-limiter) への service binding が
+    // [not connected] になりがちで fetch が例外を投げる。診断機能まで巻き添えで
+    // 落ちないよう、ここでは warn しつつスキップする。本番では service binding が
+    // 接続済みなので通常パスを通る。
+    console.warn('Rate limiter unavailable, skipping check.', err);
+    return { allowed: true, remaining: 99, limit };
+  }
 }

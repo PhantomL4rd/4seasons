@@ -2,25 +2,31 @@
 import '../app.css';
 import { Info, LayoutGrid } from '@lucide/svelte';
 import { ModeWatcher } from 'mode-watcher';
+import { page } from '$app/state';
 import faviconSvg from '$lib/assets/favicon.svg';
 import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
 import SideDrawer from '$lib/components/ui/SideDrawer.svelte';
 import { t } from '$lib/translations';
 
 let { children } = $props();
+
+// /share/[data] supplies its own OG tags; avoid emitting the generic ones there so crawlers don't see duplicates.
+let isSharePage = $derived(page.url.pathname.startsWith('/share/'));
 </script>
 
 <svelte:head>
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" href={faviconSvg} type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta property="og:title" content="4seasons" />
-  <meta property="og:description" content={$t('common.description')} />
-  <meta property="og:image" content="https://4seasons.pl4rd.com/og-image.png" />
-  <meta property="og:url" content="https://4seasons.pl4rd.com" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://4seasons.pl4rd.com/og-image.png" />
+  {#if !isSharePage}
+    <meta property="og:title" content="4seasons" />
+    <meta property="og:description" content={$t('common.description')} />
+    <meta property="og:image" content="https://4seasons.pl4rd.com/og-image.png" />
+    <meta property="og:url" content="https://4seasons.pl4rd.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://4seasons.pl4rd.com/og-image.png" />
+  {/if}
 </svelte:head>
 
 <ModeWatcher />
