@@ -27,6 +27,7 @@ const TITLED_ERRORS = new Set([
   'realHumanDetected',
   'multipleCharacters',
   'rateLimitExceeded',
+  'diagnosisInconsistent',
 ]);
 
 function handleFileSelect(file: File) {
@@ -100,7 +101,8 @@ async function handleDiagnose() {
 
     if (response.status === 422) {
       const body = (await response.json()) as { error?: string };
-      const errorKey = body.error ?? 'analysisFailed';
+      // 未知のキー（デプロイ世代ズレ等）は翻訳が空になるため汎用メッセージに落とす
+      const errorKey = body.error && TITLED_ERRORS.has(body.error) ? body.error : 'analysisFailed';
       handleError(errorKey);
       return;
     }

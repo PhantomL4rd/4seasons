@@ -37,11 +37,24 @@ export interface SeasonResult {
   season: Season;
 }
 
+export type Undertone = 'warm' | 'cool';
+export type Contrast = 'high' | 'low';
+export type Chroma = 'clear' | 'soft';
+
+/** Geminiが season を選ぶ前に出力する観察結果 */
+export interface SeasonAnalysis {
+  undertone: Undertone;
+  contrast: Contrast;
+  chroma: Chroma;
+  secondarySeason: Season;
+}
+
 /** Gemini APIから返される構造化レスポンス */
 export interface GeminiDiagnosisResponse {
   characterCount: number;
   isFaceVisible: boolean;
   isRealHuman: boolean;
+  analysis: SeasonAnalysis;
   result: SeasonResult;
   /** Geminiが直接選んだ推奨染料IDリスト */
   recommendedDyeIds: string[];

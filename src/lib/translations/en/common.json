@@ -25,6 +25,7 @@
     "noFaceDetected": "Please upload a screenshot showing your character's face!",
     "multipleCharacters": "Please upload a screenshot with just one character!",
     "realHumanDetected": "Please upload a screenshot of your game character!",
+    "diagnosisInconsistent": "The diagnosis didn't quite come together. Please try again!",
     "networkError": "A network error occurred",
     "tryAgain": "Try Again"
   },

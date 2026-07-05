@@ -1,8 +1,9 @@
 import { error, json } from '@sveltejs/kit';
 import { dev } from '$app/environment';
-import { getFallbackDyes, resolveDyeIds } from '$lib/server/dye-matcher';
-import { diagnoseWithGemini } from '$lib/server/gemini';
+import { fillRecommendedDyes, getFallbackDyes, resolveDyeIds } from '$lib/server/dye-matcher';
+import { diagnoseWithGemini, screenDiagnosis } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
+import { deriveSeason, resolveSecondarySeason } from '$lib/server/season';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
@@ -69,30 +70,48 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   try {
     const geminiResult = await diagnoseWithGemini(apiKey, image, mimeType);
 
-    if (!geminiResult.isFaceVisible) {
-      return json({ error: 'noFaceDetected' }, { status: 422 });
+    const rejection = screenDiagnosis(geminiResult);
+    if (rejection) {
+      return json({ error: rejection }, { status: 422 });
     }
 
-    if (geminiResult.isRealHuman) {
-      return json({ error: 'realHumanDetected' }, { status: 422 });
+    // season は観察結果（undertone × chroma）からサーバー側で導出した値を正とする。
+    // 不一致（gemini.ts でのリトライ後も矛盾が残ったケース）では、染料選択も
+    // 自己申告 season 向けに選ばれていて信頼できないため、診断全体をエラーとする
+    const season = deriveSeason(geminiResult.analysis);
+    if (geminiResult.result.season !== season) {
+      console.warn(
+        `Gemini season "${geminiResult.result.season}" contradicts analysis-derived "${season}" after retry (analysis=${JSON.stringify(geminiResult.analysis)})`
+      );
+      return json({ error: 'diagnosisInconsistent' }, { status: 422 });
     }
 
-    if (geminiResult.characterCount >= 2) {
-      return json({ error: 'multipleCharacters' }, { status: 422 });
-    }
-
-    let recommendedDyes = resolveDyeIds(geminiResult.recommendedDyeIds, 'base');
+    let recommendedDyes = resolveDyeIds(geminiResult.recommendedDyeIds, 'base', {
+      catalogOnly: true,
+      uniqueCategory: true,
+    });
 
     // Geminiが返したIDが不正で結果が少ない場合はフォールバック
     if (recommendedDyes.length < 3) {
-      recommendedDyes = getFallbackDyes(geminiResult.result.season);
+      recommendedDyes = getFallbackDyes(season);
+    } else if (recommendedDyes.length < 6) {
+      // uniqueCategory の間引き等で減った分をサブ季節の候補色から補充する
+      console.warn(
+        `Recommended dyes reduced to ${recommendedDyes.length}; filling from secondary season "${geminiResult.analysis.secondarySeason}"`
+      );
+      const secondarySeason = resolveSecondarySeason(season, geminiResult.analysis.secondarySeason);
+      recommendedDyes = fillRecommendedDyes(recommendedDyes, season, secondarySeason);
     }
 
-    const dyesToAvoid = resolveDyeIds(geminiResult.avoidDyeIds, 'avoid');
+    const recommendedIds = new Set(recommendedDyes.map((matched) => matched.dye.id));
+    const dyesToAvoid = resolveDyeIds(geminiResult.avoidDyeIds, 'avoid', {
+      catalogOnly: true,
+      excludeIds: recommendedIds,
+    });
 
     return json(
       {
-        result: geminiResult.result,
+        result: { season },
         recommendedDyes,
         dyesToAvoid,
         remaining: rateLimit.remaining,

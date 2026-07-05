@@ -25,6 +25,7 @@
     "noFaceDetected": "キャラクターのお顔が写ったスクリーンショットをアップロードしましょう！",
     "multipleCharacters": "1人だけ写っているスクリーンショットをアップロードしましょう！",
     "realHumanDetected": "ゲームキャラクターのスクリーンショットをアップロードしましょう！",
+    "diagnosisInconsistent": "診断結果がうまくまとまりませんでした。もう一度お試しください！",
     "networkError": "ネットワークエラーが発生しました",
     "tryAgain": "もう一度試す"
   },
