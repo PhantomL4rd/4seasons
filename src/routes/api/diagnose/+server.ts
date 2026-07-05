@@ -1,5 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { dev } from '$app/environment';
+import { env } from '$env/dynamic/private';
 import { fillRecommendedDyes, getFallbackDyes, resolveDyeIds } from '$lib/server/dye-matcher';
 import { diagnoseWithGemini, screenDiagnosis } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
@@ -10,8 +11,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   // Cloudflare Workers上ではplatform.envから、ローカルdevでは.dev.varsから取得
   let apiKey: string | undefined;
   if (dev) {
-    const { GEMINI_API_KEY } = await import('$env/static/private');
-    apiKey = GEMINI_API_KEY;
+    apiKey = env.GEMINI_API_KEY;
   } else {
     apiKey = platform?.env?.GEMINI_API_KEY;
   }
