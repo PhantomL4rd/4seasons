@@ -20,13 +20,21 @@ interface GeminiApiResponse {
 const GEMINI_MODEL = 'gemini-3.1-flash-lite';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
-/** メタリック・ビビッド以外の全染料をコンパクトなカタログ形式で生成 */
-function buildDyeCatalog(): string {
-  return dyes
-    .filter(isCatalogDye)
-    .map((dye) => {
-      return `${dye.id}:${dyeToHex(dye)} [${dye.category}] ${dye.name}`;
-    })
+/**
+ * メタリック・ビビッド以外の全染料をコンパクトなカタログ形式で生成する。
+ * LLM の位置バイアス（先頭・末尾の候補が選ばれやすい）で毎回同じ染料に
+ * 寄るのを避けるため、リクエストごとにカタログ順をシャッフルする。
+ * 乱数源は差し替え可能（テストで決定的に検証するため）。
+ */
+export function buildDyeCatalog(random: () => number = Math.random): string {
+  const catalog = dyes.filter(isCatalogDye);
+  // Fisher-Yates
+  for (let i = catalog.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [catalog[i], catalog[j]] = [catalog[j], catalog[i]];
+  }
+  return catalog
+    .map((dye) => `${dye.id}:${dyeToHex(dye)} [${dye.category}] ${dye.name}`)
     .join('\n');
 }
 
@@ -77,12 +85,13 @@ Dye selection guide:
 ${catalog}
 
 # Output
-recommendedDyeIds: 6 dye IDs, visually distinct (vary hue, lightness, saturation). Judge by hex, not name.
-- Max 1 dye per [category]. Never pick 2+ dyes from the same category.
-- 1-4: match result.season's Recommend profile.
-- 5-6: bridge toward secondarySeason's Recommend profile.
+recommendedDyeIds: candidate pool for the server to sample from. Judge by hex, not name.
+- primary: 8 dye IDs matching result.season's Recommend profile. Visually distinct — vary hue, lightness, saturation.
+- secondary: 4 dye IDs bridging toward secondarySeason's Recommend profile. Visually distinct from each other and from primary.
+- Across the full 12 IDs, aim for category diversity (do NOT put 4+ IDs in the same [category]) so the server can enforce 1-per-category after sampling.
+- No overlap between primary and secondary.
 
-avoidDyeIds: 3 dye IDs matching result.season's Avoid profile. No overlap with recommendedDyeIds.`;
+avoidDyeIds: 5 dye IDs matching result.season's Avoid profile (candidate pool for the server to sample 3 from). Visually distinct — vary hue, lightness, saturation. No overlap with recommendedDyeIds.`;
 }
 
 const responseSchema = {
@@ -115,13 +124,27 @@ const responseSchema = {
       required: ['season'],
     },
     recommendedDyeIds: {
-      type: 'ARRAY',
-      description: '6 dye IDs from the catalog that flatter this character',
-      items: { type: 'STRING' },
+      type: 'OBJECT',
+      description:
+        'Candidate pool for server-side sampling. primary=8 for main season, secondary=4 for bridging.',
+      properties: {
+        primary: {
+          type: 'ARRAY',
+          description: '8 dye IDs matching result.season Recommend profile, visually distinct',
+          items: { type: 'STRING' },
+        },
+        secondary: {
+          type: 'ARRAY',
+          description: '4 dye IDs bridging toward secondarySeason Recommend profile',
+          items: { type: 'STRING' },
+        },
+      },
+      required: ['primary', 'secondary'],
+      propertyOrdering: ['primary', 'secondary'],
     },
     avoidDyeIds: {
       type: 'ARRAY',
-      description: '3 dye IDs that clash with this character',
+      description: '5 dye IDs that clash with this character (candidate pool; server samples 3)',
       items: { type: 'STRING' },
     },
   },
@@ -202,7 +225,12 @@ export function parseGeminiDiagnosis(text: string): GeminiDiagnosisResponse {
   if (!isRecord(result) || !isOneOf(result.season, SEASONS)) {
     throw new Error('Gemini response has invalid result.season');
   }
-  if (!isStringArray(raw.recommendedDyeIds) || !isStringArray(raw.avoidDyeIds)) {
+  if (
+    !isRecord(raw.recommendedDyeIds) ||
+    !isStringArray(raw.recommendedDyeIds.primary) ||
+    !isStringArray(raw.recommendedDyeIds.secondary) ||
+    !isStringArray(raw.avoidDyeIds)
+  ) {
     throw new Error('Gemini response has invalid dye ID lists');
   }
 
@@ -217,7 +245,10 @@ export function parseGeminiDiagnosis(text: string): GeminiDiagnosisResponse {
       secondarySeason: analysis.secondarySeason,
     },
     result: { season: result.season },
-    recommendedDyeIds: raw.recommendedDyeIds,
+    recommendedDyeIds: {
+      primary: raw.recommendedDyeIds.primary,
+      secondary: raw.recommendedDyeIds.secondary,
+    },
     avoidDyeIds: raw.avoidDyeIds,
   };
 }

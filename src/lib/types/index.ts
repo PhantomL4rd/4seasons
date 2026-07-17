@@ -49,6 +49,18 @@ export interface SeasonAnalysis {
   secondarySeason: Season;
 }
 
+/**
+ * Geminiが返す推奨染料の候補プール。
+ * サーバー側でランダムサンプリングして提案の多様性を出すため、
+ * 表示に必要な数（6）より多めの候補を受け取る。
+ */
+export interface RecommendedDyeCandidates {
+  /** 主季節向けの推奨候補（サンプリング前、8色を想定） */
+  primary: string[];
+  /** サブ季節向けの推奨候補（サンプリング前、4色を想定） */
+  secondary: string[];
+}
+
 /** Gemini APIから返される構造化レスポンス */
 export interface GeminiDiagnosisResponse {
   characterCount: number;
@@ -56,8 +68,8 @@ export interface GeminiDiagnosisResponse {
   isRealHuman: boolean;
   analysis: SeasonAnalysis;
   result: SeasonResult;
-  /** Geminiが直接選んだ推奨染料IDリスト */
-  recommendedDyeIds: string[];
+  /** Geminiが選んだ推奨染料の候補プール（主季節・サブ季節別） */
+  recommendedDyeIds: RecommendedDyeCandidates;
   /** Geminiが直接選んだ苦手染料IDリスト */
   avoidDyeIds: string[];
 }

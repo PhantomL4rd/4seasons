@@ -1,7 +1,12 @@
 import { error, json } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 import { env } from '$env/dynamic/private';
-import { fillRecommendedDyes, getFallbackDyes, resolveDyeIds } from '$lib/server/dye-matcher';
+import {
+  fillRecommendedDyes,
+  getFallbackDyes,
+  sampleAvoidDyes,
+  sampleRecommendedDyes,
+} from '$lib/server/dye-matcher';
 import { diagnoseWithGemini, screenDiagnosis } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
 import { deriveSeason, resolveSecondarySeason } from '$lib/server/season';
@@ -86,26 +91,24 @@ export const POST: RequestHandler = async ({ request, platform }) => {
       return json({ error: 'diagnosisInconsistent' }, { status: 422 });
     }
 
-    let recommendedDyes = resolveDyeIds(geminiResult.recommendedDyeIds, 'base', {
-      catalogOnly: true,
-      uniqueCategory: true,
-    });
+    // Geminiが返した候補プール（primary 10 + secondary 5 想定）から
+    // ランダムに 4 + 2 をサンプリング。同じ染料ばかり提案される問題への対処。
+    let recommendedDyes = sampleRecommendedDyes(geminiResult.recommendedDyeIds);
 
-    // Geminiが返したIDが不正で結果が少ない場合はフォールバック
+    // 候補プールが痩せていた等でサンプリング結果が少ない場合はフォールバック
     if (recommendedDyes.length < 3) {
       recommendedDyes = getFallbackDyes(season);
     } else if (recommendedDyes.length < 6) {
-      // uniqueCategory の間引き等で減った分をサブ季節の候補色から補充する
+      // カテゴリ衝突・候補不足で減った分をサブ季節の候補色から補充する
       console.warn(
-        `Recommended dyes reduced to ${recommendedDyes.length}; filling from secondary season "${geminiResult.analysis.secondarySeason}"`
+        `Sampled recommended dyes reduced to ${recommendedDyes.length}; filling from secondary season "${geminiResult.analysis.secondarySeason}"`
       );
       const secondarySeason = resolveSecondarySeason(season, geminiResult.analysis.secondarySeason);
       recommendedDyes = fillRecommendedDyes(recommendedDyes, season, secondarySeason);
     }
 
     const recommendedIds = new Set(recommendedDyes.map((matched) => matched.dye.id));
-    const dyesToAvoid = resolveDyeIds(geminiResult.avoidDyeIds, 'avoid', {
-      catalogOnly: true,
+    const dyesToAvoid = sampleAvoidDyes(geminiResult.avoidDyeIds, {
       excludeIds: recommendedIds,
     });
 

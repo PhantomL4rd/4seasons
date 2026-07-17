@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { diagnoseWithGemini, parseGeminiDiagnosis, screenDiagnosis } from './gemini';
+import { dyes } from '$lib/data/dyes';
+import { isCatalogDye } from './dye-matcher';
+import {
+  buildDyeCatalog,
+  diagnoseWithGemini,
+  parseGeminiDiagnosis,
+  screenDiagnosis,
+} from './gemini';
 
 function validPayload() {
   return {
@@ -13,7 +20,10 @@ function validPayload() {
       secondarySeason: 'autumn',
     },
     result: { season: 'spring' },
-    recommendedDyeIds: ['dye_008', 'dye_065'],
+    recommendedDyeIds: {
+      primary: ['dye_008', 'dye_065'],
+      secondary: ['dye_025'],
+    },
     avoidDyeIds: ['dye_010'],
   };
 }
@@ -50,8 +60,24 @@ describe('parseGeminiDiagnosis', () => {
     expect(() => parseGeminiDiagnosis(JSON.stringify(broken))).toThrow();
   });
 
-  it('recommendedDyeIds が文字列配列でなければ例外を投げる', () => {
-    const payload = { ...validPayload(), recommendedDyeIds: [1, 2, 3] };
+  it('recommendedDyeIds.primary が文字列配列でなければ例外を投げる', () => {
+    const payload = {
+      ...validPayload(),
+      recommendedDyeIds: { primary: [1, 2, 3], secondary: ['dye_025'] },
+    };
+    expect(() => parseGeminiDiagnosis(JSON.stringify(payload))).toThrow();
+  });
+
+  it('recommendedDyeIds.secondary が欠落していれば例外を投げる', () => {
+    const payload = {
+      ...validPayload(),
+      recommendedDyeIds: { primary: ['dye_008'] },
+    };
+    expect(() => parseGeminiDiagnosis(JSON.stringify(payload))).toThrow();
+  });
+
+  it('recommendedDyeIds が旧形式（配列）なら例外を投げる（互換性なし）', () => {
+    const payload = { ...validPayload(), recommendedDyeIds: ['dye_008'] };
     expect(() => parseGeminiDiagnosis(JSON.stringify(payload))).toThrow();
   });
 
@@ -73,6 +99,32 @@ describe('parseGeminiDiagnosis', () => {
   it('isFaceVisible が boolean でなければ例外を投げる', () => {
     const payload = { ...validPayload(), isFaceVisible: 'yes' };
     expect(() => parseGeminiDiagnosis(JSON.stringify(payload))).toThrow();
+  });
+});
+
+describe('buildDyeCatalog', () => {
+  const catalogIds = () => dyes.filter(isCatalogDye).map((d) => d.id);
+  const extractIds = (catalog: string) => catalog.split('\n').map((line) => line.split(':')[0]);
+
+  it('カタログ対象の全染料IDを保持する（シャッフルしても欠落しない）', () => {
+    const catalog = buildDyeCatalog(() => 0.5);
+    expect(extractIds(catalog).sort()).toEqual(catalogIds().sort());
+  });
+
+  it('乱数源が異なれば出力順が変わる（位置バイアス緩和）', () => {
+    // 同じ乱数列を先頭から返すシード関数
+    const seeded = (seed: number) => {
+      let s = seed;
+      return () => {
+        s = (s * 9301 + 49297) % 233280;
+        return s / 233280;
+      };
+    };
+    const catalogA = buildDyeCatalog(seeded(1));
+    const catalogB = buildDyeCatalog(seeded(42));
+    expect(catalogA).not.toBe(catalogB);
+    // 集合としては同じ（IDの欠落・重複がない）
+    expect(extractIds(catalogA).sort()).toEqual(extractIds(catalogB).sort());
   });
 });
 

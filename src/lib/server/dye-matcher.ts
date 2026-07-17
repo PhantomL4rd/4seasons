@@ -1,6 +1,6 @@
 import { dyes, getDyesBySeason } from '$lib/data/dyes';
 import { seasonFallbackDyes } from '$lib/data/season-palettes';
-import type { Dye, MatchedDye, Season } from '$lib/types';
+import type { Dye, MatchedDye, RecommendedDyeCandidates, Season } from '$lib/types';
 
 const dyeMap = new Map<string, Dye>(dyes.map((d) => [d.id, d]));
 
@@ -60,6 +60,109 @@ export function resolveDyeIds(
 export function getFallbackDyes(season: Season): MatchedDye[] {
   const dyeIds = seasonFallbackDyes[season];
   return resolveDyeIds(dyeIds, 'base');
+}
+
+export interface SampleRecommendedOptions {
+  /** primary 候補から採用する上限（デフォルト 4） */
+  primaryCount?: number;
+  /** secondary 候補から採用する上限（デフォルト 2） */
+  secondaryCount?: number;
+  /** 除外する染料ID（avoid との重複排除用） */
+  excludeIds?: ReadonlySet<string>;
+  /** 乱数源（テスト差し替え用、デフォルト Math.random） */
+  random?: () => number;
+}
+
+/**
+ * 拡大した候補プールからランダムにサンプリングして推奨6色を作る。
+ * Gemini が同じ染料を毎回上位に置くことによる「しつこい」推奨を緩和するため、
+ * Gemini には多めの候補（primary 8, secondary 4）を返させ、ここで振り分ける。
+ *
+ * カタログ外（metallic/vivid）除外・1カテゴリ1色・ID重複なし・excludeIds は resolveDyeIds と同挙動。
+ * 不足分の補充は呼び出し側の fillRecommendedDyes に委ねる（責務分離）。
+ */
+export function sampleRecommendedDyes(
+  candidates: RecommendedDyeCandidates,
+  options: SampleRecommendedOptions = {}
+): MatchedDye[] {
+  const primaryCount = options.primaryCount ?? 4;
+  const secondaryCount = options.secondaryCount ?? 2;
+  const random = options.random ?? Math.random;
+
+  const usedIds = new Set<string>();
+  const usedCategories = new Set<string>();
+  const results: MatchedDye[] = [];
+
+  const takeFrom = (pool: string[], limit: number) => {
+    const shuffled = shuffleArray(pool, random);
+    let taken = 0;
+    for (const id of shuffled) {
+      if (taken >= limit) break;
+      if (usedIds.has(id)) continue;
+      if (options.excludeIds?.has(id)) continue;
+      const dye = dyeMap.get(id);
+      if (!dye) continue;
+      if (!isCatalogDye(dye)) continue;
+      if (usedCategories.has(dye.category)) continue;
+      usedIds.add(id);
+      usedCategories.add(dye.category);
+      results.push({ dye, hex: dyeToHex(dye), deltaE: 0, role: 'base' });
+      taken++;
+    }
+  };
+
+  takeFrom(candidates.primary, primaryCount);
+  takeFrom(candidates.secondary, secondaryCount);
+
+  return results;
+}
+
+export interface SampleAvoidOptions {
+  /** サンプリング上限（デフォルト 3） */
+  count?: number;
+  /** 除外する染料ID（推奨と重複したときの排除用） */
+  excludeIds?: ReadonlySet<string>;
+  /** 乱数源（テスト差し替え用、デフォルト Math.random） */
+  random?: () => number;
+}
+
+/**
+ * avoid（苦手色）の候補プールから count 色をランダムサンプリングする。
+ * uniqueCategory 制約は付けない（「同系統の避けたい色」を並べたい場面があるため
+ * 現行 resolveDyeIds('avoid') の挙動に揃える）。
+ */
+export function sampleAvoidDyes(
+  candidateIds: string[],
+  options: SampleAvoidOptions = {}
+): MatchedDye[] {
+  const count = options.count ?? 3;
+  const random = options.random ?? Math.random;
+
+  const usedIds = new Set<string>();
+  const results: MatchedDye[] = [];
+
+  for (const id of shuffleArray(candidateIds, random)) {
+    if (results.length >= count) break;
+    if (usedIds.has(id)) continue;
+    if (options.excludeIds?.has(id)) continue;
+    const dye = dyeMap.get(id);
+    if (!dye) continue;
+    if (!isCatalogDye(dye)) continue;
+    usedIds.add(id);
+    results.push({ dye, hex: dyeToHex(dye), deltaE: 0, role: 'avoid' });
+  }
+
+  return results;
+}
+
+/** Fisher-Yates（引数は変更せず新配列を返す） */
+function shuffleArray<T>(source: readonly T[], random: () => number): T[] {
+  const copy = [...source];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
 
 /**
