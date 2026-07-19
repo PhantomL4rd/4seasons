@@ -8,7 +8,7 @@ declare global {
     interface Platform {
       env: {
         GEMINI_API_KEY: string;
-        IP_RATE_LIMITER?: DurableObjectNamespace;
+        RATE_LIMITER?: DurableObjectNamespace;
       };
     }
   }

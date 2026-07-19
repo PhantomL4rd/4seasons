@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     'unknown';
 
-  const rateLimiter = dev ? undefined : platform?.env?.IP_RATE_LIMITER;
+  const rateLimiter = dev ? undefined : platform?.env?.RATE_LIMITER;
   const rateLimit = await checkRateLimit(rateLimiter, ip, 3);
 
   if (!rateLimit.allowed) {

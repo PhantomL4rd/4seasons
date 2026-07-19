@@ -10,6 +10,6 @@ directory = ".svelte-kit/cloudflare"
 # Rate limiter DO (別Workerからバインド)
 # デプロイ前に rate-limiter を先にデプロイすること
 [[durable_objects.bindings]]
-name = "IP_RATE_LIMITER"
-class_name = "IpRateLimiter"
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
 script_name = "rate-limiter"
