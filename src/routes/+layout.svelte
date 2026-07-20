@@ -39,14 +39,14 @@ let isSharePage = $derived(page.url.pathname.startsWith('/share/'));
     </div>
   </div>
 
-  <header class="bg-primary text-primary-foreground mb-8">
-    <div class="container mx-auto flex items-center h-14 px-4">
+  <header class="bg-background border-b border-border">
+    <div class="container mx-auto flex items-center h-12 px-4">
       <div class="flex-1">
-        <h1 class="text-xl font-bold">
+        <h1 class="text-base font-semibold">
           <a href="/" data-sveltekit-reload class="flex items-center gap-2 hover:opacity-80 transition-opacity">
             <LayoutGrid class="size-5" />
             {$t('common.title')}
-            <span class="text-sm font-normal opacity-75">{$t('common.subtitle')}</span>
+            <span class="text-xs font-normal text-muted-foreground">{$t('common.subtitle')}</span>
           </a>
         </h1>
       </div>
@@ -57,7 +57,7 @@ let isSharePage = $derived(page.url.pathname.startsWith('/share/'));
     </div>
   </header>
 
-  <div class="container mx-auto px-4 pb-8">
+  <div class="container mx-auto px-4 pt-6 pb-8">
     <main>
       {@render children()}
     </main>
