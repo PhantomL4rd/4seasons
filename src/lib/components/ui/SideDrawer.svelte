@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Info, Menu, MessageCircle, SwatchBook, TrendingUp, X } from '@lucide/svelte';
+import { Home, Info, Menu, MessageCircle, VenetianMask, X } from '@lucide/svelte';
 import { Button } from '$lib/components/ui/button';
 import { t } from '$lib/translations';
 
@@ -76,28 +76,28 @@ function handleBackdropClick() {
 
 		<p class="px-3 py-2 text-xs text-muted-foreground">{$t('common.nav.links')}</p>
 
-		<!-- カララントピッカー -->
+		<!-- ホーム -->
 		<a
-			href="https://colorant-picker.pl4rd.com/"
+			href="https://pl4rd.com/"
 			target="_blank"
 			rel="noopener noreferrer"
 			onclick={close}
 			class="flex items-center gap-3 rounded-md px-3 py-3 text-sm hover:bg-accent transition-colors"
 		>
-			<SwatchBook class="size-5" />
-			{$t('common.externalLinks.colorantPicker')}
+			<Home class="size-5" />
+			{$t('common.externalLinks.home')}
 		</a>
 
-		<!-- ミラプリインサイト -->
+		<!-- プライバシーポリシー -->
 		<a
-			href="https://mirapri-insight.pl4rd.com/"
+			href="https://pl4rd.com/privacy"
 			target="_blank"
 			rel="noopener noreferrer"
 			onclick={close}
 			class="flex items-center gap-3 rounded-md px-3 py-3 text-sm hover:bg-accent transition-colors"
 		>
-			<TrendingUp class="size-5" />
-			{$t('common.externalLinks.mirapriInsight')}
+			<VenetianMask class="size-5" />
+			{$t('common.externalLinks.privacy')}
 		</a>
 
 		<!-- 要望・感想 -->
