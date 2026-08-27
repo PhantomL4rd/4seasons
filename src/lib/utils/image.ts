@@ -1,3 +1,5 @@
+import type { CropRect } from './crop';
+
 const MAX_DIMENSION = 512;
 const JPEG_QUALITY = 0.8;
 const ALLOWED_TYPES = ['image/jpeg', 'image/png'];
@@ -19,17 +21,25 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 /**
- * 画像をリサイズ+JPEG圧縮してbase64に変換する。
+ * 画像を（必要ならクロップして）リサイズ+JPEG圧縮し、base64に変換する。
  * 元サイズに関わらず常にCanvas経由でJPEG圧縮をかけるため、
  * 大きなPNG/WebPも安全にサイズ削減される。
+ * crop は元画像に対する正規化座標（0..1）。省略時は全体を使う。
  */
 export async function resizeAndConvertToBase64(
-  file: File
+  file: File,
+  crop?: CropRect
 ): Promise<{ base64: string; mimeType: string }> {
   const dataUrl = await readFileAsDataUrl(file);
   const img = await loadImage(dataUrl);
 
-  let { width, height } = img;
+  const sourceX = Math.round((crop?.x ?? 0) * img.width);
+  const sourceY = Math.round((crop?.y ?? 0) * img.height);
+  const sourceWidth = Math.max(1, Math.round((crop?.width ?? 1) * img.width));
+  const sourceHeight = Math.max(1, Math.round((crop?.height ?? 1) * img.height));
+
+  let width = sourceWidth;
+  let height = sourceHeight;
 
   if (width > MAX_DIMENSION || height > MAX_DIMENSION) {
     if (width > height) {
@@ -46,7 +56,7 @@ export async function resizeAndConvertToBase64(
   canvas.height = height;
 
   const ctx = canvas.getContext('2d')!;
-  ctx.drawImage(img, 0, 0, width, height);
+  ctx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, width, height);
 
   const resizedDataUrl = canvas.toDataURL('image/jpeg', JPEG_QUALITY);
   const base64 = resizedDataUrl.split(',')[1];

@@ -35,13 +35,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
   const rateLimit = await checkRateLimit(rateLimiter, ip, 5);
 
   if (!rateLimit.allowed) {
-    return json(
-      { error: 'rateLimitExceeded', remaining: 0 },
-      {
-        status: 429,
-        headers: { 'X-RateLimit-Remaining': '0' },
-      }
-    );
+    return json({ error: 'rateLimitExceeded' }, { status: 429 });
   }
 
   let body: unknown;
@@ -112,17 +106,11 @@ export const POST: RequestHandler = async ({ request, platform }) => {
       excludeIds: recommendedIds,
     });
 
-    return json(
-      {
-        result: { season },
-        recommendedDyes,
-        dyesToAvoid,
-        remaining: rateLimit.remaining,
-      },
-      {
-        headers: { 'X-RateLimit-Remaining': String(rateLimit.remaining) },
-      }
-    );
+    return json({
+      result: { season },
+      recommendedDyes,
+      dyesToAvoid,
+    });
   } catch (e) {
     console.error('Diagnosis failed:', e);
     throw error(500, 'Diagnosis failed');

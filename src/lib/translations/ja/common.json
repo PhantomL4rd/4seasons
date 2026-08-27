@@ -10,7 +10,10 @@
   },
   "preview": {
     "diagnose": "診断する",
-    "retry": "やり直す"
+    "retry": "やり直す",
+    "cropHint": "顔のまわりを枠で囲むと、より正確に診断できます",
+    "cropMove": "クロップ範囲を移動",
+    "cropResize": "クロップ範囲を変更"
   },
   "loading": {
     "analyzing": "パーソナルカラーを分析中...",
@@ -71,7 +74,6 @@
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる"
   },
-  "remaining": "本日の残り回数: {{count}}回",
   "recommendation": {
     "title": "おすすめのカララント",
     "baseColors": "ベースカラー",

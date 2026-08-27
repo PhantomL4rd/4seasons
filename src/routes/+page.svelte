@@ -8,6 +8,7 @@ import UploadArea from '$lib/components/UploadArea.svelte';
 import { Button } from '$lib/components/ui/button';
 import { t } from '$lib/translations';
 import type { DiagnosisResponse, Phase } from '$lib/types';
+import type { CropRect } from '$lib/utils/crop';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
 import { shareDiagnosis } from '$lib/utils/share';
 import { getShareUrl } from '$lib/utils/share-url';
@@ -77,13 +78,13 @@ async function handleSave() {
   }
 }
 
-async function handleDiagnose() {
+async function handleDiagnose(crop?: CropRect) {
   if (!selectedFile) return;
 
   phase = 'loading';
 
   try {
-    const { base64, mimeType } = await resizeAndConvertToBase64(selectedFile);
+    const { base64, mimeType } = await resizeAndConvertToBase64(selectedFile, crop);
 
     const response = await fetch('/api/diagnose', {
       method: 'POST',

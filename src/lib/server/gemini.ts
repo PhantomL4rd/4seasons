@@ -61,10 +61,13 @@ Report these observations honestly. Do NOT alter any other field based on them �
 If no character is analyzable, still fill every remaining field with your best guess; the server discards them.
 
 # Analysis
-From SKIN and EYES only (ignore hair color & CG lighting), determine:
+From SKIN and EYES only (ignore hair color), determine:
 - undertone: warm (yellow/peach/olive) vs cool (pink/rosy/blueish)
 - contrast: high (skin/eyes differ in value) vs low (similar value)
-- chroma: clear (vivid/intense) vs soft (muted/grayish). High contrast suggests clear, low contrast suggests soft.
+- chroma: clear (vivid/intense) vs soft (muted/grayish)
+
+Sample skin from mid-tone areas (cheek, forehead), avoiding shadows, highlights, and blush.
+If the scene lighting has a color cast (warm sunset, cool night, colored magic effects), mentally compensate for it before judging undertone — judge the character's inherent coloring, not the lighting.
 
 Output "analysis" BEFORE "result".
 result.season follows mechanically from undertone × chroma — apply exactly:
@@ -72,7 +75,7 @@ ${buildSeasonRuleLines()}
 
 analysis.secondarySeason: second-best fitting season, must differ from result.season.
 
-Game notes: ignore CG lighting/shadows for undertone. Hair may inspire dye choices but not season.
+Game notes: hair may inspire dye choices but not season.
 
 Dye selection guide:
 | Season | Recommend profile | Avoid profile |

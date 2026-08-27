@@ -1,3 +1,4 @@
+import Color from 'colorjs.io';
 import { dyes, getDyesBySeason } from '$lib/data/dyes';
 import { seasonFallbackDyes } from '$lib/data/season-palettes';
 import type { Dye, MatchedDye, RecommendedDyeCandidates, Season } from '$lib/types';
@@ -74,11 +75,25 @@ export interface SampleRecommendedOptions {
 }
 
 /**
+ * これ未満の Oklab 距離（deltaEOK）はユーザーにはほぼ同じ色に見える。
+ * カタログ実データの最近傍ペア（Ink Blue と Dark Blue 等 ≈0.02）を弾き、
+ * 全ペアの5パーセンタイル（≈0.068）は通す値として決定。
+ */
+const MIN_DISTINCT_DELTA_EOK = 0.05;
+
+/** 選択済みの色のいずれかと知覚的に近すぎる（deltaEOK 未満）か */
+function isTooSimilar(selectedColors: readonly Color[], hex: string): boolean {
+  const color = new Color(hex);
+  return selectedColors.some((picked) => picked.deltaEOK(color) < MIN_DISTINCT_DELTA_EOK);
+}
+
+/**
  * 拡大した候補プールからランダムにサンプリングして推奨6色を作る。
  * Gemini が同じ染料を毎回上位に置くことによる「しつこい」推奨を緩和するため、
  * Gemini には多めの候補（primary 8, secondary 4）を返させ、ここで振り分ける。
  *
  * カタログ外（metallic/vivid）除外・1カテゴリ1色・ID重複なし・excludeIds は resolveDyeIds と同挙動。
+ * さらに、カテゴリが違っても選択済みの色と知覚的に近すぎる候補はスキップする。
  * 不足分の補充は呼び出し側の fillRecommendedDyes に委ねる（責務分離）。
  */
 export function sampleRecommendedDyes(
@@ -91,6 +106,7 @@ export function sampleRecommendedDyes(
 
   const usedIds = new Set<string>();
   const usedCategories = new Set<string>();
+  const selectedColors: Color[] = [];
   const results: MatchedDye[] = [];
 
   const takeFrom = (pool: string[], limit: number) => {
@@ -104,9 +120,12 @@ export function sampleRecommendedDyes(
       if (!dye) continue;
       if (!isCatalogDye(dye)) continue;
       if (usedCategories.has(dye.category)) continue;
+      const hex = dyeToHex(dye);
+      if (isTooSimilar(selectedColors, hex)) continue;
       usedIds.add(id);
       usedCategories.add(dye.category);
-      results.push({ dye, hex: dyeToHex(dye), deltaE: 0, role: 'base' });
+      selectedColors.push(new Color(hex));
+      results.push({ dye, hex, deltaE: 0, role: 'base' });
       taken++;
     }
   };
@@ -170,7 +189,7 @@ function shuffleArray<T>(source: readonly T[], random: () => number): T[] {
  * Geminiの推奨5-6色目はサブ季節へのブリッジ枠で、主季節の色とカテゴリが
  * 被って uniqueCategory に間引かれやすいため、補充元はサブ季節の候補色を
  * 優先し、足りなければ主季節の定番パレットを使う。
- * カタログ制約・1カテゴリ1色・ID重複なしは維持したまま足す。
+ * カタログ制約・1カテゴリ1色・ID重複なし・近似色除外（sampleRecommendedDyes と同基準）は維持したまま足す。
  */
 export function fillRecommendedDyes(
   current: MatchedDye[],
@@ -189,6 +208,7 @@ export function fillRecommendedDyes(
 
   const usedIds = new Set(current.map((matched) => matched.dye.id));
   const usedCategories = new Set<string>(current.map((matched) => matched.dye.category));
+  const selectedColors = current.map((matched) => new Color(matched.hex));
   const filled = [...current];
 
   for (const id of candidateIds) {
@@ -197,9 +217,12 @@ export function fillRecommendedDyes(
     const dye = dyeMap.get(id);
     if (!dye || !isCatalogDye(dye)) continue;
     if (usedCategories.has(dye.category)) continue;
+    const hex = dyeToHex(dye);
+    if (isTooSimilar(selectedColors, hex)) continue;
     usedIds.add(id);
     usedCategories.add(dye.category);
-    filled.push({ dye, hex: dyeToHex(dye), deltaE: 0, role: 'base' });
+    selectedColors.push(new Color(hex));
+    filled.push({ dye, hex, deltaE: 0, role: 'base' });
   }
 
   return filled;

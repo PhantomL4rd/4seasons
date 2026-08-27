@@ -87,6 +87,14 @@ describe('fillRecommendedDyes', () => {
     const filled = fillRecommendedDyes(fourDyes(), 'spring', 'spring');
     expect(filled.length).toBeGreaterThan(4);
   });
+
+  it('選択済みの色と知覚的にほぼ同じ色（deltaEOK < 0.05）は補充候補から除外される', () => {
+    // dye_024 Kobold Brown(brown) と dye_094 Jet Black(rare) は deltaEOK ≈ 0.039 でほぼ同色。
+    // カテゴリが異なるため 1カテゴリ1色 制約はすり抜け、近似色チェックがなければ補充されてしまう
+    const current = resolveDyeIds(['dye_024'], 'base');
+    const filled = fillRecommendedDyes(current, 'spring', 'winter', 8);
+    expect(ids(filled)).not.toContain('dye_094');
+  });
 });
 
 // 「同じ染料ばかり提案される」問題を解消するための候補プール拡大＆サンプリング機構
@@ -152,6 +160,15 @@ describe('sampleRecommendedDyes', () => {
     );
     const categories = result.map((m) => m.dye.category);
     expect(new Set(categories).size).toBe(result.length);
+  });
+
+  it('カテゴリが違っても知覚的にほぼ同じ色（deltaEOK < 0.05）は選ばれない', () => {
+    // dye_007 Soot Black(white) と dye_061 Deepwood Green(green) は deltaEOK ≈ 0.023 でほぼ同色
+    const result = sampleRecommendedDyes(
+      { primary: ['dye_007', 'dye_061'], secondary: [] },
+      { random: seeded(1), primaryCount: 2 }
+    );
+    expect(result).toHaveLength(1);
   });
 
   it('primary と secondary に同じIDがあっても重複しない', () => {

@@ -86,5 +86,4 @@ export interface DiagnosisResponse {
   result: SeasonResult;
   recommendedDyes: MatchedDye[];
   dyesToAvoid: MatchedDye[];
-  remaining?: number;
 }

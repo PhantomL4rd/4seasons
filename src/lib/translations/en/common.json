@@ -10,7 +10,10 @@
   },
   "preview": {
     "diagnose": "Diagnose",
-    "retry": "Try Again"
+    "retry": "Try Again",
+    "cropHint": "Frame your character's face for a more accurate diagnosis",
+    "cropMove": "Move crop area",
+    "cropResize": "Resize crop area"
   },
   "loading": {
     "analyzing": "Analyzing personal color...",
@@ -71,7 +74,6 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
-  "remaining": "Remaining diagnoses today: {{count}}",
   "recommendation": {
     "title": "Recommended Dyes",
     "baseColors": "Base Colors",
