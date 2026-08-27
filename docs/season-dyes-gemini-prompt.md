@@ -61,6 +61,6 @@ PASTE THE FULL DYE CATALOG HERE
 ```
 
 Suggested source material when running it:
-- [src/lib/server/gemini.ts](/Users/hikaru/Develop/Hobby/4season/src/lib/server/gemini.ts)
-- [src/lib/server/season.ts](/Users/hikaru/Develop/Hobby/4season/src/lib/server/season.ts)
-- [src/lib/data/dyes.json](/Users/hikaru/Develop/Hobby/4season/src/lib/data/dyes.json)
+- [src/lib/server/gemini.ts](/Users/hikaru/Develop/Hobby/4seasons/src/lib/server/gemini.ts)
+- [src/lib/server/season.ts](/Users/hikaru/Develop/Hobby/4seasons/src/lib/server/season.ts)
+- [src/lib/data/dyes.json](/Users/hikaru/Develop/Hobby/4seasons/src/lib/data/dyes.json)
