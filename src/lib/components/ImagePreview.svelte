@@ -51,11 +51,12 @@ function handleDiagnose() {
 }
 
 const HANDLES: CropHandle[] = ['nw', 'ne', 'sw', 'se'];
+// ハンドルは枠の内側に収まる位置に置く（コンテナの overflow-hidden でクリップされないように）
 const handleClass: Record<CropHandle, string> = {
-  nw: 'left-0 top-0 -translate-x-1/2 -translate-y-1/2 cursor-nwse-resize',
-  ne: 'right-0 top-0 translate-x-1/2 -translate-y-1/2 cursor-nesw-resize',
-  sw: 'bottom-0 left-0 -translate-x-1/2 translate-y-1/2 cursor-nesw-resize',
-  se: 'bottom-0 right-0 translate-x-1/2 translate-y-1/2 cursor-nwse-resize',
+  nw: 'left-0 top-0 cursor-nwse-resize',
+  ne: 'right-0 top-0 cursor-nesw-resize',
+  sw: 'left-0 bottom-0 cursor-nesw-resize',
+  se: 'right-0 bottom-0 cursor-nwse-resize',
 };
 </script>
 
@@ -92,11 +93,11 @@ const handleClass: Record<CropHandle, string> = {
           <button
             type="button"
             aria-label={$t('common.preview.cropResize')}
-            class="absolute size-4 rounded-full border border-foreground/30 bg-white shadow {handleClass[
-              handle
-            ]}"
+            class="absolute flex size-9 items-center justify-center {handleClass[handle]}"
             onpointerdown={(e) => startDrag(e, handle)}
-          ></button>
+          >
+            <span class="size-4 rounded-full border border-foreground/30 bg-white shadow"></span>
+          </button>
         {/each}
       </div>
     </div>
