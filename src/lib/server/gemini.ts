@@ -17,7 +17,7 @@ interface GeminiApiResponse {
   candidates?: GeminiApiCandidate[];
 }
 
-const GEMINI_MODEL = 'gemini-3.1-flash-lite';
+const GEMINI_MODEL = 'gemini-3.7-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 /**
@@ -336,10 +336,7 @@ async function requestDiagnosis(
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema,
-      temperature: 0.1,
-      thinkingConfig: {
-        thinkingBudget: 0,
-      },
+      thinkingConfig: { thinkingLevel: 'low' },
     },
   };
 
