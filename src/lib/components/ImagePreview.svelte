@@ -58,6 +58,13 @@ const handleClass: Record<CropHandle, string> = {
   sw: 'left-0 bottom-0 cursor-nesw-resize',
   se: 'right-0 bottom-0 cursor-nwse-resize',
 };
+// L字のコーナーマーカー（Instagram/iOS の写真編集でおなじみの見た目）
+const cornerMarkClass: Record<CropHandle, string> = {
+  nw: 'left-0 top-0 rounded-tl-[3px] border-t-[3px] border-l-[3px]',
+  ne: 'right-0 top-0 rounded-tr-[3px] border-t-[3px] border-r-[3px]',
+  sw: 'left-0 bottom-0 rounded-bl-[3px] border-b-[3px] border-l-[3px]',
+  se: 'right-0 bottom-0 rounded-br-[3px] border-b-[3px] border-r-[3px]',
+};
 </script>
 
 <svelte:window
@@ -79,7 +86,7 @@ const handleClass: Record<CropHandle, string> = {
         class="max-h-[480px] max-w-full select-none object-contain"
       />
       <div
-        class="absolute border-2 border-white/90 shadow-[0_0_0_9999px_rgba(0,0,0,0.55)]"
+        class="absolute border border-white/70 shadow-[0_0_0_9999px_rgba(0,0,0,0.55)]"
         style="left: {crop.x * 100}%; top: {crop.y * 100}%; width: {crop.width *
           100}%; height: {crop.height * 100}%;"
       >
@@ -93,10 +100,12 @@ const handleClass: Record<CropHandle, string> = {
           <button
             type="button"
             aria-label={$t('common.preview.cropResize')}
-            class="absolute flex size-9 items-center justify-center {handleClass[handle]}"
+            class="absolute size-9 {handleClass[handle]}"
             onpointerdown={(e) => startDrag(e, handle)}
           >
-            <span class="size-4 rounded-full border border-foreground/30 bg-white shadow"></span>
+            <span
+              class="absolute size-5 border-white drop-shadow-sm {cornerMarkClass[handle]}"
+            ></span>
           </button>
         {/each}
       </div>
