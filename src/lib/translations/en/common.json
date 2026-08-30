@@ -82,12 +82,18 @@
   "share": {
     "button": "Share",
     "save": "Save",
-    "copied": "URL copied to clipboard",
+    "copied": "URL copied and saved",
+    "copiedOnly": "URL copied to clipboard",
+    "savedOnly": "Saved",
+    "saveFailed": "Failed to save",
     "invalidLink": "This share link is invalid",
     "tryYourself": "Try it yourself",
     "result": "My personal color is {season}!",
     "dyeList": "Recommended dyes: {dyes}",
     "hashtags": "#WoL_4seasons #FF14 #FFXIV"
+  },
+  "saved": {
+    "title": "Saved Results"
   },
   "about": {
     "title": "About 4seasons",
@@ -100,7 +106,7 @@
     "step2": "Drag & drop the image to the upload area, or pick a file via \"Choose Image\"",
     "step3": "Check the preview and press \"Diagnose\"",
     "step4": "Within seconds, your seasonal type and recommended/avoid dye lists appear",
-    "step5": "Use \"Save\" to copy the share URL, or \"Share\" to post to social media"
+    "step5": "Use \"Save\" to copy the share URL and save it on this device, or \"Share\" to post to social media"
   },
   "faq": {
     "title": "Frequently Asked Questions",

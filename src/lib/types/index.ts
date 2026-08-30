@@ -87,3 +87,11 @@ export interface DiagnosisResponse {
   recommendedDyes: MatchedDye[];
   dyesToAvoid: MatchedDye[];
 }
+
+/** LocalStorageに保存する診断結果の履歴エントリ */
+export interface SavedResult {
+  /** share URLの末尾（encodeShareDataの出力）と同一。復元・遷移先の特定に使う */
+  id: string;
+  season: Season;
+  savedAt: number;
+}

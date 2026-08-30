@@ -1,15 +1,18 @@
 <script lang="ts">
 import { Bookmark, Share2 } from '@lucide/svelte';
+import { onMount } from 'svelte';
 import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
 import ImagePreview from '$lib/components/ImagePreview.svelte';
 import LoadingState from '$lib/components/LoadingState.svelte';
 import SeasonBadge from '$lib/components/SeasonBadge.svelte';
 import UploadArea from '$lib/components/UploadArea.svelte';
+import { Badge } from '$lib/components/ui/badge';
 import { Button } from '$lib/components/ui/button';
-import { t } from '$lib/translations';
-import type { DiagnosisResponse, Phase } from '$lib/types';
+import { locale, t } from '$lib/translations';
+import type { DiagnosisResponse, Phase, SavedResult } from '$lib/types';
 import type { CropRect } from '$lib/utils/crop';
 import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
+import { getSavedResults, saveResult } from '$lib/utils/saved-results';
 import { shareDiagnosis } from '$lib/utils/share';
 import { getShareUrl } from '$lib/utils/share-url';
 
@@ -22,6 +25,20 @@ let diagnosisResult: DiagnosisResponse | null = $state(null);
 let isSharing = $state(false);
 let isSaving = $state(false);
 let showCopiedToast = $state(false);
+let copiedToastMessage = $state('');
+let savedResults: SavedResult[] = $state([]);
+
+onMount(() => {
+  savedResults = getSavedResults();
+});
+
+function formatSavedDate(savedAt: number): string {
+  return new Date(savedAt).toLocaleDateString($locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 const TITLED_ERRORS = new Set([
   'noFaceDetected',
@@ -67,8 +84,32 @@ async function handleSave() {
   if (!diagnosisResult || isSaving) return;
   isSaving = true;
   try {
-    const shareUrl = getShareUrl(diagnosisResult);
-    await navigator.clipboard.writeText(shareUrl);
+    let didSave = true;
+    try {
+      savedResults = saveResult(diagnosisResult);
+    } catch (e) {
+      // 容量超過・プライベートモード等での失敗時もURLコピーは継続させる
+      didSave = false;
+      console.warn('Failed to save result to localStorage', e);
+    }
+    let didCopy = true;
+    try {
+      const shareUrl = getShareUrl(diagnosisResult);
+      await navigator.clipboard.writeText(shareUrl);
+    } catch (e) {
+      // フォーカス喪失・権限拒否等での失敗時も、保存済みであればその旨は伝える
+      didCopy = false;
+      console.warn('Failed to copy URL to clipboard', e);
+    }
+    if (didSave && didCopy) {
+      copiedToastMessage = $t('common.share.copied');
+    } else if (didCopy) {
+      copiedToastMessage = $t('common.share.copiedOnly');
+    } else if (didSave) {
+      copiedToastMessage = $t('common.share.savedOnly');
+    } else {
+      copiedToastMessage = $t('common.share.saveFailed');
+    }
     showCopiedToast = true;
     setTimeout(() => {
       showCopiedToast = false;
@@ -148,6 +189,22 @@ async function handleDiagnose(crop?: CropRect) {
     <div class="w-full">
       <UploadArea onFileSelect={handleFileSelect} onError={handleError} />
     </div>
+    {#if savedResults.length > 0}
+      <div class="w-full">
+        <h2 class="mb-3 text-sm font-medium text-muted-foreground">{$t('common.saved.title')}</h2>
+        <div class="flex flex-col gap-2">
+          {#each savedResults as saved (saved.id)}
+            <a
+              href="/share/{saved.id}"
+              class="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-accent"
+            >
+              <Badge variant={saved.season}>{$t(`common.season.${saved.season}`)}</Badge>
+              <span class="text-sm text-muted-foreground">{formatSavedDate(saved.savedAt)}</span>
+            </a>
+          {/each}
+        </div>
+      </div>
+    {/if}
   {:else if phase === 'preview'}
     <ImagePreview
       {previewUrl}
@@ -172,8 +229,12 @@ async function handleDiagnose(crop?: CropRect) {
         </Button>
       </div>
       {#if showCopiedToast}
-        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-lg bg-foreground px-4 py-2 text-sm text-background shadow-lg transition-opacity">
-          {$t('common.share.copied')}
+        <div
+          role="status"
+          aria-live="polite"
+          class="fixed bottom-6 left-1/2 -translate-x-1/2 rounded-lg bg-foreground px-4 py-2 text-sm text-background shadow-lg transition-opacity"
+        >
+          {copiedToastMessage}
         </div>
       {/if}
     </div>

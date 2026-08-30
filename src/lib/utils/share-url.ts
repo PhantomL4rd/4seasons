@@ -8,7 +8,7 @@ interface ShareData {
   a: string[];
 }
 
-const VALID_SEASONS: Season[] = ['spring', 'summer', 'autumn', 'winter'];
+export const VALID_SEASONS: Season[] = ['spring', 'summer', 'autumn', 'winter'];
 const MAX_COMPRESSED_LENGTH = 2048;
 const MAX_JSON_LENGTH = 5000;
 const MAX_ID_LENGTH = 20;

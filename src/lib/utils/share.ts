@@ -1,6 +1,15 @@
-import type { DiagnosisResponse, TranslateFn } from '$lib/types';
+import type { DiagnosisResponse, MatchedDye, TranslateFn } from '$lib/types';
 import { getDyeName } from '$lib/utils/dye';
 import { encodeShareData, getShareUrl } from '$lib/utils/share-url';
+
+const MAX_SHARE_DYE_COUNT = 4;
+
+export function buildDyeNamesText(dyes: MatchedDye[], t: TranslateFn): string {
+  return dyes
+    .slice(0, MAX_SHARE_DYE_COUNT)
+    .map((d) => getDyeName(d.dye, t))
+    .join('、');
+}
 
 // Reuses the server-rendered OG image as the Web Share API payload, so the
 // shared file matches what crawlers/embed previews show for the same URL.
@@ -24,10 +33,7 @@ async function fetchShareImage(diagnosis: DiagnosisResponse): Promise<Blob | nul
 
 export async function shareDiagnosis(diagnosis: DiagnosisResponse, t: TranslateFn): Promise<void> {
   const seasonLabel = t(`common.season.${diagnosis.result.season}`);
-  const dyeNames = diagnosis.recommendedDyes
-    .slice(0, 3)
-    .map((d) => getDyeName(d.dye, t))
-    .join('、');
+  const dyeNames = buildDyeNamesText(diagnosis.recommendedDyes, t);
   const shareUrl = getShareUrl(diagnosis);
   const text = [
     t('common.share.result').replace('{season}', seasonLabel),
