@@ -15,6 +15,7 @@ import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib
 import { getSavedResults, saveResult } from '$lib/utils/saved-results';
 import { shareDiagnosis } from '$lib/utils/share';
 import { getShareUrl } from '$lib/utils/share-url';
+import { TimeoutError, withTimeout } from '$lib/utils/timeout';
 
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);
@@ -120,21 +121,30 @@ async function handleSave() {
 }
 
 async function handleDiagnose(crop?: CropRect) {
-  if (!selectedFile) return;
+  if (!selectedFile || phase === 'loading') return;
+  const file = selectedFile;
 
   phase = 'loading';
 
   try {
-    const { base64, mimeType } = await resizeAndConvertToBase64(selectedFile, crop);
+    const { response, body } = await withTimeout(async (signal) => {
+      const { base64, mimeType } = await resizeAndConvertToBase64(file, crop);
+      // Image decoding cannot be aborted; do not send a request after the deadline.
+      if (signal.aborted) throw signal.reason;
+      const response = await fetch('/api/diagnose', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: base64, mimeType }),
+        signal,
+      });
+      const body = response.ok || response.status === 422 ? await response.json() : null;
+      return { response, body };
+    }, 75_000);
 
-    const response = await fetch('/api/diagnose', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        image: base64,
-        mimeType,
-      }),
-    });
+    if (response.status === 504) {
+      handleError('diagnosisTimeout');
+      return;
+    }
 
     if (response.status === 429) {
       handleError('rateLimitExceeded');
@@ -142,9 +152,10 @@ async function handleDiagnose(crop?: CropRect) {
     }
 
     if (response.status === 422) {
-      const body = (await response.json()) as { error?: string };
+      const errorBody = body as { error?: string };
       // 未知のキー（デプロイ世代ズレ等）は翻訳が空になるため汎用メッセージに落とす
-      const errorKey = body.error && TITLED_ERRORS.has(body.error) ? body.error : 'analysisFailed';
+      const errorKey =
+        errorBody.error && TITLED_ERRORS.has(errorBody.error) ? errorBody.error : 'analysisFailed';
       handleError(errorKey);
       return;
     }
@@ -154,10 +165,10 @@ async function handleDiagnose(crop?: CropRect) {
       return;
     }
 
-    diagnosisResult = await response.json();
+    diagnosisResult = body as DiagnosisResponse;
     phase = 'result';
-  } catch {
-    handleError('networkError');
+  } catch (error) {
+    handleError(error instanceof TimeoutError ? 'diagnosisTimeout' : 'networkError');
   }
 }
 </script>

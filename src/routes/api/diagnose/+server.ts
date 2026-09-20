@@ -10,6 +10,7 @@ import {
 import { diagnoseWithGemini, screenDiagnosis } from '$lib/server/gemini';
 import { checkRateLimit } from '$lib/server/rate-limiter';
 import { deriveSeason, resolveSecondarySeason } from '$lib/server/season';
+import { TimeoutError } from '$lib/utils/timeout';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, platform }) => {
@@ -113,6 +114,9 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     });
   } catch (e) {
     console.error('Diagnosis failed:', e);
+    if (e instanceof TimeoutError) {
+      return json({ error: 'diagnosisTimeout' }, { status: 504 });
+    }
     throw error(500, 'Diagnosis failed');
   }
 };

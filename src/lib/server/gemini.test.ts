@@ -169,6 +169,7 @@ function geminiApiResponse(payload: unknown) {
 
 describe('diagnoseWithGemini のリトライ', () => {
   afterEach(() => {
+    vi.useRealTimers();
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
   });
@@ -200,6 +201,23 @@ describe('diagnoseWithGemini のリトライ', () => {
     const result = await diagnoseWithGemini('key', 'img', 'image/png');
     expect(result.result.season).toBe('spring');
     expect(fetchMock).toHaveBeenCalledTimes(2);
+  });
+
+  it('レスポンス本文が停止しても60秒で中断し、リトライしない', async () => {
+    vi.useFakeTimers();
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: () => new Promise(() => {}),
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    const result = expect(diagnoseWithGemini('key', 'img', 'image/png')).rejects.toThrow(
+      'Operation timed out'
+    );
+    await vi.advanceTimersByTimeAsync(60_000);
+    await result;
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMock.mock.calls[0][1].signal.aborted).toBe(true);
+    expect(vi.getTimerCount()).toBe(0);
   });
 
   it('APIエラー（HTTP非OK）はリトライせずそのまま失敗する', async () => {

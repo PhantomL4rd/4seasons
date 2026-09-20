@@ -22,6 +22,7 @@
   "error": {
     "fileTooLarge": "画像の読み込みに失敗しました",
     "invalidFileType": "対応していないファイル形式です（JPEG, PNGのみ）",
+    "diagnosisTimeout": "診断に時間がかかっています。時間をおいて、もう一度お試しください",
     "analysisFailed": "分析に失敗しました。もう一度お試しください",
     "rateLimitExceeded": "今日はいっぱい遊んでもらったみたいです。また明日！",
     "oops": "おや？",

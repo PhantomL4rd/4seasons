@@ -22,6 +22,7 @@
   "error": {
     "fileTooLarge": "Failed to load image",
     "invalidFileType": "Unsupported file format (JPEG, PNG only)",
+    "diagnosisTimeout": "The diagnosis took too long. Please wait a moment and try again.",
     "analysisFailed": "Analysis failed. Please try again",
     "rateLimitExceeded": "Looks like we've had a lot of fun today. See you tomorrow!",
     "oops": "Oops!",

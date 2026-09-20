@@ -1,5 +1,6 @@
 import { dyes } from '$lib/data/dyes';
 import type { Chroma, Contrast, GeminiDiagnosisResponse, Season, Undertone } from '$lib/types';
+import { withTimeout } from '$lib/utils/timeout';
 import { dyeToHex, isCatalogDye } from './dye-matcher';
 import { deriveSeason, SEASON_RULE } from './season';
 
@@ -17,7 +18,7 @@ interface GeminiApiResponse {
   candidates?: GeminiApiCandidate[];
 }
 
-const GEMINI_MODEL = 'gemini-3.7-flash';
+const GEMINI_MODEL = 'gemini-3.8-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 /**
@@ -303,21 +304,24 @@ export async function diagnoseWithGemini(
   imageBase64: string,
   mimeType: string
 ): Promise<GeminiDiagnosisResponse> {
-  try {
-    return assertSeasonConsistent(await requestDiagnosis(apiKey, imageBase64, mimeType));
-  } catch (firstError) {
-    if (!(firstError instanceof RetryableDiagnosisError)) {
-      throw firstError;
+  return withTimeout(async (signal) => {
+    try {
+      return assertSeasonConsistent(await requestDiagnosis(apiKey, imageBase64, mimeType, signal));
+    } catch (firstError) {
+      if (signal.aborted || !(firstError instanceof RetryableDiagnosisError)) {
+        throw firstError;
+      }
+      console.warn('Gemini diagnosis attempt failed, retrying once:', firstError);
+      return requestDiagnosis(apiKey, imageBase64, mimeType, signal);
     }
-    console.warn('Gemini diagnosis attempt failed, retrying once:', firstError);
-    return requestDiagnosis(apiKey, imageBase64, mimeType);
-  }
+  }, 60_000);
 }
 
 async function requestDiagnosis(
   apiKey: string,
   imageBase64: string,
-  mimeType: string
+  mimeType: string,
+  signal: AbortSignal
 ): Promise<GeminiDiagnosisResponse> {
   const prompt = buildPrompt();
 
@@ -339,7 +343,7 @@ async function requestDiagnosis(
     generationConfig: {
       responseMimeType: 'application/json',
       responseSchema,
-      thinkingConfig: { thinkingLevel: 'low' },
+      thinkingConfig: { thinkingLevel: 'medium' },
     },
   };
 
@@ -350,6 +354,7 @@ async function requestDiagnosis(
       'x-goog-api-key': apiKey,
     },
     body: JSON.stringify(requestBody),
+    signal,
   });
 
   if (!response.ok) {
