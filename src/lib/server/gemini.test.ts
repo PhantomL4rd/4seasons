@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { dyes } from '$lib/data/dyes';
+import { dyes } from '#lib/data/dyes.js';
 import { isCatalogDye } from './dye-matcher';
 import {
   buildDyeCatalog,

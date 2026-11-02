@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getDyesBySeason } from '$lib/data/dyes';
-import type { DyeCategory, Season } from '$lib/types';
+import { getDyesBySeason } from '#lib/data/dyes.js';
+import type { DyeCategory, Season } from '#lib/types/index.js';
 
 const seasons: Season[] = ['spring', 'summer', 'autumn', 'winter'];
 

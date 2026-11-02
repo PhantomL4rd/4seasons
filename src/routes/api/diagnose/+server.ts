@@ -1,25 +1,26 @@
+import { env as cloudflareEnv } from 'cloudflare:workers';
 import { error, json } from '@sveltejs/kit';
-import { dev } from '$app/environment';
-import { env } from '$env/dynamic/private';
 import {
   fillRecommendedDyes,
   getFallbackDyes,
   sampleAvoidDyes,
   sampleRecommendedDyes,
-} from '$lib/server/dye-matcher';
-import { diagnoseWithGemini, screenDiagnosis } from '$lib/server/gemini';
-import { checkRateLimit } from '$lib/server/rate-limiter';
-import { deriveSeason, resolveSecondarySeason } from '$lib/server/season';
-import { TimeoutError } from '$lib/utils/timeout';
+} from '#lib/server/dye-matcher.js';
+import { diagnoseWithGemini, screenDiagnosis } from '#lib/server/gemini.js';
+import { checkRateLimit } from '#lib/server/rate-limiter.js';
+import { deriveSeason, resolveSecondarySeason } from '#lib/server/season.js';
+import { TimeoutError } from '#lib/utils/timeout.js';
+import { dev } from '$app/env';
+import { GEMINI_API_KEY } from '$app/env/private';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({ request, platform }) => {
-  // Cloudflare Workers上ではplatform.envから、ローカルdevでは.dev.varsから取得
+export const POST: RequestHandler = async ({ request }) => {
+  const env = cloudflareEnv as Env;
   let apiKey: string | undefined;
   if (dev) {
-    apiKey = env.GEMINI_API_KEY;
+    apiKey = GEMINI_API_KEY;
   } else {
-    apiKey = platform?.env?.GEMINI_API_KEY;
+    apiKey = env.GEMINI_API_KEY;
   }
   if (!apiKey) {
     console.error('GEMINI_API_KEY is not configured');
@@ -32,7 +33,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     'unknown';
 
-  const rateLimiter = dev ? undefined : platform?.env?.RATE_LIMITER;
+  const rateLimiter = dev ? undefined : env.RATE_LIMITER;
   const rateLimit = await checkRateLimit(rateLimiter, ip, 5);
 
   if (!rateLimit.allowed) {

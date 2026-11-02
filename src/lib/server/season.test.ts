@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { Season } from '$lib/types';
+import type { Season } from '#lib/types/index.js';
 import { deriveSeason, resolveSecondarySeason } from './season';
 
 describe('deriveSeason', () => {

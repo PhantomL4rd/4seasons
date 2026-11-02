@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { getDyesBySeason } from '$lib/data/dyes';
-import { seasonFallbackDyes } from '$lib/data/season-palettes';
+import { getDyesBySeason } from '#lib/data/dyes.js';
+import { seasonFallbackDyes } from '#lib/data/season-palettes.js';
 import {
   fillRecommendedDyes,
   resolveDyeIds,

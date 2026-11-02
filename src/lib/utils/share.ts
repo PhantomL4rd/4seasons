@@ -1,6 +1,6 @@
-import type { DiagnosisResponse, MatchedDye, TranslateFn } from '$lib/types';
-import { getDyeName } from '$lib/utils/dye';
-import { encodeShareData, getShareUrl } from '$lib/utils/share-url';
+import type { DiagnosisResponse, MatchedDye, TranslateFn } from '#lib/types/index.js';
+import { getDyeName } from '#lib/utils/dye.js';
+import { encodeShareData, getShareUrl } from '#lib/utils/share-url.js';
 
 const MAX_SHARE_DYE_COUNT = 4;
 

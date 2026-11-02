@@ -1,6 +1,12 @@
-import { dyes } from '$lib/data/dyes';
-import type { Chroma, Contrast, GeminiDiagnosisResponse, Season, Undertone } from '$lib/types';
-import { withTimeout } from '$lib/utils/timeout';
+import { dyes } from '#lib/data/dyes.js';
+import type {
+  Chroma,
+  Contrast,
+  GeminiDiagnosisResponse,
+  Season,
+  Undertone,
+} from '#lib/types/index.js';
+import { withTimeout } from '#lib/utils/timeout.js';
 import { dyeToHex, isCatalogDye } from './dye-matcher';
 import { deriveSeason, SEASON_RULE } from './season';
 

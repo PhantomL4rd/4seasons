@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Badge } from '$lib/components/ui/badge';
-import { t } from '$lib/translations';
-import type { Season } from '$lib/types';
+import { Badge } from '#lib/components/ui/badge/index.js';
+import { t } from '#lib/translations/index.js';
+import type { Season } from '#lib/types/index.js';
 
 interface Props {
   season: Season;

@@ -1,4 +1,4 @@
-import type { DiagnosisResponse, SavedResult, Season } from '$lib/types';
+import type { DiagnosisResponse, SavedResult, Season } from '#lib/types/index.js';
 import { encodeShareData, VALID_SEASONS } from './share-url';
 
 const STORAGE_KEY = '4seasons:saved-results';

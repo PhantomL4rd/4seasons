@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Home, Info, Menu, MessageCircle, VenetianMask, X } from '@lucide/svelte';
-import { Button } from '$lib/components/ui/button';
-import { t } from '$lib/translations';
+import { Button } from '#lib/components/ui/button/index.js';
+import { t } from '#lib/translations/index.js';
 
 let isOpen = $state(false);
 

@@ -1,13 +1,13 @@
 <script lang="ts">
 import { Share2 } from '@lucide/svelte';
-import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
-import LoadingState from '$lib/components/LoadingState.svelte';
-import SeasonBadge from '$lib/components/SeasonBadge.svelte';
-import { Button } from '$lib/components/ui/button';
-import { t } from '$lib/translations';
-import type { DiagnosisResponse } from '$lib/types';
-import { shareDiagnosis } from '$lib/utils/share';
-import { decodeShareData, restoreDiagnosis } from '$lib/utils/share-url';
+import DyeRecommendation from '#lib/components/DyeRecommendation.svelte';
+import LoadingState from '#lib/components/LoadingState.svelte';
+import SeasonBadge from '#lib/components/SeasonBadge.svelte';
+import { Button } from '#lib/components/ui/button/index.js';
+import { t } from '#lib/translations/index.js';
+import type { DiagnosisResponse } from '#lib/types/index.js';
+import { shareDiagnosis } from '#lib/utils/share.js';
+import { decodeShareData, restoreDiagnosis } from '#lib/utils/share-url.js';
 
 let { data } = $props();
 

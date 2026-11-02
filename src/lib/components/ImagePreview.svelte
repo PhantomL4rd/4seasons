@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Button } from '$lib/components/ui/button';
-import { t } from '$lib/translations';
-import { type CropHandle, type CropRect, moveRect, resizeRect } from '$lib/utils/crop';
+import { Button } from '#lib/components/ui/button/index.js';
+import { t } from '#lib/translations/index.js';
+import { type CropHandle, type CropRect, moveRect, resizeRect } from '#lib/utils/crop.js';
 
 interface Props {
   previewUrl: string;

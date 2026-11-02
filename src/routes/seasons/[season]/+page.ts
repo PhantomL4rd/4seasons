@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { Season } from '$lib/types';
+import type { Season } from '#lib/types/index.js';
 import type { PageLoad } from './$types';
 
 const VALID_SEASONS: Season[] = ['spring', 'summer', 'autumn', 'winter'];

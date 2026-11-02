@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import type { DiagnosisResponse, SavedResult, Season } from '$lib/types';
+import type { DiagnosisResponse, SavedResult, Season } from '#lib/types/index.js';
 import { getSavedResults, saveResult } from './saved-results';
 import { encodeShareData } from './share-url';
 

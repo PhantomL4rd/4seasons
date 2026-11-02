@@ -1,4 +1,4 @@
-import type { Season } from '$lib/types';
+import type { Season } from '#lib/types/index.js';
 
 /**
  * シーズン別のフォールバック染料IDセット。

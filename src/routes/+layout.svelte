@@ -2,11 +2,11 @@
 import '../app.css';
 import { Info, LayoutGrid } from '@lucide/svelte';
 import { ModeWatcher } from 'mode-watcher';
+import faviconSvg from '#lib/assets/favicon.svg';
+import LanguageSwitcher from '#lib/components/LanguageSwitcher.svelte';
+import SideDrawer from '#lib/components/ui/SideDrawer.svelte';
+import { t } from '#lib/translations/index.js';
 import { page } from '$app/state';
-import faviconSvg from '$lib/assets/favicon.svg';
-import LanguageSwitcher from '$lib/components/LanguageSwitcher.svelte';
-import SideDrawer from '$lib/components/ui/SideDrawer.svelte';
-import { t } from '$lib/translations';
 
 let { children } = $props();
 

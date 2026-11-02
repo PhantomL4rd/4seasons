@@ -1,7 +1,7 @@
-import { cormorantSb, shipporiSb } from '$lib/server/og/fonts';
-import { renderOg } from '$lib/server/og/template';
-import { rgbToHex } from '$lib/utils/color';
-import { decodeShareData, restoreDiagnosis } from '$lib/utils/share-url';
+import { cormorantSb, shipporiSb } from '#lib/server/og/fonts/index.js';
+import { renderOg } from '#lib/server/og/template.js';
+import { rgbToHex } from '#lib/utils/color.js';
+import { decodeShareData, restoreDiagnosis } from '#lib/utils/share-url.js';
 import type { RequestHandler } from './$types';
 
 const WIDTH = 1200;

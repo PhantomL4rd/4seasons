@@ -1,6 +1,6 @@
 import LZString from 'lz-string';
-import { getDyeById } from '$lib/data/dyes';
-import type { DiagnosisResponse, MatchedDye, Season } from '$lib/types';
+import { getDyeById } from '#lib/data/dyes.js';
+import type { DiagnosisResponse, MatchedDye, Season } from '#lib/types/index.js';
 
 interface ShareData {
   s: Season;

@@ -1,4 +1,4 @@
-import type { Dye, DyesData, Season } from '$lib/types';
+import type { Dye, DyesData, Season } from '#lib/types/index.js';
 import dyesJson from './dyes.json';
 import seasonDyesJson from './season-dyes.json';
 

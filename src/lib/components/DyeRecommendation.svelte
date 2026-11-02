@@ -1,11 +1,11 @@
 <script lang="ts">
 import { PaintBucket } from '@lucide/svelte';
-import DyeCard from '$lib/components/DyeCard.svelte';
-import * as Card from '$lib/components/ui/card';
-import { t } from '$lib/translations';
-import type { MatchedDye, Season } from '$lib/types';
-import { rgbToHex } from '$lib/utils/color';
-import { getDyeName } from '$lib/utils/dye';
+import DyeCard from '#lib/components/DyeCard.svelte';
+import * as Card from '#lib/components/ui/card/index.js';
+import { t } from '#lib/translations/index.js';
+import type { MatchedDye, Season } from '#lib/types/index.js';
+import { rgbToHex } from '#lib/utils/color.js';
+import { getDyeName } from '#lib/utils/dye.js';
 
 interface Props {
   dyes: MatchedDye[];

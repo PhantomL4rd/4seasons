@@ -1,21 +1,21 @@
 <script lang="ts">
 import { Bookmark, Share2 } from '@lucide/svelte';
 import { onMount } from 'svelte';
-import DyeRecommendation from '$lib/components/DyeRecommendation.svelte';
-import ImagePreview from '$lib/components/ImagePreview.svelte';
-import LoadingState from '$lib/components/LoadingState.svelte';
-import SeasonBadge from '$lib/components/SeasonBadge.svelte';
-import UploadArea from '$lib/components/UploadArea.svelte';
-import { Badge } from '$lib/components/ui/badge';
-import { Button } from '$lib/components/ui/button';
-import { locale, t } from '$lib/translations';
-import type { DiagnosisResponse, Phase, SavedResult } from '$lib/types';
-import type { CropRect } from '$lib/utils/crop';
-import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '$lib/utils/image';
-import { getSavedResults, saveResult } from '$lib/utils/saved-results';
-import { shareDiagnosis } from '$lib/utils/share';
-import { getShareUrl } from '$lib/utils/share-url';
-import { TimeoutError, withTimeout } from '$lib/utils/timeout';
+import DyeRecommendation from '#lib/components/DyeRecommendation.svelte';
+import ImagePreview from '#lib/components/ImagePreview.svelte';
+import LoadingState from '#lib/components/LoadingState.svelte';
+import SeasonBadge from '#lib/components/SeasonBadge.svelte';
+import UploadArea from '#lib/components/UploadArea.svelte';
+import { Badge } from '#lib/components/ui/badge/index.js';
+import { Button } from '#lib/components/ui/button/index.js';
+import { locale, t } from '#lib/translations/index.js';
+import type { DiagnosisResponse, Phase, SavedResult } from '#lib/types/index.js';
+import type { CropRect } from '#lib/utils/crop.js';
+import { createObjectUrl, resizeAndConvertToBase64, revokeObjectUrl } from '#lib/utils/image.js';
+import { getSavedResults, saveResult } from '#lib/utils/saved-results.js';
+import { shareDiagnosis } from '#lib/utils/share.js';
+import { getShareUrl } from '#lib/utils/share-url.js';
+import { TimeoutError, withTimeout } from '#lib/utils/timeout.js';
 
 let phase: Phase = $state('upload');
 let selectedFile: File | null = $state(null);

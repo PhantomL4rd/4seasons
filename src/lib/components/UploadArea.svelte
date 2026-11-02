@@ -1,7 +1,7 @@
 <script lang="ts">
-import { Button } from '$lib/components/ui/button';
-import { t } from '$lib/translations';
-import { validateFile } from '$lib/utils/image';
+import { Button } from '#lib/components/ui/button/index.js';
+import { t } from '#lib/translations/index.js';
+import { validateFile } from '#lib/utils/image.js';
 
 interface Props {
   onFileSelect: (file: File) => void;

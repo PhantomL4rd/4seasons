@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { MatchedDye } from '$lib/types';
+import type { MatchedDye } from '#lib/types/index.js';
 import { buildDyeNamesText } from './share';
 
 function makeDye(id: string, name: string): MatchedDye {

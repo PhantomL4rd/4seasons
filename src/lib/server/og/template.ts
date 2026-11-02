@@ -1,4 +1,4 @@
-import type { Season } from '$lib/types';
+import type { Season } from '#lib/types/index.js';
 
 const SEASON_META: Record<Season, { en: string; jp: string; color: string }> = {
   spring: { en: 'Spring', jp: '春', color: '#FE640B' },

@@ -1,9 +1,9 @@
 <script lang="ts">
-import DyeCard from '$lib/components/DyeCard.svelte';
-import SeasonBadge from '$lib/components/SeasonBadge.svelte';
-import { getDyesBySeason } from '$lib/data/dyes';
-import { t } from '$lib/translations';
-import type { DyeCategory, Season } from '$lib/types';
+import DyeCard from '#lib/components/DyeCard.svelte';
+import SeasonBadge from '#lib/components/SeasonBadge.svelte';
+import { getDyesBySeason } from '#lib/data/dyes.js';
+import { t } from '#lib/translations/index.js';
+import type { DyeCategory, Season } from '#lib/types/index.js';
 
 let { data } = $props();
 

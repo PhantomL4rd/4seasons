@@ -1,7 +1,7 @@
 import Color from 'colorjs.io';
-import { dyes, getDyesBySeason } from '$lib/data/dyes';
-import { seasonFallbackDyes } from '$lib/data/season-palettes';
-import type { Dye, MatchedDye, RecommendedDyeCandidates, Season } from '$lib/types';
+import { dyes, getDyesBySeason } from '#lib/data/dyes.js';
+import { seasonFallbackDyes } from '#lib/data/season-palettes.js';
+import type { Dye, MatchedDye, RecommendedDyeCandidates, Season } from '#lib/types/index.js';
 
 const dyeMap = new Map<string, Dye>(dyes.map((d) => [d.id, d]));
 

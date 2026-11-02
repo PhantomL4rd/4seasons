@@ -1,8 +1,8 @@
 <script lang="ts">
-import { t } from '$lib/translations';
-import type { Dye } from '$lib/types';
-import { rgbToHex } from '$lib/utils/color';
-import { getDyeName } from '$lib/utils/dye';
+import { t } from '#lib/translations/index.js';
+import type { Dye } from '#lib/types/index.js';
+import { rgbToHex } from '#lib/utils/color.js';
+import { getDyeName } from '#lib/utils/dye.js';
 
 interface Props {
   dye: Dye;

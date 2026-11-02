@@ -1,4 +1,4 @@
-import type { Dye, TranslateFn } from '$lib/types';
+import type { Dye, TranslateFn } from '#lib/types/index.js';
 
 export function getDyeName(dye: Dye, t: TranslateFn): string {
   const translated = t(`dye.names.${dye.id}`);

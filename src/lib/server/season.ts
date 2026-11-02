@@ -1,4 +1,4 @@
-import type { Chroma, Season, SeasonAnalysis, Undertone } from '$lib/types';
+import type { Chroma, Season, SeasonAnalysis, Undertone } from '#lib/types/index.js';
 
 /**
  * undertone × chroma → season の対応表。

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { getDyeById } from '$lib/data/dyes';
-import { seasonFallbackDyes } from '$lib/data/season-palettes';
-import { isCatalogDye } from '$lib/server/dye-matcher';
+import { getDyeById } from '#lib/data/dyes.js';
+import { seasonFallbackDyes } from '#lib/data/season-palettes.js';
+import { isCatalogDye } from '#lib/server/dye-matcher.js';
 
 // フォールバックパレットのIDが実データと乖離していた回帰の再発防止
 describe('seasonFallbackDyes', () => {
