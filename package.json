@@ -4,6 +4,8 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
+		"sync:dyes": "node scripts/sync-dyes.mjs",
+		"test:dyes": "node --test scripts/sync-dyes.test.mjs",
 		"dev": "vite dev",
 		"dev:cf": "vite build && wrangler dev --port 8788",
 		"build": "vite build",

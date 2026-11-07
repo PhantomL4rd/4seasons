@@ -1,0 +1,808 @@
+{
+  "1": {
+    "id": "dye_002",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/188d2c75e07/"
+  },
+  "2": {
+    "id": "dye_003",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c5917eabdaa/"
+  },
+  "3": {
+    "id": "dye_004",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/2e1dcc9d133/"
+  },
+  "4": {
+    "id": "dye_005",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/2db18e9a29d/"
+  },
+  "5": {
+    "id": "dye_006",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/0fb58c0d79d/"
+  },
+  "6": {
+    "id": "dye_007",
+    "category": "white",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/0c0c7f94f09/"
+  },
+  "7": {
+    "id": "dye_008",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ee77bb48be9/"
+  },
+  "8": {
+    "id": "dye_009",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/853d5204143/"
+  },
+  "9": {
+    "id": "dye_010",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/005a8c122b4/"
+  },
+  "10": {
+    "id": "dye_011",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/3faa2bd2b45/"
+  },
+  "11": {
+    "id": "dye_012",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/db4292af28c/"
+  },
+  "12": {
+    "id": "dye_013",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d03c7e15352/"
+  },
+  "13": {
+    "id": "dye_014",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/0b103790e30/"
+  },
+  "14": {
+    "id": "dye_015",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/909e43109be/"
+  },
+  "15": {
+    "id": "dye_016",
+    "category": "red",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c18be404e86/"
+  },
+  "86": {
+    "id": "dye_017",
+    "category": "red",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/637530afad5/"
+  },
+  "87": {
+    "id": "dye_018",
+    "category": "red",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/6790ed66a65/"
+  },
+  "16": {
+    "id": "dye_019",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/90e6dc94361/"
+  },
+  "17": {
+    "id": "dye_020",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f2d34ba2b19/"
+  },
+  "18": {
+    "id": "dye_021",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/09504c576f1/"
+  },
+  "19": {
+    "id": "dye_022",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/926a4ef21f1/"
+  },
+  "20": {
+    "id": "dye_023",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/3fa8eeffa41/"
+  },
+  "21": {
+    "id": "dye_024",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/1ecffd3acce/"
+  },
+  "22": {
+    "id": "dye_025",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/5250c837f57/"
+  },
+  "23": {
+    "id": "dye_026",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/386fbf9bc2b/"
+  },
+  "24": {
+    "id": "dye_027",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/e8e16900586/"
+  },
+  "25": {
+    "id": "dye_028",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/5c9385d9e3b/"
+  },
+  "26": {
+    "id": "dye_029",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/840a8a38cdb/"
+  },
+  "27": {
+    "id": "dye_030",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/539e80ed6a0/"
+  },
+  "28": {
+    "id": "dye_031",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/70849afadc9/"
+  },
+  "29": {
+    "id": "dye_032",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/6a2223838b8/"
+  },
+  "30": {
+    "id": "dye_033",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/bfb8b924f8e/"
+  },
+  "31": {
+    "id": "dye_034",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/1aae57e1629/"
+  },
+  "32": {
+    "id": "dye_035",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/9b43a4bc484/"
+  },
+  "33": {
+    "id": "dye_036",
+    "category": "brown",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d7876384acd/"
+  },
+  "34": {
+    "id": "dye_037",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/b8ec1e42fe1/"
+  },
+  "35": {
+    "id": "dye_038",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/2926edd9215/"
+  },
+  "36": {
+    "id": "dye_039",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c519b1b228f/"
+  },
+  "37": {
+    "id": "dye_040",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/9f278eaf6ff/"
+  },
+  "38": {
+    "id": "dye_041",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d4a95c48789/"
+  },
+  "39": {
+    "id": "dye_042",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/090214496c7/"
+  },
+  "40": {
+    "id": "dye_043",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8fb131a8d6c/"
+  },
+  "41": {
+    "id": "dye_044",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/0fdc4d145c2/"
+  },
+  "42": {
+    "id": "dye_045",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/b1d80258b90/"
+  },
+  "88": {
+    "id": "dye_046",
+    "category": "yellow",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/31856169018/"
+  },
+  "89": {
+    "id": "dye_047",
+    "category": "yellow",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ce681eda253/"
+  },
+  "43": {
+    "id": "dye_048",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d204e597878/"
+  },
+  "44": {
+    "id": "dye_049",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/affd21c6f76/"
+  },
+  "45": {
+    "id": "dye_050",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/afb669a9590/"
+  },
+  "46": {
+    "id": "dye_051",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f8469546452/"
+  },
+  "47": {
+    "id": "dye_052",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/79031c0f52f/"
+  },
+  "48": {
+    "id": "dye_053",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/cabd1f16f2e/"
+  },
+  "49": {
+    "id": "dye_054",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8f906a9feed/"
+  },
+  "50": {
+    "id": "dye_055",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ef99a5c91c0/"
+  },
+  "51": {
+    "id": "dye_056",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d6bfa81b082/"
+  },
+  "52": {
+    "id": "dye_057",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/73f7ac282d9/"
+  },
+  "53": {
+    "id": "dye_058",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/9e68ead2b9d/"
+  },
+  "54": {
+    "id": "dye_059",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/5f48906cb92/"
+  },
+  "55": {
+    "id": "dye_060",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/996f0ac6809/"
+  },
+  "56": {
+    "id": "dye_061",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/a17514d0143/"
+  },
+  "57": {
+    "id": "dye_062",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f4d228923fb/"
+  },
+  "58": {
+    "id": "dye_063",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/27a11f0b925/"
+  },
+  "59": {
+    "id": "dye_064",
+    "category": "green",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ec06adbbd4f/"
+  },
+  "60": {
+    "id": "dye_065",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/4b5df0df491/"
+  },
+  "61": {
+    "id": "dye_066",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8a87f50e179/"
+  },
+  "62": {
+    "id": "dye_067",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/56afc8783ff/"
+  },
+  "63": {
+    "id": "dye_068",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/1ff080d3a53/"
+  },
+  "64": {
+    "id": "dye_069",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/b2a2dc9a50a/"
+  },
+  "65": {
+    "id": "dye_070",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/e67029752b0/"
+  },
+  "66": {
+    "id": "dye_071",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/b036656bfda/"
+  },
+  "67": {
+    "id": "dye_072",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c864e3e34b9/"
+  },
+  "68": {
+    "id": "dye_073",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/9ef01a4f17f/"
+  },
+  "69": {
+    "id": "dye_074",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/6ec6872ab31/"
+  },
+  "70": {
+    "id": "dye_075",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/a291e69cbbf/"
+  },
+  "71": {
+    "id": "dye_076",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/a1cab97c69f/"
+  },
+  "72": {
+    "id": "dye_077",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/b4a2cfa31c7/"
+  },
+  "73": {
+    "id": "dye_078",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/23edc014362/"
+  },
+  "74": {
+    "id": "dye_079",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/165e0f93055/"
+  },
+  "75": {
+    "id": "dye_080",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8d5806d8b72/"
+  },
+  "76": {
+    "id": "dye_081",
+    "category": "blue",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f318dace1e0/"
+  },
+  "90": {
+    "id": "dye_082",
+    "category": "blue",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/b45492786e0/"
+  },
+  "91": {
+    "id": "dye_083",
+    "category": "blue",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/4f1b319f29b/"
+  },
+  "77": {
+    "id": "dye_084",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ff8b9968d2e/"
+  },
+  "78": {
+    "id": "dye_085",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c63b1ba4b1f/"
+  },
+  "79": {
+    "id": "dye_086",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8cd40d9f5d8/"
+  },
+  "80": {
+    "id": "dye_087",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/fdf05e861ce/"
+  },
+  "81": {
+    "id": "dye_088",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/0798c059238/"
+  },
+  "82": {
+    "id": "dye_089",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/e9eb414a2cb/"
+  },
+  "83": {
+    "id": "dye_090",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/a179a659e0f/"
+  },
+  "84": {
+    "id": "dye_091",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f840860d5e3/"
+  },
+  "85": {
+    "id": "dye_092",
+    "category": "purple",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/356c9896f78/"
+  },
+  "101": {
+    "id": "dye_093",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/6211e78e6d9/"
+  },
+  "102": {
+    "id": "dye_094",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/12c4a36e31c/"
+  },
+  "103": {
+    "id": "dye_095",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/d4248d41a25/"
+  },
+  "104": {
+    "id": "dye_096",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/46b81b67a92/"
+  },
+  "105": {
+    "id": "dye_097",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/c8a96360dff/"
+  },
+  "106": {
+    "id": "dye_098",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/ce58845f9ab/"
+  },
+  "107": {
+    "id": "dye_099",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/8ae009a2d4b/"
+  },
+  "108": {
+    "id": "dye_100",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/dfcf9ed3b94/"
+  },
+  "109": {
+    "id": "dye_101",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/9495d7d85fe/"
+  },
+  "110": {
+    "id": "dye_102",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/cf30e756804/"
+  },
+  "111": {
+    "id": "dye_103",
+    "category": "rare",
+    "tags": [],
+    "lodestone": "/lodestone/playguide/db/item/f4489265237/"
+  },
+  "112": {
+    "id": "dye_104",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/5b32bb8603a/"
+  },
+  "113": {
+    "id": "dye_105",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/1d87dbc8fbb/"
+  },
+  "114": {
+    "id": "dye_106",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/351ff2db47a/"
+  },
+  "115": {
+    "id": "dye_107",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/0e32cdf0c04/"
+  },
+  "116": {
+    "id": "dye_108",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/aea226f7992/"
+  },
+  "117": {
+    "id": "dye_109",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/d8c4a370e72/"
+  },
+  "118": {
+    "id": "dye_110",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/a53443deda8/"
+  },
+  "119": {
+    "id": "dye_111",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/0330daf480e/"
+  },
+  "120": {
+    "id": "dye_112",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/58bec677cf5/"
+  },
+  "92": {
+    "id": "dye_113",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/fe3ff8cbfd5/"
+  },
+  "93": {
+    "id": "dye_114",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/e8eca8fabb8/"
+  },
+  "94": {
+    "id": "dye_115",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/08afceeb7e2/"
+  },
+  "95": {
+    "id": "dye_116",
+    "category": "red",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/175414ea02e/"
+  },
+  "96": {
+    "id": "dye_117",
+    "category": "red",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/6be29580edd/"
+  },
+  "97": {
+    "id": "dye_118",
+    "category": "brown",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/5ec6df03bb4/"
+  },
+  "98": {
+    "id": "dye_119",
+    "category": "yellow",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/a2600dc0985/"
+  },
+  "99": {
+    "id": "dye_120",
+    "category": "green",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/3f5ab56e66b/"
+  },
+  "100": {
+    "id": "dye_121",
+    "category": "blue",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/3aea62a37bc/"
+  },
+  "121": {
+    "id": "dye_122",
+    "category": "purple",
+    "tags": [
+      "vivid"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/463601ca525/"
+  },
+  "122": {
+    "id": "dye_123",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/283531f9e7f/"
+  },
+  "123": {
+    "id": "dye_124",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/faa28adedc9/"
+  },
+  "124": {
+    "id": "dye_125",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/2afb816b41f/"
+  },
+  "125": {
+    "id": "dye_126",
+    "category": "rare",
+    "tags": [
+      "metallic"
+    ],
+    "lodestone": "/lodestone/playguide/db/item/fa3370c0ba1/"
+  }
+}

@@ -1,0 +1,41 @@
+name: Update dye master
+
+on:
+  schedule:
+    - cron: '0 10 * * 3'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-dye-master
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test synchronization
+        run: node --test scripts/sync-dyes.test.mjs
+      - name: Fetch dye master from XIVAPI
+        run: node scripts/sync-dyes.mjs
+      - name: Commit changed master
+        run: |
+          git add src/lib/data/dyes.json src/lib/translations/en/dye.json src/lib/translations/ja/dye.json
+          if git diff --cached --quiet; then
+            echo 'Dye master is unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: sync dye master from XIVAPI'
+          git push
