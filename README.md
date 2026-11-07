@@ -33,18 +33,6 @@ Dependency audits also cover transitive packages. Apply available compatible sec
 
 The audit still reports deepmerge (no published fix) and satori through workers-og (the fixed version is outside its supported dependency range). Track these separately from the SvelteKit alerts; updating satori requires checking image rendering compatibility.
 
-## GitHub Actions lockfile
+## Validation
 
-GitHub Actionsの依存関係は`.github/workflows/actions.lock`で固定します。workflowにはバージョンタグを記載し、実行コミットと推移依存はlockfileで管理します。
-
-`uses:`の追加・変更後はリポジトリ直下で`gh actions-lock`を実行し、workflowとlockfileを一緒にコミットします。生成にはGitHub公式の`github/gh-actions-lock`拡張を使用します。通常の検証は`gh actions-lock --verify-local`（網羅性）と`gh actions-lock --verify`（上流の参照元も確認）で行います。上流更新を取り込む場合は差分を確認して`gh actions-lock --relock`を使います。lockfileは手動編集しません。
-
-CIはlockfileの網羅性と参照元を検証します。既存のトリガー・シークレット・ビルドとデプロイの処理は維持します。
-
-## Workflow toolchain
-
-2026-11-07時点の安定版を使用します。Actionsは完全なバージョンタグと生成したactions.lockで固定し、更新時は公式リリースの互換性を確認します。検証はactionlint、actions-lockのローカル検証・上流検証、および更新したランタイムでの既存テストを行います。
-
-- checkout: 7.0.1、gh-actions-lock: 0.4.1
-- setup-bun: 2.2.0、Bun: 1.4.4
-- setup-node: 7.1.0、Node.js: 26.13.0
+GitHub Actionsによる自動検証は行いません。変更時はローカルで`bun run lint`、`bun run check`、`bun run test`、`bun run build`を実行します。
