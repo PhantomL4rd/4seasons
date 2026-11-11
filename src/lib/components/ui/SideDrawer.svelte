@@ -102,7 +102,7 @@ function handleBackdropClick() {
 
 		<!-- 要望・感想 -->
 		<a
-			href="https://jp.finalfantasyxiv.com/lodestone/character/27344914/blog/5666405/"
+			href="https://contact.pl4rd.com/?service=4seasons"
 			target="_blank"
 			rel="noopener noreferrer"
 			onclick={close}
